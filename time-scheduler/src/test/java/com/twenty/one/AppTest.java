@@ -1,18 +1,20 @@
 package com.twenty.one;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.Test;
 
 /**
  * Unit test for simple App.
  */
-class AppTest {
+public class AppTest 
+{
     /**
-     * Rigorous Test.
+     * Rigorous Test :-)
      */
     @Test
-    void testApp() {
-        assertEquals(1, 1);
+    public void shouldAnswerWithTrue()
+    {
+        assertTrue( true );
     }
 }
