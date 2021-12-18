@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: com.twenty.one.CalculatorTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in com.twenty.one.CalculatorTest
+com.twenty.one.CalculatorTest  Time elapsed: 0.001 s  <<< ERROR!
+org.junit.platform.commons.JUnitException: @BeforeAll method 'public void com.twenty.one.CalculatorTest.setUp()' must be static unless the test class is annotated with @TestInstance(Lifecycle.PER_CLASS).
+
