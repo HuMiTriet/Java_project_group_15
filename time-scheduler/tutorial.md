@@ -45,7 +45,7 @@
 5.package: package compiled source code into the distributable format (jar, war, …)\
 6.integration-test: process and deploy the package if needed to run integration tests\
 7.install: install the package to a local repository\
-8.deploy: copy the package to the remote repository\
+8.deploy: copy the package to the remote repository
 
 Phases when run includes all phases before it, e.g. if you run phase 4 that
 means it also run phases 1,2 and 3.
@@ -110,16 +110,20 @@ written in a certain format.
 
 ## Methods for testing
 
-- Import org.junit.jupiter.api.*; Loads the Junit and all of its modules into
-	our code.
+### Example
 
-- import static org.junit.jupiter.api.Assertions.assertEquals; Import assertion
-	methods. For this simple example we will only be used the asserEquals()
-	method.
+- Only import the classes that are needed because the Junit framework is quite big
+	and each time maven runs it has to compile everything agains
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+```
+package com.twenty.one;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 
 /**
  * Unit test for simple App.
@@ -127,6 +131,8 @@ import org.junit.jupiter.api.*;
  */
 public class CalculatorTest 
 {
+    /**
+     */
 	Calculator cal;
 
 	@BeforeEach
@@ -139,21 +145,29 @@ public class CalculatorTest
     @DisplayName("Test multipying 2*3")
     void shouldAnswerWithTrue()
     {
-        assertEquals( 6 , cal.multi(2, 3)); 
+        Assertions.assertEquals( 6 , cal.multi(2, 3));
     }
 
     @RepeatedTest(5)                                    
-    @Displ
-	ayName("Ensure correct handling of zero")
+    @DisplayName("Ensure correct handling of zero")
     void testMultiplyWithZero() {
-        assertEquals(0, cal.multi(0, 5), "Multiple with zero should be zero");
-        assertEquals(0, cal.multi(5, 0), "Multiple with zero should be zero");
+        Assertions.assertEquals(0, cal.multi(0, 5), "Multiple with zero should be zero");
+        Assertions.assertEquals(0, cal.multi(5, 0), "Multiple with zero should be zero");
     }
 }
+```
+### Assertions family of methods
+import org.junit.jupiter.api.Assertions;
 
-- assertEquals(expected, actual) takes in the two parameter expected and actual
-	checks if they are equal if yes return true else false.
+- Stop code if the test is wrong, like:
+	+assertEquals(expected, actual) takes in the two parameter expected and actual
+		checks if they are equal if yes return true else false.
 
+### Assumptions family of methods
+import org.junit.jupiter.api.Assumptions;
+
+- Only stop doing the test if the test is wrong but the program still continues to 
+	run, does not stop.
 ## Running tests with maven
 - mvn test will run all of the Test files, meaning all of the tests.
 
