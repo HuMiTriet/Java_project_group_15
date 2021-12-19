@@ -32,6 +32,9 @@ means it also run phases 1,2 and 3.
 
 ## other things to know
 
+- SNAPSHOT is the work in progress of a program. Without this word the program
+	is assumed to be finished => stable release
+
 - mvn clean test vs mvn surefire:test the first command on the left will compile the
 	current project and run test on it. The second on the right will only run
 	the test on the most recent build
@@ -58,10 +61,11 @@ written in a certain format.
 
 # Testing
 - Currently using Junit 5 framework. If you google how to use it type Junit 5
-	instead of Junit 4 because there are some differences.
+	instead of Junit 4 or 3 because there are some differences.
 
 ## Annotation 
 - If you want to find out more about annotation especially @Override:
-- https://www.geeksforgeeks.org/annotations-in-java/
+	https://www.geeksforgeeks.org/annotations-in-java/
 
-
+- In depth discussion on Junit 5: (26 minutes)
+	https://www.youtube.com/watch?v=flpmSXVTqBI
