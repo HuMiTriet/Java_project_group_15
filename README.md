@@ -9,6 +9,11 @@
 	+ target store all of our jar files when it finished compiling
 		and is rarely accessed, only when we need the javadoc or the final build.
 
+## Executing the main class
+- All only the App.java will have the main class (driver code), the rest of the
+	files and folder will be used for packages and methods.
+
+- Typing mvn exec:java will run this only the App.java file. 
 
 ## Dependencies, artifactID, and groupID
 - Dependencies are the libraries that we wanted to use. 
