@@ -1,8 +1,11 @@
 package com.twenty.one;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Assertions;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 
 /**
  * Unit test for simple App.
@@ -24,14 +27,14 @@ public class CalculatorTest
     @DisplayName("Test multipying 2*3")
     void shouldAnswerWithTrue()
     {
-        assertEquals( 6 , cal.multi(2, 3));
+        Assertions.assertEquals( 6 , cal.multi(2, 3));
     }
 
     @RepeatedTest(5)                                    
     @DisplayName("Ensure correct handling of zero")
     void testMultiplyWithZero() {
-        assertEquals(0, cal.multi(0, 5), "Multiple with zero should be zero");
-        assertEquals(0, cal.multi(5, 0), "Multiple with zero should be zero");
+        Assertions.assertEquals(0, cal.multi(0, 5), "Multiple with zero should be zero");
+        Assertions.assertEquals(0, cal.multi(5, 0), "Multiple with zero should be zero");
     }
 }
 
