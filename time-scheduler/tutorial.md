@@ -97,7 +97,8 @@ written in a certain format.
 - If you want to find out more about annotation especially @Override:
 	https://www.geeksforgeeks.org/annotations-in-java/
 
-- Important annotations: @Test, @BeforeEach @BeforeAll, @RepeatedTest()
+- Important annotations: @Test, @BeforeEach @BeforeAll, @RepeatedTest(),
+	@AfterAll, @AfterEach
 	+ The @Test indicate that the following block of code is to be run in a
 		test.
 	+ @BeforeEach is usually use the set up the test and this block of code will
@@ -105,6 +106,7 @@ written in a certain format.
 	+ @BeforeALl also used to set up but is only run once before all test.
 	+ @RepeatedTest() repeats a test to the number of time of its argument,
 		e.g. @RepeatedTest(5) repeats 5 times.
+	+ @AfterAll, @AfterEach is used to clean up tests, reset the enviroment.
 
 ## Methods for testing
 
