@@ -11,7 +11,8 @@
 - All only the App.java will have the main class (driver code), the rest of the
 	files and folder will be used for packages and methods.
 
-- Typing mvn exec:java will run this only the App.java file. 
+- Typing mvn exec:java will run this only the App.java file. Only uses this if your
+	IDE does not have a button to click on and run it !!!.
 
 ## Dependencies, artifactID, and groupID
 - Dependencies are the libraries that we wanted to use. 
@@ -174,6 +175,8 @@ import org.junit.jupiter.api.Assumptions;
 ### running the test 
 
 #### Use your IDE plugins to do this or the command line:
+- Please use the IDE plugins if they are available because it is much cleaner
+	and much more simple !!!!!.
 
 - Run all the unit test classes.\
 $ mvn test
