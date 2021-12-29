@@ -1,13 +1,12 @@
 package com.twenty.one;
 
-/**
- * Hello world!
- *
- */
+import com.twenty.one.security.ConnectToDB;
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+
+        ConnectToDB.connect();
+        ConnectToDB.addUser("Helloaa", "worldaaa", "aaaa");
     }
 }
