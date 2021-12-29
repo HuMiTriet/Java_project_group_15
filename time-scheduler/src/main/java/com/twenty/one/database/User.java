@@ -3,6 +3,11 @@ package com.twenty.one.database;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * A class that stores all of the User information. the userID will be assigned
+ * by the Oracle sever 
+ * @author PJ
+ */
 @Getter
 public class User {
 	private String email;
