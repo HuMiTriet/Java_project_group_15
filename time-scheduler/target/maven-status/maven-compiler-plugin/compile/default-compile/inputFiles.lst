@@ -1,7 +1,7 @@
 /home/pj/coding/Java/Java_project_group_21/time-scheduler/src/main/java/com/twenty/one/security/HashPassword.java
 /home/pj/coding/Java/Java_project_group_21/time-scheduler/src/main/java/com/twenty/one/App.java
-/home/pj/coding/Java/Java_project_group_21/time-scheduler/src/main/java/com/twenty/one/database/DataBase.java
+/home/pj/coding/Java/Java_project_group_21/time-scheduler/src/main/java/com/twenty/one/database/DBConnection.java
+/home/pj/coding/Java/Java_project_group_21/time-scheduler/src/main/java/com/twenty/one/database/DBMethod.java
 /home/pj/coding/Java/Java_project_group_21/time-scheduler/src/main/java/com/twenty/one/GUI/LoginPage.java
-/home/pj/coding/Java/Java_project_group_21/time-scheduler/src/main/java/com/twenty/one/database/DataBaseConnection.java
 /home/pj/coding/Java/Java_project_group_21/time-scheduler/src/main/java/com/twenty/one/database/User.java
-/home/pj/coding/Java/Java_project_group_21/time-scheduler/src/main/java/com/twenty/one/database/DatabaseMethod.java
+/home/pj/coding/Java/Java_project_group_21/time-scheduler/src/main/java/com/twenty/one/mailAPI/mailUtils.java
