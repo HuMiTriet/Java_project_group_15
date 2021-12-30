@@ -14,9 +14,4 @@ public class HashPassword {
 		String hashedPassword = DigestUtils.sha256Hex(password);
 		return hashedPassword;
 	}
-
-	public static String sha3(String password) {
-		String hashedPasword = new DigestUtils("SHA3-256").digestAsHex(password);
-		return hashedPasword;
-	}
 }

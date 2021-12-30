@@ -11,11 +11,11 @@ import java.sql.SQLException;
  * Connects to the frankfurt UAS remote SQL server using PJ's account 
  * @author PJ
  */
-public class DataBaseConnection {
+public class DBConnection {
 	private static Connection connection = null;
 
 	
-	private DataBaseConnection(){};
+	private DBConnection(){};
 
 	/**
 	 * Establish the connection to the remote database server
@@ -29,15 +29,30 @@ public class DataBaseConnection {
 
         try {
             connection = DriverManager.getConnection(url, username, password);
-			System.out.println("Connection established");
+			// System.out.println("Connection established");
         } catch (SQLException e) {
             e.printStackTrace();
-			System.out.println("connection failed");
+			// System.out.println("connection failed");
         }
 
     }
-	public static Connection getConnection() {
+	static Connection getConnection() {
 		return connection;
 	}
 
+	/**
+	 * This method is run to close the connection to the SQL DB server. If this
+	 * is not run the sever could be lag or not responsive due to the previous
+	 * connection still running
+	 * @author PJ
+	 */
+	public static void closeConnection() {
+		try {
+			connection.close();
+			// System.out.println("Connection close sucessfully");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			// System.out.println("Connection close failed");
+		}
+	}
 }
