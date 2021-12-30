@@ -2,6 +2,7 @@ package com.twenty.one.database;
 
 import java.sql.SQLException;
 
+import com.twenty.one.security.HashPassword;
 
 import java.sql.Connection;
 
@@ -32,11 +33,13 @@ public class DatabaseMethod {
 	 * @author PJ
 	 */
 	public static void signUp(User user){
+		String hashedPassword = HashPassword.sha2(user.getTextPassword());
+
 		String sqlStatement = "INSERT INTO userdb VALUES('"+ user.getEmail() +"','"+ user.getUsername() + "','" +
 		/** sys_guid() is a method of Oracle SQL to generate a Global unique Identifier.
 		 *  @see
 		 */
-		user.getHashedPassword() + "', sys_guid(),"+ user.getIsAdmin() +")";
+		hashedPassword + "', sys_guid(),"+ user.getIsAdmin() +")";
 		System.out.println(sqlStatement);
 		try {
 			java.sql.Statement statement = connection.createStatement();
@@ -48,6 +51,8 @@ public class DatabaseMethod {
 		} finally {
 			closeConnection();
 		}
-
 	}
+	// public static String getUserId(User user) {
+
+	// }
 }
