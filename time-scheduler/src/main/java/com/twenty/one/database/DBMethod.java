@@ -1,6 +1,9 @@
 package com.twenty.one.database;
 
 import java.sql.SQLException;
+
+import org.apache.commons.dbutils.DbUtils;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 
@@ -10,11 +13,23 @@ import java.sql.ResultSet;
  * to close the database
  * @see DBConnection
  *  {@link package com.twenty.one.database#closeConnection}
+ * To see the database schema 
  */
 public class DBMethod {
 	static Connection connection = DBConnection.getConnection();
+	static java.sql.Statement statement = null;
+	static ResultSet resultSet = null;
 
 
+	/**
+	 * This method is run to close the connection to the SQL DB server. If this
+	 * is not run the sever could be lag or not responsive due to the previous
+	 * connection still running
+	 * @author PJ
+	 */
+	public static void closeConnection() throws SQLException {
+		DbUtils.closeQuietly(connection, statement, resultSet);
+	}
 	/**
 	 * Method adds in a new row into the userdb table in the Oracle SQL remote server.
 	 * @param user take in a user object of the User class
@@ -22,7 +37,7 @@ public class DBMethod {
 	 * {@link package com.twenty.one.database}
 	 * @author PJ
 	 */
-	public static void signUp(User user){
+	public static void signUp(User user) throws SQLException{
 
 
 		String sqlStatement = "INSERT INTO userdb VALUES('"+ user.getEmail() +"','"+ user.getUsername() + "','" +
@@ -30,15 +45,9 @@ public class DBMethod {
 		 *  @see
 		 */
 		user.getHashedPassword() + "', sys_guid(),"+ user.getIsAdmin() +")";
-		// System.out.println(sqlStatement);
-		try(java.sql.Statement statement = connection.createStatement()) {
-			int rowsUpdated = statement.executeUpdate(sqlStatement);
-			System.out.println("Updated: " + rowsUpdated + " in the database");
-			connection.commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("User added failed");
-		}
+		statement = connection.createStatement();
+		int rowsUpdated = statement.executeUpdate(sqlStatement);
+		System.out.println("Updated: " + rowsUpdated + " in the database");
 	}
 
 	/**
@@ -47,19 +56,17 @@ public class DBMethod {
 	 * @param user 
 	 * {@link package com.twenty.one.database} 
 	 */
-	public static void getUserId(User user) {
+	public static String getUserId(User user) throws SQLException {
+
+		String userId = "NA";
 		String sqlStatement = "select user_ID from userdb where username = '"+user.getUsername() +"'";
 		// System.out.print(sqlStatement);
-		try (java.sql.Statement statement = connection.createStatement() ) {
-			ResultSet userIdSet = statement.executeQuery(sqlStatement);
-			while(userIdSet.next()) {
-				String userId = userIdSet.getString("user_ID");
-				user.setUserID(userId);
-				userIdSet.close();
+		statement = connection.createStatement();
+		resultSet = statement.executeQuery(sqlStatement);
+			while(resultSet.next()) {
+				userId = resultSet.getString("user_ID");
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		return userId;
 	}
 
 	/**
@@ -69,7 +76,7 @@ public class DBMethod {
 	 * @param flag specify whether the propose is an email e flag, username u flag, or password p flag 
 	 * @return boolean true if field is already been used, false if not
 	 */
-	public static boolean checkfieldExisted(String propose, char flag) {
+	public static boolean checkfieldExisted(String propose, char flag) throws SQLException{
 
 		String fieldToBeChecked = "";
 
@@ -92,12 +99,10 @@ public class DBMethod {
 		 						+" = '"+ propose +"')";
 
 		boolean fieldExisted = false;
-		try(java.sql.Statement statement = connection.createStatement()) {
-			ResultSet existingFieldSet = statement.executeQuery(sqlStatment);
-			if (existingFieldSet.next()) fieldExisted = true;
-		} catch(SQLException e) {
-			e.printStackTrace();
-		}
+		statement = connection.createStatement();
+		resultSet = statement.executeQuery(sqlStatment);
+		if (resultSet.next()) fieldExisted = true;
+
 		return fieldExisted;
 	}
 }

@@ -7,8 +7,8 @@ import org.apache.commons.codec.digest.DigestUtils;
  * @author PJ
  * @see https://www.baeldung.com/sha-256-hashing-java
  */
-public class HashPassword {
-	private HashPassword(){};
+public class PasswordHasher {
+	private PasswordHasher(){};
 
 	public static String sha2(String password) {
 		String hashedPassword = DigestUtils.sha256Hex(password);

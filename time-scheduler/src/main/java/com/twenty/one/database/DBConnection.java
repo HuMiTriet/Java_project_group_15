@@ -9,6 +9,16 @@ import java.sql.SQLException;
 /**
  * A singleton class
  * Connects to the frankfurt UAS remote SQL server using PJ's account 
+ * Database Architecture:  
+ * {@code  
+ * create table UserDB (
+    email    varchar2(100) not null unique,
+    username varchar2(100) not null unique,
+    hashed_password varchar2(64) not null unique,
+    user_id raw(16) default sys_guid() constraint userdb_userid_pk primary key,
+    is_admin number(1) not null
+)
+}
  * @author PJ
  */
 public class DBConnection {
@@ -40,19 +50,4 @@ public class DBConnection {
 		return connection;
 	}
 
-	/**
-	 * This method is run to close the connection to the SQL DB server. If this
-	 * is not run the sever could be lag or not responsive due to the previous
-	 * connection still running
-	 * @author PJ
-	 */
-	public static void closeConnection() {
-		try {
-			connection.close();
-			// System.out.println("Connection close sucessfully");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			// System.out.println("Connection close failed");
-		}
-	}
 }
