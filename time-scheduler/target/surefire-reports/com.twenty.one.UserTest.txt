@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: com.twenty.one.AppTest
+Test set: com.twenty.one.UserTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 s - in com.twenty.one.AppTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.257 s - in com.twenty.one.UserTest

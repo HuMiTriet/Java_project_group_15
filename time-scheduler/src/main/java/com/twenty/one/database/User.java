@@ -9,8 +9,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * A class that stores all of the User information. the userID will be assigned
- * by the Oracle sever. 
+ * A class that stores all of the User information. the userID will be automatically assigned
+ * by the Oracle sever.
  * Password is automatically hashed after the text password is passed in the constructor
  * @author PJ
  */

@@ -9,12 +9,4 @@ import org.junit.jupiter.api.*;
  */
 public class AppTest 
 {
-    /**
-     * Rigorous Test :-)
-     */
-    @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue(true);
-    }
 }

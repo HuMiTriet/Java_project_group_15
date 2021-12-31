@@ -11,7 +11,6 @@ public class PasswordHasher {
 	private PasswordHasher(){};
 
 	public static String sha2(String password) {
-		String hashedPassword = DigestUtils.sha256Hex(password);
-		return hashedPassword;
+		return DigestUtils.sha256Hex(password);
 	}
 }
