@@ -1,15 +1,22 @@
 package com.twenty.one;
 
 
+import javax.swing.UIManager;
+
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.twenty.one.GUI.LoginPage;
-import com.twenty.one.mailAPI.mailUtils;
 
 public class App 
 {
     public static void main( String[] args ) throws Exception {
         //create the object of Login Page to test if it's working
-        new LoginPage();
 
+    try {
+        UIManager.setLookAndFeel( new FlatDarkLaf() );
+    } catch( Exception ex ) {
+        System.err.println( "Failed to initialize LaF" );
+    }
+        new LoginPage();
         //Sending an email to recipient
 //        mailUtils.sendMail("javacomtwentyone@gmail.com");
     }
