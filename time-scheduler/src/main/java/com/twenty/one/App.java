@@ -4,8 +4,8 @@ package com.twenty.one;
 import javax.swing.UIManager;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.twenty.one.afterLogin.EventView;
-//import com.twenty.one.beforeLogin.login.LoginPage;
+import com.twenty.one.afterLogin.EventPage;
+import com.twenty.one.beforeLogin.login.LoginPage;
 
 public class App 
 {
@@ -19,7 +19,7 @@ public class App
     }
         // new LoginPage();
         
-        EventView test = new EventView();
+        EventPage test = new EventPage();
 		
 		test.setVisible(true);
         //Sending an email to recipient
