@@ -5,6 +5,7 @@ import javax.swing.UIManager;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.twenty.one.GUI.LoginPage;
+import com.twenty.one.GUI.EventView;
 
 public class App 
 {
@@ -16,7 +17,11 @@ public class App
     } catch( Exception ex ) {
         System.err.println( "Failed to initialize LaF" );
     }
-        new LoginPage();
+        //new LoginPage();
+        
+        EventView test = new EventView();
+		
+		test.setVisible(true);
         //Sending an email to recipient
 //        mailUtils.sendMail("javacomtwentyone@gmail.com");
     }
