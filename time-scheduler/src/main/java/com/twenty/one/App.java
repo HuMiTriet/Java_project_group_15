@@ -4,8 +4,8 @@ package com.twenty.one;
 import javax.swing.UIManager;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.twenty.one.authenticate.login.LoginPage;
-import com.twenty.one.event.EventPage;
+import com.twenty.one.afterLogin.EventPage;
+import com.twenty.one.beforeLogin.login.LoginPage;
 
 public class App 
 {

@@ -2,7 +2,7 @@ package com.twenty.one.database;
 
 import java.sql.SQLException;
 
-import com.twenty.one.authenticate.security.PasswordHasher;
+import com.twenty.one.beforeLogin.security.PasswordHasher;
 
 import lombok.Getter;
 import lombok.Setter;

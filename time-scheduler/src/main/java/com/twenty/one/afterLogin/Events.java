@@ -1,4 +1,4 @@
-package com.twenty.one.event;
+package com.twenty.one.afterLogin;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
