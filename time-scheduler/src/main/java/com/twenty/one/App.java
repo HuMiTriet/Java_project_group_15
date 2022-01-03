@@ -4,8 +4,8 @@ package com.twenty.one;
 import javax.swing.UIManager;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.twenty.one.GUI.LoginPage;
-import com.twenty.one.GUI.EventView;
+import com.twenty.one.afterLogin.EventView;
+import com.twenty.one.beforeLogin.login.LoginPage;
 
 public class App 
 {
@@ -17,7 +17,7 @@ public class App
     } catch( Exception ex ) {
         System.err.println( "Failed to initialize LaF" );
     }
-        //new LoginPage();
+        // new LoginPage();
         
         EventView test = new EventView();
 		

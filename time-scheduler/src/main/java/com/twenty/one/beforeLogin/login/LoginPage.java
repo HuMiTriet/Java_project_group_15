@@ -1,4 +1,4 @@
-package com.twenty.one.GUI;
+package com.twenty.one.beforeLogin.login;
 
 /**
  * Creating a simple Login Page Panel where the user can type in his username and password and after

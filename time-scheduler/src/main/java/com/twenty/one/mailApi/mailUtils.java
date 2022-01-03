@@ -1,4 +1,4 @@
-package com.twenty.one.mailAPI;
+package com.twenty.one.mailApi;
 
 /**
  * simple program to establish a connection with an email provider (in this case gmail) and
