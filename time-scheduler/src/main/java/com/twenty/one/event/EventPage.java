@@ -1,4 +1,4 @@
-package com.twenty.one.afterLogin;
+package com.twenty.one.event;
 
 import com.intellij.uiDesigner.core.GridLayoutManager;
 

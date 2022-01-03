@@ -1,4 +1,4 @@
-package com.twenty.one.beforeLogin.security;
+package com.twenty.one.authenticate.security;
 
 import org.apache.commons.codec.digest.DigestUtils;
 

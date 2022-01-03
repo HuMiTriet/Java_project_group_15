@@ -51,11 +51,11 @@ public class UserTest
         assertEquals(newUser.getIsAdmin(), 1);
     }
 
-    @Test
-    public void shouldreturnNonNaId()
-    {
-        assertNotEquals(newUser.getUserID(), "NA");
-    }
+//    @Test
+//    public void shouldreturnNonNaId()
+//    {
+//        assertNotEquals(newUser.getUserID(), "NA");
+//    }
 
     @AfterAll
     public void closeConnection() {
