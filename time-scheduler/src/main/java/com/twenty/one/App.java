@@ -17,11 +17,11 @@ public class App
     } catch( Exception ex ) {
         System.err.println( "Failed to initialize LaF" );
     }
-        // new LoginPage();
+        new LoginPage();
         
         EventPage test = new EventPage();
 		
-		test.setVisible(true);
+		// test.setVisible(true);
         //Sending an email to recipient
 //        mailUtils.sendMail("javacomtwentyone@gmail.com");
     }
