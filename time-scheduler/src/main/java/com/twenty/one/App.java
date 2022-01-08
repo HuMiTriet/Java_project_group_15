@@ -17,9 +17,9 @@ public class App
     } catch( Exception ex ) {
         System.err.println( "Failed to initialize LaF" );
     }
-        new LoginPage();
+        //new LoginPage();
         
-        EventPage test = new EventPage();
+        new EventPage();
 		
 		// test.setVisible(true);
         //Sending an email to recipient
