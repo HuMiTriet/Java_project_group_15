@@ -21,7 +21,7 @@ public class App
         
         new EventPage();
 		
-		// test.setVisible(true);
+		test.setVisible(true);
         //Sending an email to recipient
 //        mailUtils.sendMail("javacomtwentyone@gmail.com");
     }
