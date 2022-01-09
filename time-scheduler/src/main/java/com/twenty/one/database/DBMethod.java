@@ -33,6 +33,11 @@ public class DBMethod {
     DbUtils.closeQuietly(connection, statement, resultSet);
   }
 
+  private static ResultSet executeQuery(String sqlStatement) throws SQLException {
+    statement = connection.createStatement();
+    return statement.executeQuery(sqlStatement);
+  }
+
   /**
    * Method adds in a new row into the userdb table in the Oracle SQL remote
    * server.
@@ -51,9 +56,7 @@ public class DBMethod {
      * @see
      */
         user.getHashedPassword() + "', sys_guid()," + user.getIsAdmin() + ")";
-    statement = connection.createStatement();
-    int rowsUpdated = statement.executeUpdate(sqlStatement);
-    System.out.println("Updated: " + rowsUpdated + " in the database");
+    executeQuery(sqlStatement);
   }
 
   /**
@@ -69,8 +72,7 @@ public class DBMethod {
     String userId = "NA";
     String sqlStatement = "select user_ID from userdb where username = '" + user.getUsername() + "'";
     // System.out.print(sqlStatement);
-    statement = connection.createStatement();
-    resultSet = statement.executeQuery(sqlStatement);
+    resultSet = executeQuery(sqlStatement);
     while (resultSet.next()) {
       userId = resultSet.getString("user_ID");
     }
@@ -107,26 +109,40 @@ public class DBMethod {
         break;
     }
 
-    String sqlStatment = "select email from userdb where exists ( select * from userdb where" + fieldToBeChecked
+    String sqlStatement = "select email from userdb where exists ( select * from userdb where" + fieldToBeChecked
         + " = '" + propose + "')";
 
     boolean fieldExisted = false;
     statement = connection.createStatement();
-    resultSet = statement.executeQuery(sqlStatment);
+    resultSet = statement.executeQuery(sqlStatement);
     if (resultSet.next())
       fieldExisted = true;
 
     return fieldExisted;
   }
 
-  public static void fillInUserInfoFromUserEmail(User loginUser) throws SQLException {
+  public static String getUserPasswordFromEmail(String email) throws SQLException {
+    String hashedPassword = "NA";
+
+    String sqlStatement = "select hashed_password from userdb where email = '" + email + "'";
+
+    statement = connection.createStatement();
+    resultSet = statement.executeQuery(sqlStatement);
+
+    if (resultSet.next()) {
+      hashedPassword = resultSet.getString("hashed_password");
+    }
+    return hashedPassword;
+  }
+
+  public static void fillInUserInfoFromUserEmail(User loginUser, String hashedPassword) throws SQLException {
     String sqlStatement = "select * from userdb where email = '" + loginUser.getEmail() + "'";
 
     statement = connection.createStatement();
     resultSet = statement.executeQuery(sqlStatement);
     while (resultSet.next()) {
       loginUser.setUsername(resultSet.getString("username"));
-      loginUser.setHashedPassword(resultSet.getString("hashed_password"));
+      // loginUser.setHashedPassword(resultSet.getString("hashed_password"));
       loginUser.setUserID(resultSet.getString("user_id"));
       loginUser.setIsAdmin(resultSet.getInt("is_admin"));
       // userId = resultSet.getString("user_ID");
