@@ -4,7 +4,6 @@ package com.twenty.one;
 import javax.swing.UIManager;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.twenty.one.afterLogin.EventPage;
 import com.twenty.one.beforeLogin.login.LoginPage;
 
 public class App 
@@ -17,11 +16,9 @@ public class App
     } catch( Exception ex ) {
         System.err.println( "Failed to initialize LaF" );
     }
-        //new LoginPage();
+        new LoginPage();
         
-        new EventPage();
-		
-		test.setVisible(true);
+        // new EventPage();
         //Sending an email to recipient
 //        mailUtils.sendMail("javacomtwentyone@gmail.com");
     }
