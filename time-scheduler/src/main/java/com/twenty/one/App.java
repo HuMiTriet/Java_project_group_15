@@ -2,11 +2,8 @@ package com.twenty.one;
 
 import javax.swing.UIManager;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-import com.twenty.one.beforeLogin.login.LoginPage;
-import com.twenty.one.afterLogin.EventPageButton;
+import com.twenty.one.afterLogin.EventPageMain;
 
 public class App {
   public static void main(String[] args) throws Exception {
@@ -19,8 +16,8 @@ public class App {
     }
     // new LoginPage();
 
-    new EventPageButton();
-    // new EventPageTextField();
+    new EventPageMain();
+
     // Sending an email to recipient
     // mailUtils.sendMail("javacomtwentyone@gmail.com");
   }

@@ -2,12 +2,13 @@ package com.twenty.one.afterLogin;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class EventPageButton extends JFrame {
+public class EventPageMain extends JFrame {
     private JFrame frame;
     private JPanel panel1;
     private JButton a1Button;
@@ -46,7 +47,7 @@ public class EventPageButton extends JFrame {
     private JButton menuButton;
 
 
-    public EventPageButton() {
+    public EventPageMain() {
         frame = new JFrame("EventPageButton");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(1280, 720));
@@ -56,6 +57,13 @@ public class EventPageButton extends JFrame {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+
+        a1Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new AddEventDialog();
+            }
+        });
     }
 
     {
