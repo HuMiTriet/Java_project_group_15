@@ -3,12 +3,12 @@ package com.twenty.one.afterLogin;
 import javax.swing.*;
 import java.awt.*;
 
-public class AddEventDialog extends JDialog {
+public class ShowEventDialog extends JDialog {
 
-    public AddEventDialog() {
+    public ShowEventDialog() {
 
         JDialog addEvent = new JDialog();
-        addEvent.setTitle("Add Event");
+        addEvent.setTitle("Current Events");
         addEvent.setSize(500,500);
         addEvent.setModal(true);
         addEvent.setVisible(true);
@@ -17,3 +17,4 @@ public class AddEventDialog extends JDialog {
 
 
 }
+

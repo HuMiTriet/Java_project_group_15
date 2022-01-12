@@ -18,5 +18,7 @@ public class Events {
 	private int day;
 	private int month;
 	private int year;
+	private String mail;
+	private String participants;
 }
 
