@@ -16,27 +16,30 @@ import org.junit.jupiter.api.*;
 public class UserTest 
 {
     User newUser;
+    static private final String EMAIL = "A";
+    static private final String USERNAME = "A";
+    static private final int IS_ADMIN = 1;
 
     @BeforeAll
     public void setUpNewuser() {
-        String email = "S";
-        String username= "S";
-        String textPassword= "S";
+        String email = EMAIL;
+        String username= USERNAME;
+        String textPassword= "a";
         //User Id 
-        int isAdmin = 1;
+        int isAdmin = IS_ADMIN;
         newUser = User.createUserFromSignUp(email, username, textPassword, isAdmin);
     }
 
     @Test
     public void shouldReturncorrectEmail()
     {
-        assertEquals(newUser.getEmail(), "S");
+        assertEquals(newUser.getEmail(), EMAIL);
     }
 
     @Test
     public void shouldReturncorrectUsername()
     {
-        assertEquals(newUser.getUsername(), "S");
+        assertEquals(newUser.getUsername(), USERNAME);
     }
 
     @Test
@@ -48,7 +51,7 @@ public class UserTest
     @Test
     public void shouldReturncorrectisAdmin()
     {
-        assertEquals(newUser.getIsAdmin(), 1);
+        assertEquals(newUser.getIsAdmin(), IS_ADMIN);
     }
 
     @Test

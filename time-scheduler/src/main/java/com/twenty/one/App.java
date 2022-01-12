@@ -4,7 +4,6 @@ import javax.swing.UIManager;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 import com.twenty.one.beforeLogin.login.LoginPage;
 import com.twenty.one.afterLogin.EventPageButton;
 

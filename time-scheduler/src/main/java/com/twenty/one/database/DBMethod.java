@@ -22,6 +22,7 @@ public class DBMethod {
   static java.sql.Statement statement = null;
   static ResultSet resultSet = null;
 
+  private DBMethod(){};
   /**
    * This method is run to close the connection to the SQL DB server. If this
    * is not run the sever could be lag or not responsive due to the previous
@@ -55,7 +56,7 @@ public class DBMethod {
      * 
      * @see
      */
-        user.getHashedPassword() + "', sys_guid()," + user.getIsAdmin() + ")";
+    user.getHashedPassword() + "', sys_guid()," + user.getIsAdmin() + ")";
     executeQuery(sqlStatement);
   }
 
@@ -113,21 +114,21 @@ public class DBMethod {
         + " = '" + propose + "')";
 
     boolean fieldExisted = false;
-    statement = connection.createStatement();
-    resultSet = statement.executeQuery(sqlStatement);
+
+    resultSet = executeQuery(sqlStatement);
+
     if (resultSet.next())
       fieldExisted = true;
 
     return fieldExisted;
   }
 
-  public static String getUserPasswordFromEmail(String email) throws SQLException {
+  public static String getUserHashedPasswordFromEmail(String email) throws SQLException {
     String hashedPassword = "NA";
 
     String sqlStatement = "select hashed_password from userdb where email = '" + email + "'";
 
-    statement = connection.createStatement();
-    resultSet = statement.executeQuery(sqlStatement);
+    resultSet = executeQuery(sqlStatement);
 
     if (resultSet.next()) {
       hashedPassword = resultSet.getString("hashed_password");
@@ -138,8 +139,8 @@ public class DBMethod {
   public static void fillInUserInfoFromUserEmail(User loginUser, String hashedPassword) throws SQLException {
     String sqlStatement = "select * from userdb where email = '" + loginUser.getEmail() + "'";
 
-    statement = connection.createStatement();
-    resultSet = statement.executeQuery(sqlStatement);
+    resultSet = executeQuery(sqlStatement);
+
     while (resultSet.next()) {
       loginUser.setUsername(resultSet.getString("username"));
       // loginUser.setHashedPassword(resultSet.getString("hashed_password"));

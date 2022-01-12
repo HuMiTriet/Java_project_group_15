@@ -9,7 +9,6 @@ import org.junit.jupiter.api.*;
 /**
  * Unit test for the User sign up function from User
  */
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class RegexTest {
   private RegexChecker regexChecker = new RegexChecker();
 
