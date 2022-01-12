@@ -4,6 +4,7 @@ import javax.swing.UIManager;
 
 import com.fifteen.afterLogin.EventPageMain;
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.fifteen.beforeLogin.signUp.SignUpPage;
 
 public class App {
   public static void main(String[] args) throws Exception {
@@ -15,8 +16,9 @@ public class App {
       System.err.println("Failed to initialize LaF");
     }
     // new LoginPage();
+    new SignUpPage();
 
-    new EventPageMain();
+    //new EventPageMain();
 
     // Sending an email to recipient
     // mailUtils.sendMail("javacomtwentyone@gmail.com");

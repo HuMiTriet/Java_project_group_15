@@ -1,4 +1,4 @@
-package com.twenty.one.beforeLogin.signUp;
+package com.fifteen.beforeLogin.signUp;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
