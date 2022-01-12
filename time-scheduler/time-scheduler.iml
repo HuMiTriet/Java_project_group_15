@@ -29,5 +29,6 @@
     <orderEntry type="library" name="Maven: com.jgoodies:forms:1.1-preview" level="project" />
     <orderEntry type="library" name="Maven: jdom:jdom:1.0" level="project" />
     <orderEntry type="library" name="Maven: com.formdev:flatlaf:2.0-rc1" level="project" />
+    <orderEntry type="library" name="Maven: com.toedter:jcalendar:1.4" level="project" />
   </component>
 </module>

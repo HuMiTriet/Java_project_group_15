@@ -21,6 +21,7 @@ public class mailUtils {
         System.out.println("Preparing to send email");
         Properties properties = new Properties(); //assign key and value to property
 
+        //Setting up the data to connect to the gmail servers
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.host", "smtp.gmail.com");
@@ -29,6 +30,8 @@ public class mailUtils {
         String emailAddress = "javacomtwentyone@gmail.com";
         String password = "StrongPassword21";
 
+        //Session represents the connection to the mailserver
+        //It contains the server data and an authentication object
         Session session = Session.getInstance(properties, new Authenticator() {
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
@@ -38,10 +41,11 @@ public class mailUtils {
 
         Message message = prepareMessage(session, emailAddress, recipient);
 
+        //Transport modulates the transport-mechanism for the process of sending the email
         Transport.send(message);
         System.out.println("Message sent SUCCESSFULLY");
     }
-
+    //Message - abstract class which is used to modulate/build the message
     private static Message prepareMessage(Session session, String emailAddress, String recipient) {
         try {
             Message message = new MimeMessage(session);
