@@ -23,8 +23,8 @@ public class AuthenTest {
   @BeforeAll
   public void setUpNewuser() {
     // User Id
-    UserDao dao = new UserDaoImp();
-    dao.createUserFromSignUp(EMAIL, USERNAME, PASSWORD, IS_ADMIN);
+    UserDao userHandler = new UserDaoImp();
+    userHandler.createUserFromSignUp(EMAIL, USERNAME, PASSWORD, IS_ADMIN);
   }
 
   @Test
