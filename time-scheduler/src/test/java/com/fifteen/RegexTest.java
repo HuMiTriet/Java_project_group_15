@@ -2,7 +2,7 @@ package com.fifteen;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.fifteen.beforeLogin.security.RegexChecker;
+import com.fifteen.auth.security.RegexChecker;
 
 import org.junit.jupiter.api.*;
 

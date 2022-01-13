@@ -21,11 +21,11 @@ public class UserTest {
   static private final int IS_ADMIN = 1;
 
   @BeforeAll
-    public void setUpNewuser() {
-        UserDao dao = new UserDaoImp();
+  public void setUpNewuser() {
+    UserDao dao = new UserDaoImp();
 
-        newUser = dao.createUserFromSignUp(EMAIL, USERNAME, PASSWORD, IS_ADMIN);
-    }
+    newUser = dao.createUserFromSignUp(EMAIL, USERNAME, PASSWORD, IS_ADMIN);
+  }
 
   @Test
   public void shouldReturncorrectEmail() {

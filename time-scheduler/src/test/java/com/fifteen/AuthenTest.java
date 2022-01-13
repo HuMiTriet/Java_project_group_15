@@ -2,10 +2,10 @@ package com.fifteen;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.SQLException;
-
-import com.fifteen.beforeLogin.login.UserAuthenticator;
+import com.fifteen.auth.login.UserAuthenticator;
 import com.fifteen.database.DBMethod;
+import com.fifteen.database.UserDao;
+import com.fifteen.database.UserDaoImp;
 
 import org.junit.jupiter.api.*;
 
@@ -20,12 +20,12 @@ public class AuthenTest {
   static private final int IS_ADMIN = 1;
   static private final String PASSWORD = "A";
 
-  // @BeforeAll
-  // public void setUpNewuser() {
-  //   // User Id
-  //   int isAdmin = IS_ADMIN;
-  //   User.createUserFromSignUp(EMAIL, USERNAME, PASSWORD, IS_ADMIN);
-  // }
+  @BeforeAll
+  public void setUpNewuser() {
+    // User Id
+    UserDao dao = new UserDaoImp();
+    dao.createUserFromSignUp(EMAIL, USERNAME, PASSWORD, IS_ADMIN);
+  }
 
   @Test
   void correctUser() {
@@ -44,6 +44,6 @@ public class AuthenTest {
 
   @AfterAll
   public void closeConnection() {
-      DBMethod.closeConnection();
+    DBMethod.closeConnection();
   }
 }

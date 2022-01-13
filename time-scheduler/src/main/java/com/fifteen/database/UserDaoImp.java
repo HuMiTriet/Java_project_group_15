@@ -2,7 +2,7 @@ package com.fifteen.database;
 
 import java.sql.SQLException;
 
-import com.fifteen.beforeLogin.security.PasswordHasher;
+import com.fifteen.auth.security.PasswordHasher;
 
 public class UserDaoImp implements UserDao {
   @Override
