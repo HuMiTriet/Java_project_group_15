@@ -44,10 +44,6 @@ public class AuthenTest {
 
   @AfterAll
   public void closeConnection() {
-    try {
       DBMethod.closeConnection();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
   }
 }

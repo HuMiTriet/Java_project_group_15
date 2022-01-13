@@ -1,10 +1,8 @@
 package com.fifteen.database;
 
-import java.sql.SQLException;
-
-import com.fifteen.beforeLogin.security.PasswordHasher;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -20,6 +18,8 @@ import lombok.ToString;
 @Getter
 @ToString
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
   private String email;
   private String username;
@@ -27,29 +27,4 @@ public class User {
   private String userID = "NA";
   private int isAdmin;
 
-  private User() {
-  };
-
-  public static User createUserFromEmail(String email) {
-      User loginUser = new User();
-
-      loginUser.setEmail(email);
-      return loginUser;
-  }
-
-  public static User createUserFromSignUp(String email, String username, String textPassword, int isAdmin) {
-    User newUser = new User();
-    newUser.setEmail(email);
-    newUser.setUsername(username);
-    newUser.setHashedPassword(PasswordHasher.sha2(textPassword));
-    newUser.setIsAdmin(isAdmin);
-    try {
-      DBMethod.signUp(newUser);
-      newUser.setUserID(DBMethod.getUserId(newUser));
-    } catch (SQLException e) {
-      System.err.println("Failed to create user from sign up");
-      e.printStackTrace();
-    }
-    return newUser;
-  }
 }

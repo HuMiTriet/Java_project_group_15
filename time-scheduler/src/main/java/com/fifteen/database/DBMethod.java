@@ -22,7 +22,11 @@ public class DBMethod {
   static java.sql.Statement statement = null;
   static ResultSet resultSet = null;
 
-  private DBMethod(){};
+  private static final String TABLE_NAME = "userdb";
+
+  private DBMethod() {
+  };
+
   /**
    * This method is run to close the connection to the SQL DB server. If this
    * is not run the sever could be lag or not responsive due to the previous
@@ -30,7 +34,7 @@ public class DBMethod {
    * 
    * @author PJ
    */
-  public static void closeConnection() throws SQLException {
+  public static void closeConnection() {
     DbUtils.closeQuietly(connection, statement, resultSet);
   }
 
@@ -50,13 +54,14 @@ public class DBMethod {
    */
   public static void signUp(User user) throws SQLException {
 
-    String sqlStatement = "INSERT INTO userdb VALUES('" + user.getEmail() + "','" + user.getUsername() + "','" +
-    /**
-     * sys_guid() is a method of Oracle SQL to generate a Global unique Identifier.
-     * 
-     * @see
-     */
-    user.getHashedPassword() + "', sys_guid()," + user.getIsAdmin() + ")";
+    String sqlStatement = "INSERT INTO " + TABLE_NAME + " VALUES('" + user.getEmail() + "','"
+        + user.getUsername() + "','" +
+        /**
+         * sys_guid() is a method of Oracle SQL to generate a Global unique Identifier.
+         * 
+         * @see
+         */
+        user.getHashedPassword() + "', sys_guid()," + user.getIsAdmin() + ")";
     executeQuery(sqlStatement);
   }
 
@@ -71,7 +76,8 @@ public class DBMethod {
   public static String getUserId(User user) throws SQLException {
 
     String userId = "NA";
-    String sqlStatement = "select user_ID from userdb where username = '" + user.getUsername() + "'";
+    String sqlStatement = "select user_ID from " + TABLE_NAME + " where username = '"
+        + user.getUsername() + "'";
     // System.out.print(sqlStatement);
     resultSet = executeQuery(sqlStatement);
     while (resultSet.next()) {
@@ -110,7 +116,8 @@ public class DBMethod {
         break;
     }
 
-    String sqlStatement = "select email from userdb where exists ( select * from userdb where" + fieldToBeChecked
+    String sqlStatement = "select email from " + TABLE_NAME + " where exists ( select * from"
+        + TABLE_NAME + "where" + fieldToBeChecked
         + " = '" + propose + "')";
 
     boolean fieldExisted = false;
@@ -126,7 +133,8 @@ public class DBMethod {
   public static String getUserHashedPasswordFromEmail(String email) throws SQLException {
     String hashedPassword = "NA";
 
-    String sqlStatement = "select hashed_password from userdb where email = '" + email + "'";
+    String sqlStatement = "select hashed_password from " + TABLE_NAME + " where email = '"
+        + email + "'";
 
     resultSet = executeQuery(sqlStatement);
 
@@ -137,7 +145,8 @@ public class DBMethod {
   }
 
   public static void fillInUserInfoFromUserEmail(User loginUser, String hashedPassword) throws SQLException {
-    String sqlStatement = "select * from userdb where email = '" + loginUser.getEmail() + "'";
+    String sqlStatement = "select * from " + TABLE_NAME + " where email = '"
+        + loginUser.getEmail() + "'";
 
     resultSet = executeQuery(sqlStatement);
 
