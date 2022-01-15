@@ -72,32 +72,28 @@ public class LoginPage extends JFrame {
             emailLabel.setText("An account with this email doesn't exist'");
             return;
           }
-        } catch (SQLException ex) {
-          JOptionPane.showMessageDialog(null, "Failed searching email,"
-              + " Please check your internet connection");
-          DBMethod.closeConnection();
-          ex.printStackTrace();
-        }
 
-        try {
           if (UserAuthenticator.authenticate(enteredEmail, stringPassword)) {
             if (isAdminUser == false) {
               // passwordLabel.setText("Logging in as normal user");
               new EventPageMain();
-              DBMethod.closeConnection();
               frame.dispose();
+              DBMethod.closeConnection();
             } else {
               new EventPageMain();
-              DBMethod.closeConnection();
               frame.dispose();
+              DBMethod.closeConnection();
               // passwordLabel.setText("Logging in as admin");
             }
           } else {
             passwordLabel.setText("Incorrect password");
+            return;
           }
         } catch (SQLException ex) {
           JOptionPane.showMessageDialog(null, "Failed authenticating user,"
               + " Please check your internet connection");
+
+          DBMethod.closeConnection();
           ex.printStackTrace();
         }
 
@@ -120,6 +116,7 @@ public class LoginPage extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         new SignUpPage();
+        // DBMethod.closeConnection();
         frame.dispose();
       }
     });

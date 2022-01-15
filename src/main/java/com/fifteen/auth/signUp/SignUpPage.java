@@ -3,6 +3,10 @@ package com.fifteen.auth.signUp;
 import com.fifteen.auth.login.LoginPage;
 import com.fifteen.auth.security.RegexChecker;
 import com.fifteen.database.DBMethod;
+import com.fifteen.database.User;
+import com.fifteen.database.UserDao;
+import com.fifteen.database.UserDaoImp;
+import com.fifteen.events.EventPageMain;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -61,7 +65,7 @@ public class SignUpPage extends JFrame {
         try {
           if (DBMethod.checkfieldExisted(enteredUsername, 'u')) {
             userNameLabel.setText("Username has been taken");
-            // return;
+            return;
           } else {
             userNameLabel.setText("");
           }
@@ -83,15 +87,36 @@ public class SignUpPage extends JFrame {
         } catch (SQLException ex) {
           JOptionPane.showMessageDialog(null, "Connecting to database failed"
               + " Please check your internet connection");
+          DBMethod.closeConnection();
           ex.printStackTrace();
+          return;
         }
 
+        String firstPassword = password.getText();
+        String secondPassword = reEnteredPassword.getText();
+
+        if (firstPassword.equals(secondPassword)) {
+          passwordMatch.setText("");
+        } else {
+          passwordMatch.setText("Passwords do not match");
+          return;
+        }
+
+        UserDao userHandler = new UserDaoImp();
+
+        User newUser = userHandler.createUserFromSignUp(enteredEmail, enteredUsername, firstPassword, 0);
+
+        new EventPageMain();
+        frame.dispose();
+        DBMethod.closeConnection();
       }
+
     });
     signInButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         new LoginPage();
+        // DBMethod.closeConnection();
         frame.dispose();
       }
     });

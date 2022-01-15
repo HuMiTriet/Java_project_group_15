@@ -1,49 +1,57 @@
-// package com.fifteen;
+package com.fifteen;
 
-// import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-// import com.fifteen.auth.login.UserAuthenticator;
-// import com.fifteen.database.DBMethod;
-// import com.fifteen.database.UserDao;
-// import com.fifteen.database.UserDaoImp;
+import java.sql.SQLException;
 
-// import org.junit.jupiter.api.*;
+import com.fifteen.auth.login.UserAuthenticator;
+import com.fifteen.database.DBMethod;
+import com.fifteen.database.UserDao;
+import com.fifteen.database.UserDaoImp;
 
-// /**
-// * Unit test for the User sign up function from User
-// */
-// @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-// public class AuthenTest {
+import org.junit.jupiter.api.*;
 
-// static private final String EMAIL = "A";
-// static private final String USERNAME = "A";
-// static private final int IS_ADMIN = 1;
-// static private final String PASSWORD = "A";
+/**
+ * Unit test for the User sign up function from User
+ */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class AuthenTest {
 
-// @BeforeAll
-// public void setUpNewuser() {
-// // User Id
-// UserDao userHandler = new UserDaoImp();
-// userHandler.createUserFromSignUp(EMAIL, USERNAME, PASSWORD, IS_ADMIN);
-// }
+  static private final String EMAIL = "t@g.com";
+  static private final String USERNAME = "B";
+  static private final int IS_ADMIN = 0;
+  static private final String PASSWORD = "B";
 
-// @Test
-// void correctUser() {
-// assertEquals(true, UserAuthenticator.authenticate(EMAIL, PASSWORD));
-// }
+  @Test
+  void correctUser() {
+    try {
+      assertEquals(true, UserAuthenticator.authenticate(EMAIL, PASSWORD));
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 
-// @Test
-// void incorrectEmail() {
-// assertEquals(false, UserAuthenticator.authenticate("SUDO", PASSWORD));
-// }
+  @Test
+  void incorrectEmail() {
+    try {
+      assertEquals(false, UserAuthenticator.authenticate("SUDO", PASSWORD));
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 
-// @Test
-// void incorrectPassword() {
-// assertEquals(false, UserAuthenticator.authenticate(EMAIL, "bruh"));
-// }
+  @Test
+  void incorrectPassword() {
+    try {
+      assertEquals(false, UserAuthenticator.authenticate(EMAIL, "bruh"));
+    } catch (SQLException e) {
 
-// @AfterAll
-// public void closeConnection() {
-// DBMethod.closeConnection();
-// }
-// }
+      e.printStackTrace();
+    }
+  }
+
+  @AfterAll
+  public void closeConnection() {
+    DBMethod.closeConnection();
+  }
+}
