@@ -1,6 +1,8 @@
 package com.fifteen.auth.signUp;
 
 import com.fifteen.auth.login.LoginPage;
+import com.fifteen.auth.security.RegexChecker;
+import com.fifteen.database.DBMethod;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -9,7 +11,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
+/**
+ * Sign Up page with email regex, check if username and email existed. If all
+ * passwed a new user will be added to the database
+ * 
+ * @author Ante(intially), PJ(modify)
+ */
 public class SignUpPage extends JFrame {
   private JTextField username;
   private JTextField FirstNameTextField;
@@ -45,6 +54,37 @@ public class SignUpPage extends JFrame {
     createAccountButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
+        String enteredEmail = email.getText();
+        String enteredUsername = username.getText();
+        // String enteredPassword = new String(password.getPassword());
+
+        try {
+          if (DBMethod.checkfieldExisted(enteredUsername, 'u')) {
+            userNameLabel.setText("Username has been taken");
+            // return;
+          } else {
+            userNameLabel.setText("");
+          }
+
+          if (RegexChecker.checkEmail(enteredEmail)) {
+            emailLabel.setText("");
+          } else {
+            emailLabel.setText("Invalid email format");
+            return;
+          }
+
+          if (DBMethod.checkfieldExisted(enteredEmail, 'e')) {
+            emailLabel.setText("Account with this email already existed");
+            return;
+          } else {
+            emailLabel.setText("");
+          }
+
+        } catch (SQLException ex) {
+          JOptionPane.showMessageDialog(null, "Connecting to database failed"
+              + " Please check your internet connection");
+          ex.printStackTrace();
+        }
 
       }
     });
