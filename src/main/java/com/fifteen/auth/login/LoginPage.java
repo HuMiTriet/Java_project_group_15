@@ -1,5 +1,8 @@
 package com.fifteen.auth.login;
 
+import com.fifteen.auth.security.RegexChecker;
+import com.fifteen.database.DBMethod;
+
 /**
  * Creating a simple Login Page Panel where the user can type in his username and password and after
  * doing so, finish with a click on the login button. The Admin checks the admin checkbox to access his admin
@@ -15,14 +18,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class LoginPage extends JFrame {
-  private JTextField username;
-  private JPanel panel1;
+  private JTextField email;
+  private JPanel loginPanel;
   private JPasswordField password;
   private JButton login;
-  private JButton sign_up;
+  private JButton signUp;
   private JCheckBox admin;
+  private JLabel emailLabel;
+  private JLabel passwordLabel;
   private JFrame frame;
 
   public LoginPage() {
@@ -32,15 +38,48 @@ public class LoginPage extends JFrame {
     frame.setResizable(false);
 
     // adding the panel
-    frame.add(panel1);
+    frame.add(loginPanel);
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
     login.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        String enteredUserName = username.getText();
+        String enteredEmail = email.getText();
         char[] enteredPassword = password.getPassword();
+        String stringPassword = new String(enteredPassword);
+
+        // Check to see if email enter is in the correct format
+        if (RegexChecker.checkEmail(enteredEmail)) {
+          emailLabel.setText("");
+        } else {
+          emailLabel.setText("Invalid email format");
+          return;
+        }
+
+        try {
+          if (DBMethod.checkfieldExisted(enteredEmail, 'e')) {
+            emailLabel.setText("");
+          } else {
+            emailLabel.setText("An account with this email doesn't exist'");
+            return;
+          }
+        } catch (SQLException ex) {
+          DBMethod.closeConnection();
+          ex.printStackTrace();
+        }
+
+        try {
+          if (UserAuthenticator.authenticate(enteredEmail, stringPassword)) {
+            passwordLabel.setText("Correct User");
+          } else {
+            passwordLabel.setText("Incorrect password");
+          }
+        } catch (SQLException ex) {
+          DBMethod.closeConnection();
+          ex.printStackTrace();
+        }
+
       }
     });
   }
@@ -60,92 +99,103 @@ public class LoginPage extends JFrame {
    * @noinspection ALL
    */
   private void $$$setupUI$$$() {
-    panel1 = new JPanel();
-    panel1.setLayout(new GridLayoutManager(11, 3, new Insets(0, 0, 0, 0), -1, -1));
-    username = new JTextField();
-    panel1.add(username,
-        new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
+    loginPanel = new JPanel();
+    loginPanel.setLayout(new GridLayoutManager(11, 5, new Insets(0, 0, 0, 0), -1, -1));
+    email = new JTextField();
+    email.setText("");
+    loginPanel.add(email,
+        new GridConstraints(3, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
             GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null,
             0, false));
     password = new JPasswordField();
-    panel1.add(password,
-        new GridConstraints(7, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
+    loginPanel.add(password,
+        new GridConstraints(7, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
             GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null,
             0, false));
-    final JPanel panel2 = new JPanel();
-    panel2.setLayout(new GridLayoutManager(1, 7, new Insets(0, 0, 0, 0), -1, -1));
-    panel1.add(panel2,
-        new GridConstraints(9, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH,
+    final JPanel panel1 = new JPanel();
+    panel1.setLayout(new GridLayoutManager(1, 7, new Insets(0, 0, 0, 0), -1, -1));
+    loginPanel.add(panel1,
+        new GridConstraints(9, 1, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH,
             GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
             GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
     login = new JButton();
     login.setText("Login");
-    panel2.add(login,
+    panel1.add(login,
         new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
             GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
             GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     final Spacer spacer1 = new Spacer();
-    panel2.add(spacer1, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
+    panel1.add(spacer1, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
         GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
     final Spacer spacer2 = new Spacer();
-    panel2.add(spacer2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
+    panel1.add(spacer2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
         GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
     admin = new JCheckBox();
     admin.setText("Admin");
-    panel2.add(admin,
+    panel1.add(admin,
         new GridConstraints(0, 5, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
             GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
             GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     final Spacer spacer3 = new Spacer();
-    panel2.add(spacer3, new GridConstraints(0, 6, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
+    panel1.add(spacer3, new GridConstraints(0, 6, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
         GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
-    sign_up = new JButton();
-    sign_up.setText("Sign Up");
-    panel2.add(sign_up,
+    signUp = new JButton();
+    signUp.setText("Sign Up");
+    panel1.add(signUp,
         new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
             GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
             GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     final Spacer spacer4 = new Spacer();
-    panel2.add(spacer4, new GridConstraints(0, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
+    panel1.add(spacer4, new GridConstraints(0, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
         GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
     final Spacer spacer5 = new Spacer();
-    panel1.add(spacer5, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1,
-        GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+    loginPanel.add(spacer5, new GridConstraints(4, 1, 1, 3, GridConstraints.ANCHOR_CENTER,
+        GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     final Spacer spacer6 = new Spacer();
-    panel1.add(spacer6, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1,
-        GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+    loginPanel.add(spacer6, new GridConstraints(0, 1, 1, 3, GridConstraints.ANCHOR_CENTER,
+        GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     final Spacer spacer7 = new Spacer();
-    panel1.add(spacer7, new GridConstraints(4, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
-        GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+    loginPanel.add(spacer7, new GridConstraints(4, 4, 1, 1, GridConstraints.ANCHOR_CENTER,
+        GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
     final Spacer spacer8 = new Spacer();
-    panel1.add(spacer8, new GridConstraints(8, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1,
-        GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+    loginPanel.add(spacer8, new GridConstraints(8, 1, 1, 3, GridConstraints.ANCHOR_CENTER,
+        GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     final Spacer spacer9 = new Spacer();
-    panel1.add(spacer9, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
-        GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+    loginPanel.add(spacer9, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER,
+        GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
     final JLabel label1 = new JLabel();
-    label1.setText("Username");
-    panel1.add(label1, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
+    label1.setText("Email");
+    loginPanel.add(label1, new GridConstraints(1, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     final JLabel label2 = new JLabel();
     label2.setText("Password");
-    panel1.add(label2, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
+    loginPanel.add(label2, new GridConstraints(5, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     final Spacer spacer10 = new Spacer();
-    panel1.add(spacer10, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
-        1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+    loginPanel.add(spacer10, new GridConstraints(6, 2, 1, 2, GridConstraints.ANCHOR_CENTER,
+        GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     final Spacer spacer11 = new Spacer();
-    panel1.add(spacer11, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
-        1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+    loginPanel.add(spacer11, new GridConstraints(2, 3, 1, 1, GridConstraints.ANCHOR_CENTER,
+        GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     final Spacer spacer12 = new Spacer();
-    panel1.add(spacer12, new GridConstraints(10, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
-        1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+    loginPanel.add(spacer12, new GridConstraints(10, 1, 1, 3, GridConstraints.ANCHOR_CENTER,
+        GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+    emailLabel = new JLabel();
+    emailLabel.setText("");
+    loginPanel.add(emailLabel, new GridConstraints(2, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
+        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    passwordLabel = new JLabel();
+    passwordLabel.setText("");
+    loginPanel.add(passwordLabel,
+        new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
+            GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
   }
 
   /**
    * @noinspection ALL
    */
   public JComponent $$$getRootComponent$$$() {
-    return panel1;
+    return loginPanel;
   }
+
 }

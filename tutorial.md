@@ -2,8 +2,8 @@
 
 ## Folder/Directory structure
 - Always have the two folders of src and test. 
-	+ Source is where we store all of 
-	 	the java files and test files (more on test files and Junit in second part).
+  + Source is where we store all the java files and test files (more on test
+    files and Junit in second part).
 	+ target store all of our jar files when it finished compiling
 		and is rarely accessed, only when we need the javadoc or the final build.
 

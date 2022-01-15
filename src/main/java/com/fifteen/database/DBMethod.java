@@ -116,8 +116,8 @@ public class DBMethod {
         break;
     }
 
-    String sqlStatement = "select email from " + TABLE_NAME + " where exists ( select * from"
-        + TABLE_NAME + "where" + fieldToBeChecked
+    String sqlStatement = "select email from " + TABLE_NAME + " where exists ( select * from "
+        + TABLE_NAME + " where " + fieldToBeChecked
         + " = '" + propose + "')";
 
     boolean fieldExisted = false;

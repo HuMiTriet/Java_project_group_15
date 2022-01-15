@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Java_project_group_21.iml" filepath="$PROJECT_DIR$/Java_project_group_21.iml" />
-      <module fileurl="file://$PROJECT_DIR$/time-scheduler/time-scheduler.iml" filepath="$PROJECT_DIR$/time-scheduler/time-scheduler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/time-scheduler.iml" filepath="$PROJECT_DIR$/time-scheduler.iml" />
     </modules>
   </component>
 </project>

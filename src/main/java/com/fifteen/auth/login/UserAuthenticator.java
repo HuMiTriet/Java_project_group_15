@@ -9,17 +9,13 @@ public class UserAuthenticator {
   private UserAuthenticator() {
   };
 
-  public static boolean authenticate(String email, String enteredPassword) {
+  public static boolean authenticate(String email, String enteredPassword) throws SQLException {
 
     boolean result = false;
 
-    try {
-      String correctHashedPassword = DBMethod.getUserHashedPasswordFromEmail(email);
-      if (correctHashedPassword.equals(PasswordHasher.sha2(enteredPassword)))
-        result = true;
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+    String correctHashedPassword = DBMethod.getUserHashedPasswordFromEmail(email);
+    if (correctHashedPassword.equals(PasswordHasher.sha2(enteredPassword)))
+      result = true;
 
     return result;
   }
