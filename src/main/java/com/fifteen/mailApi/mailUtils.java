@@ -4,7 +4,6 @@ package com.fifteen.mailApi;
  * simple program to establish a connection with an email provider (in this case gmail) and
  * send an email to that adress
  *
- * I will comment it out as soon as I can so you guys can understand what's happening
  *
  * @author Ante
  */
