@@ -61,6 +61,7 @@ public class SignUpPage extends JFrame {
         DBMethod.createConnection();
         String enteredEmail = email.getText();
         String enteredUsername = username.getText();
+
         // String enteredPassword = new String(password.getPassword());
 
         try {
@@ -105,9 +106,9 @@ public class SignUpPage extends JFrame {
 
         UserDao userHandler = new UserDaoImp();
 
-        User newUser = userHandler.createUserFromSignUp(enteredEmail, enteredUsername, firstPassword, 0);
+        User signUpUser = userHandler.createUserFromSignUp(enteredEmail, enteredUsername, firstPassword, 0);
 
-        new EventPageMain();
+        new EventPageMain(signUpUser);
         frame.dispose();
         DBMethod.closeConnection();
       }

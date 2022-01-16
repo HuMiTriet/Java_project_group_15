@@ -1,5 +1,6 @@
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/App.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/auth/security/PasswordHasher.java
+/home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/auth/security/UserAuthenticator.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/auth/login/LoginPage.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/database/UserDaoImp.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/mailApi/mailUtils.java
@@ -11,6 +12,5 @@
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/database/UserDao.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/database/User.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/database/DBConnection.java
-/home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/auth/login/UserAuthenticator.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/events/AddEventDialog.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/events/ShowEventDialog.java

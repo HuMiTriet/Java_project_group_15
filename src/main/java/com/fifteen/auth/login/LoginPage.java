@@ -1,19 +1,32 @@
 package com.fifteen.auth.login;
 
-import com.fifteen.auth.security.RegexChecker;
-import com.fifteen.auth.signUp.SignUpPage;
-import com.fifteen.database.DBMethod;
-import com.fifteen.events.EventPageMain;
-
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import com.fifteen.auth.security.RegexChecker;
+import com.fifteen.auth.security.UserAuthenticator;
+import com.fifteen.auth.signUp.SignUpPage;
+import com.fifteen.database.DBMethod;
+import com.fifteen.database.User;
+import com.fifteen.database.UserDao;
+import com.fifteen.database.UserDaoImp;
+import com.fifteen.events.EventPageMain;
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
+import com.intellij.uiDesigner.core.Spacer;
 
 /**
  * Added in email pattern checking to see if email is in correct format (the
@@ -57,47 +70,24 @@ public class LoginPage extends JFrame {
         DBMethod.createConnection();
         String enteredEmail = email.getText();
         String stringPassword = new String(password.getPassword());
+        boolean allFieldsCorrect = false;
 
         // Check to see if email enter is in the correct format
-        if (RegexChecker.checkEmail(enteredEmail)) {
-          emailLabel.setText("");
+        allFieldsCorrect = UserAuthenticator.authenticateEmailField(emailLabel,
+            enteredEmail);
+
+        allFieldsCorrect = UserAuthenticator.authenticatePasswordField(
+            passwordLabel, enteredEmail, stringPassword);
+
+        if (allFieldsCorrect) {
+          UserDao userHandler = new UserDaoImp();
+          User loginUser = userHandler.createUserFromLogin(enteredEmail);
+          new EventPageMain(loginUser);
+          frame.dispose();
+          DBMethod.closeConnection();
         } else {
-          emailLabel.setText("Invalid email format");
           return;
         }
-
-        try {
-          if (DBMethod.checkfieldExisted(enteredEmail, 'e')) {
-            emailLabel.setText("");
-          } else {
-            emailLabel.setText("An account with this email doesn't exist'");
-            return;
-          }
-
-          if (UserAuthenticator.authenticate(enteredEmail, stringPassword)) {
-            if (isAdminUser == false) {
-              // passwordLabel.setText("Logging in as normal user");
-              new EventPageMain();
-              frame.dispose();
-              DBMethod.closeConnection();
-            } else {
-              new EventPageMain();
-              frame.dispose();
-              DBMethod.closeConnection();
-              // passwordLabel.setText("Logging in as admin");
-            }
-          } else {
-            passwordLabel.setText("Incorrect password");
-            return;
-          }
-        } catch (SQLException ex) {
-          JOptionPane.showMessageDialog(null, "Failed authenticating user,"
-              + " Please check your internet connection");
-
-          DBMethod.closeConnection();
-          ex.printStackTrace();
-        }
-
       }
     });
 

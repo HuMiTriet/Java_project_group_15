@@ -8,6 +8,8 @@ https://www.overleaf.com/1164281224nmzrsyycctwn
 ## Does not require the database to be shown 
 
 ## Login page
+- Blank username and password field
+- Multiple error messages show simultaneously
 - Email regex checker for the correct format
 - Check if an account of that email existed
 - Password show/hide button
