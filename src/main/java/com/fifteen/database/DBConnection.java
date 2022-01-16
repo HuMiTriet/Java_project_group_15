@@ -4,12 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
-
 /**
  * A singleton class
- * Connects to the frankfurt UAS remote SQL server using PJ's account 
- * Database Architecture:  
+ * Connects to the frankfurt UAS remote SQL server using PJ's account
+ * Database Architecture:
  * {@code  
   create table UserDB (
     email    varchar2(100) not null unique,
@@ -19,35 +17,34 @@ import java.sql.SQLException;
     is_admin number(1) not null
 )
 }
+ * 
  * @author PJ
  */
 public class DBConnection {
-	private static Connection connection = null;
+  private final static String URL = "jdbc:oracle:thin:@db1.fb2.frankfurt-university.de:1521:info01";
+  private final static String USERNAME = "S1_student2_52";
+  private final static String PASSWORD = "Soltum/14032002";
 
-	
-	private DBConnection(){};
+  private static Connection connection = null;
 
-	/**
-	 * Establish the connection to the remote database server
-	 * @author PJ
-	 */
-    static
-    {
-        String url = "jdbc:oracle:thin:@db1.fb2.frankfurt-university.de:1521:info01";
-        String username = "S1_student2_52";
-        String password = "Soltum/14032002";
+  private DBConnection() {
+  };
 
-        try {
-            connection = DriverManager.getConnection(url, username, password);
-			// System.out.println("Connection established");
-        } catch (SQLException e) {
-            e.printStackTrace();
-			// System.out.println("connection failed");
-        }
+  /**
+   * Establish the connection to the remote database server
+   * 
+   * @author PJ
+   */
 
+  public static Connection getConnection() {
+    try {
+      connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+      // System.out.println("Connection established");
+    } catch (SQLException e) {
+      e.printStackTrace();
+      // System.out.println("connection failed");
     }
-	static Connection getConnection() {
-		return connection;
-	}
+    return connection;
+  }
 
 }

@@ -1,7 +1,10 @@
 package com.fifteen.events;
 
+import com.fifteen.database.User;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+
+import lombok.AllArgsConstructor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EventPageMain extends JFrame {
+
   private JFrame frame;
   private JPanel panel1;
   private JButton a1Button;
@@ -46,7 +50,7 @@ public class EventPageMain extends JFrame {
   private JButton button2;
   private JButton menuButton;
 
-  public EventPageMain() {
+  public EventPageMain(User user) {
     frame = new JFrame("EventPageButton");
     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     frame.setPreferredSize(new Dimension(1280, 720));
