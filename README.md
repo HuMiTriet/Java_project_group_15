@@ -35,3 +35,7 @@ https://www.overleaf.com/1164281224nmzrsyycctwn
 - Tell the team that we need to pass a User object to the event page.
 - Create a different Admin page
 - Work with Ante to send an email when a new account is created.
+
+- Ante create email API function (String email, String message) to send an
+  email.
+- 
