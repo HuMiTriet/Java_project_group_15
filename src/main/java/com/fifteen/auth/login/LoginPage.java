@@ -54,6 +54,7 @@ public class LoginPage extends JFrame {
     login.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
+        DBMethod.createConnection();
         String enteredEmail = email.getText();
         String stringPassword = new String(password.getPassword());
 
@@ -116,7 +117,7 @@ public class LoginPage extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         new SignUpPage();
-        // DBMethod.closeConnection();
+        DBMethod.closeConnection();
         frame.dispose();
       }
     });

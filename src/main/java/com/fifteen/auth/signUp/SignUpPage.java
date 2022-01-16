@@ -58,6 +58,7 @@ public class SignUpPage extends JFrame {
     createAccountButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
+        DBMethod.createConnection();
         String enteredEmail = email.getText();
         String enteredUsername = username.getText();
         // String enteredPassword = new String(password.getPassword());
@@ -92,8 +93,8 @@ public class SignUpPage extends JFrame {
           return;
         }
 
-        String firstPassword = password.getText();
-        String secondPassword = reEnteredPassword.getText();
+        String firstPassword = new String(password.getPassword());
+        String secondPassword = new String(reEnteredPassword.getPassword());
 
         if (firstPassword.equals(secondPassword)) {
           passwordMatch.setText("");
@@ -116,7 +117,7 @@ public class SignUpPage extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         new LoginPage();
-        // DBMethod.closeConnection();
+        DBMethod.closeConnection();
         frame.dispose();
       }
     });

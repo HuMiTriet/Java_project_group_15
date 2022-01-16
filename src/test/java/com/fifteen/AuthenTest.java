@@ -1,15 +1,15 @@
 package com.fifteen;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.SQLException;
 
 import com.fifteen.auth.login.UserAuthenticator;
 import com.fifteen.database.DBMethod;
-import com.fifteen.database.UserDao;
-import com.fifteen.database.UserDaoImp;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * Unit test for the User sign up function from User

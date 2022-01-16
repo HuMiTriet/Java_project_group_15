@@ -1,10 +1,10 @@
 package com.fifteen;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fifteen.auth.security.RegexChecker;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for the User sign up function from User

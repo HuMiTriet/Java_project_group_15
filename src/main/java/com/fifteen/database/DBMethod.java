@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  *      To see the database schema
  */
 public class DBMethod {
-  static Connection connection = DBConnection.getConnection();
+  static Connection connection = null;
   static java.sql.Statement statement = null;
   static ResultSet resultSet = null;
 
@@ -26,6 +26,10 @@ public class DBMethod {
 
   private DBMethod() {
   };
+
+  public static void createConnection() {
+    connection = DBConnection.getConnection();
+  }
 
   /**
    * This method is run to close the connection to the SQL DB server. If this
