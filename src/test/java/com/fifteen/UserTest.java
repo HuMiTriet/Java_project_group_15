@@ -28,6 +28,7 @@ public class UserTest {
   public void setUpNewuser() {
     UserDao dao = new UserDaoImp();
 
+    DBMethod.createConnection();
     newUser = dao.createUserFromSignUp(EMAIL, USERNAME, PASSWORD, IS_ADMIN);
   }
 

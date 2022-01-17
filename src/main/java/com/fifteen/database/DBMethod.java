@@ -40,8 +40,10 @@ public class DBMethod {
    * @author PJ
    */
   public static void closeConnection() {
-    if (connection != null)
+    if (connection != null) {
       DbUtils.closeQuietly(connection, statement, resultSet);
+      connection = null;
+    }
   }
 
   private static ResultSet executeQuery(String sqlStatement) throws SQLException {
@@ -82,8 +84,8 @@ public class DBMethod {
   public static String getUserId(User user) throws SQLException {
 
     String userId = "NA";
-    String sqlStatement = "select user_ID from " + TABLE_NAME + " where username = '"
-        + user.getUsername() + "'";
+    String sqlStatement = "select user_ID from " + TABLE_NAME + " where email = '"
+        + user.getEmail() + "'";
     // System.out.print(sqlStatement);
     resultSet = executeQuery(sqlStatement);
     while (resultSet.next()) {
