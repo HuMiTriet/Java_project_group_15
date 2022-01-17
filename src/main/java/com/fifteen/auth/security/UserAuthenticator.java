@@ -1,6 +1,5 @@
 package com.fifteen.auth.security;
 
-import java.awt.Frame;
 import java.sql.SQLException;
 
 import javax.swing.JLabel;
@@ -31,55 +30,67 @@ public class UserAuthenticator {
     e.printStackTrace();
   }
 
-  public static boolean authenticateEmailField(JLabel emailLabel,
-      String enteredEmail) {
+  public static boolean checkEmailFormat(JLabel emailLabel, String enteredEmail) {
+
     if (enteredEmail.isEmpty()) {
       emailLabel.setText("Please enter your email");
       return false;
     } else {
       if (RegexChecker.checkEmail(enteredEmail)) {
         emailLabel.setText("");
+        return true;
+      } else {
+        emailLabel.setText("Invalid email format");
+        return true;
+      }
+    }
+
+  }
+
+  public static boolean authenticateEmailField(JLabel emailLabel,
+      String enteredEmail) {
+
+    try {
+      if (DBMethod.checkfieldExisted(enteredEmail, 'e')) {
+        emailLabel.setText("");
+        return true;
       } else {
         emailLabel.setText("Invalid email format");
         return false;
       }
 
-      try {
-        if (DBMethod.checkfieldExisted(enteredEmail, 'e')) {
-          emailLabel.setText("");
-          return true;
-        } else {
-          emailLabel.setText("An account with this email doesn't exist'");
-          return false;
-        }
+    } catch (SQLException e) {
+      throwErrorpane(e);
+      return false;
+    }
 
-      } catch (SQLException e) {
-        throwErrorpane(e);
-        return false;
-      }
+  }
+
+  public static boolean checkPasswordEmpty(JLabel passwordLabel, String enteredPassword) {
+    if (enteredPassword.isEmpty()) {
+      passwordLabel.setText("Please enter your password");
+      return false;
+    } else {
+      passwordLabel.setText("");
+      return true;
     }
   }
 
   public static boolean authenticatePasswordField(JLabel passwordLabel,
       String enteredEmail, String stringPassword) {
-    if (stringPassword.isEmpty()) {
-      passwordLabel.setText("Please enter your password");
-      return false;
-    } else {
-      try {
-        if (UserAuthenticator.authenticate(enteredEmail, stringPassword)) {
-          passwordLabel.setText("");
-          return true;
-        } else {
-          passwordLabel.setText("Incorrect password");
-          return false;
-        }
-      } catch (SQLException e) {
-        throwErrorpane(e);
+    try {
+      if (UserAuthenticator.authenticate(enteredEmail, stringPassword)) {
+        passwordLabel.setText("");
+        return true;
+      } else {
+        passwordLabel.setText("Invalid email or password");
         return false;
       }
-
+    } catch (SQLException e) {
+      throwErrorpane(e);
+      return false;
     }
+
   }
 
 }

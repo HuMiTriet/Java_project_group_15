@@ -8,15 +8,6 @@ import java.sql.SQLException;
  * A singleton class
  * Connects to the frankfurt UAS remote SQL server using PJ's account
  * Database Architecture:
- * {@code  
-  create table UserDB (
-    email    varchar2(100) not null unique,
-    username varchar2(100) not null unique,
-    hashed_password varchar2(64) not null,
-    user_id raw(16) default sys_guid() constraint userdb_userid_pk primary key,
-    is_admin number(1) not null
-)
-}
  * 
  * @author PJ
  */

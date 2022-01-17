@@ -9,7 +9,7 @@ https://www.overleaf.com/1164281224nmzrsyycctwn
 
 ## Login page
 - Blank username and password field
-- Multiple error messages show simultaneously
+- One error message for both email/password
 - Email regex checker for the correct format
 - Check if an account of that email existed
 - Password show/hide button
