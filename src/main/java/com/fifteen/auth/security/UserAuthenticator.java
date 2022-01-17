@@ -41,7 +41,7 @@ public class UserAuthenticator {
         return true;
       } else {
         emailLabel.setText("Invalid email format");
-        return true;
+        return false;
       }
     }
 
@@ -55,7 +55,7 @@ public class UserAuthenticator {
         emailLabel.setText("");
         return true;
       } else {
-        emailLabel.setText("Invalid email format");
+        // emailLabel.setText("Invalid email or password");
         return false;
       }
 

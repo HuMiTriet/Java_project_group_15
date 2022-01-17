@@ -3,14 +3,14 @@ package com.fifteen;
 import javax.swing.UIManager;
 
 import com.fifteen.auth.login.LoginPage;
-import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatDarculaLaf;
 
 public class App {
   public static void main(String[] args) throws Exception {
     // create the object of Login Page to test if it's working
 
     try {
-      UIManager.setLookAndFeel(new FlatIntelliJLaf());
+      UIManager.setLookAndFeel(new FlatDarculaLaf());
     } catch (Exception ex) {
       System.err.println("Failed to initialize LaF");
     }

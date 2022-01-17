@@ -28,7 +28,8 @@ public class DBMethod {
   };
 
   public static void createConnection() {
-    connection = DBConnection.getConnection();
+    if (connection == null)
+      connection = DBConnection.getConnection();
   }
 
   /**
@@ -39,7 +40,8 @@ public class DBMethod {
    * @author PJ
    */
   public static void closeConnection() {
-    DbUtils.closeQuietly(connection, statement, resultSet);
+    if (connection != null)
+      DbUtils.closeQuietly(connection, statement, resultSet);
   }
 
   private static ResultSet executeQuery(String sqlStatement) throws SQLException {

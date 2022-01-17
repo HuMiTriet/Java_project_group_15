@@ -64,10 +64,13 @@ public class LoginPage extends JFrame {
       String enteredEmail = email.getText();
       String enteredPassword = new String(password.getPassword());
       boolean allFieldsCorrect = false;
+
       DBMethod.createConnection();
 
       allFieldsCorrect = UserAuthenticator.checkEmailFormat(emailLabel,
           enteredEmail);
+
+      UserAuthenticator.checkPasswordEmpty(passwordLabel, enteredPassword);
 
       if (allFieldsCorrect) {
         allFieldsCorrect = UserAuthenticator.authenticateEmailField(emailLabel,
