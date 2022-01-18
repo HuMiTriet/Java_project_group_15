@@ -18,13 +18,11 @@ public class AddEvents extends JFrame {
     private JTextField textField3;
     private JTextField textField4;
     private JTextArea textArea1;
-    private JCheckBox highCheckBox;
-    private JCheckBox lowCheckBox;
-    private JCheckBox mediumCheckBox;
     private JComboBox comboBox1;
     private JComboBox comboBox2;
     private JButton addEventButton;
     private JButton cancelButton;
+    private JComboBox comboBox3;
     private JDateChooser date;
 
     public AddEvents() {
@@ -110,18 +108,9 @@ public class AddEvents extends JFrame {
         final JLabel label6 = new JLabel();
         label6.setText("Priority");
         panel1.add(label6, new GridConstraints(10, 1, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        highCheckBox = new JCheckBox();
-        highCheckBox.setText("High");
-        panel1.add(highCheckBox, new GridConstraints(11, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        lowCheckBox = new JCheckBox();
-        lowCheckBox.setText("Low");
-        panel1.add(lowCheckBox, new GridConstraints(11, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        mediumCheckBox = new JCheckBox();
-        mediumCheckBox.setText("Medium");
-        panel1.add(mediumCheckBox, new GridConstraints(11, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label7 = new JLabel();
         label7.setText("Participants");
-        panel1.add(label7, new GridConstraints(12, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel1.add(label7, new GridConstraints(12, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         comboBox1 = new JComboBox();
         panel1.add(comboBox1, new GridConstraints(13, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label8 = new JLabel();
@@ -143,6 +132,13 @@ public class AddEvents extends JFrame {
         cancelButton = new JButton();
         cancelButton.setText("Cancel");
         panel1.add(cancelButton, new GridConstraints(17, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        comboBox3 = new JComboBox();
+        final DefaultComboBoxModel defaultComboBoxModel2 = new DefaultComboBoxModel();
+        defaultComboBoxModel2.addElement("high");
+        defaultComboBoxModel2.addElement("medium");
+        defaultComboBoxModel2.addElement("low");
+        comboBox3.setModel(defaultComboBoxModel2);
+        panel1.add(comboBox3, new GridConstraints(11, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
