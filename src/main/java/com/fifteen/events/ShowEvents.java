@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class ShowEvents extends  JFrame {
+public class ShowEvents extends JFrame {
     private JFrame frame;
     private JPanel panel1;
     private JTextArea textArea1;
@@ -64,6 +64,7 @@ public class ShowEvents extends  JFrame {
         label1.setText("Events for this day");
         panel1.add(label1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         textArea1 = new JTextArea();
+        textArea1.setText("");
         panel1.add(textArea1, new GridConstraints(1, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         backButton = new JButton();
         backButton.setText("Back");
