@@ -112,6 +112,7 @@ public class LoginPage extends JFrame {
     signUp.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
+        DBMethod.closeConnection();
         new SignUpPage();
         frame.dispose();
       }
