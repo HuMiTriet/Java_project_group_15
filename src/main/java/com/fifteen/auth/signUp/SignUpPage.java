@@ -66,31 +66,34 @@ public class SignUpPage extends JFrame {
         String enteredSecondPassword = new String(reEnteredPassword.getPassword());
         String enteredUsername = username.getText();
         DBMethod.createConnection();
-        Boolean allFieldsCorrect = false;
+        Boolean firstPasswordFilled = false;
+        Boolean emailCorrect = false;
 
         // first check if all fields are emtpy
         UserAuthenticator.checkFieldEmpty(usernameLabel, enteredUsername,
             "Please enter your username");
 
-        allFieldsCorrect = UserAuthenticator.checkFieldEmpty(passwordMatch, enteredFirstPassword,
+        firstPasswordFilled = UserAuthenticator.checkFieldEmpty(passwordMatch, enteredFirstPassword,
             "Please enter your password");
 
-        if (allFieldsCorrect)
+        if (firstPasswordFilled)
           UserAuthenticator.checkFieldEmpty(passwordMatch, enteredSecondPassword,
               "Please re-enter your password again");
 
-        allFieldsCorrect = UserAuthenticator.checkEmailFormat(emailLabel, enteredEmail);
+        emailCorrect = UserAuthenticator.checkEmailFormat(emailLabel, enteredEmail);
 
-        if (allFieldsCorrect == true) {
-          allFieldsCorrect = UserAuthenticator.authenticateEmailField(emailLabel, enteredEmail,
+        if (emailCorrect == true) {
+          emailCorrect = !UserAuthenticator.authenticateEmailField(emailLabel, enteredEmail,
               "An account with this email was created");
         }
-        allFieldsCorrect = UserAuthenticator.checkFieldEmpty(passwordMatch, enteredFirstPassword,
-            "Please enter your password");
 
-        if (allFieldsCorrect)
-          UserAuthenticator.checkFieldEmpty(passwordMatch, enteredSecondPassword,
-              "Please re-enter your password again");
+        if (!enteredFirstPassword.equals(enteredSecondPassword) && !enteredSecondPassword.isBlank()
+            && !enteredFirstPassword.isBlank()) {
+          passwordMatch.setText("Paswords do not match");
+        }
+
+        if (emailCorrect == false)
+          return;
 
         if (enteredFirstPassword.equals(enteredSecondPassword) && !enteredEmail.isBlank() &&
             !enteredUsername.isBlank() && !enteredSecondPassword.isBlank()) {
