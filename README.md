@@ -31,11 +31,36 @@ https://www.overleaf.com/1164281224nmzrsyycctwn
 - Documentation: what should be included in the javadoc ? Description of the 
   Project week by week ? Version 1,2,3,etc. 
 
-# Todos
+# To-dos
 - Tell the team that we need to pass a User object to the event page.
-- Create a different Admin page
-- Work with Ante to send an email when a new account is created.
 
-- Ante create email API function (String email, String message) to send an
+- Create a different Admin page
+
+- Work with Ante to send an email when a new account is created.
+  + Ante create email API function (String email, String message) to send an
   email.
-- 
+
+- Duration of event
+- Location of event (GPS optional)
+- Participants
+- Attachments (files)
+
+– Reminder functionality → Drop down menu with the se1ection:
+  ∗ 1 week
+  ∗ 3 days
+  ∗ 1 hour
+  ∗ 10 minutes
+
+- Menu bar:
+  + Logout
+  + Export events
+  + Profile
+  + settings
+  + Switch view(later) daily weekly monthly 
+
+- Sidebar
+  + Create button 
+  + Today's events
+  + Upcoming events
+
+  

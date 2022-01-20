@@ -16,6 +16,10 @@ import javax.swing.JTextField;
 import com.fifteen.auth.login.LoginPage;
 import com.fifteen.auth.security.UserAuthenticator;
 import com.fifteen.database.DBMethod;
+import com.fifteen.database.User;
+import com.fifteen.database.UserDao;
+import com.fifteen.database.UserDaoImp;
+import com.fifteen.events.EventPageMain;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -28,9 +32,9 @@ import com.intellij.uiDesigner.core.Spacer;
  */
 public class SignUpPage extends JFrame {
   private JTextField email;
-  private JLabel EmailAdressLabel;
-  private JLabel PasswordLabel;
-  private JLabel ReEnterPasswordLabel;
+  private JLabel emailDisplay;
+  private JLabel firstPasswordDisplay;
+  private JLabel reEnteredPasswordDisplay;
   private JButton createAccountButton;
   private JButton signInButton;
   private JPanel SUPanel;
@@ -38,6 +42,9 @@ public class SignUpPage extends JFrame {
   private JPasswordField password;
   private JLabel emailLabel;
   private JLabel passwordMatch;
+  private JLabel usernameDisplay;
+  private JTextField username;
+  private JLabel usernameLabel;
   private JFrame frame;
 
   public SignUpPage() {
@@ -55,24 +62,52 @@ public class SignUpPage extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         String enteredEmail = email.getText();
-        String enteredFirstPassword = new String(password.getText());
+        String enteredFirstPassword = new String(password.getPassword());
         String enteredSecondPassword = new String(reEnteredPassword.getPassword());
-
-        boolean allFieldsCorrect = false;
-
+        String enteredUsername = username.getText();
         DBMethod.createConnection();
+        Boolean allFieldsCorrect = false;
 
-        allFieldsCorrect = UserAuthenticator.checkEmailFormat(emailLabel,
-            enteredEmail);
+        // first check if all fields are emtpy
+        UserAuthenticator.checkFieldEmpty(usernameLabel, enteredUsername,
+            "Please enter your username");
 
-        UserAuthenticator.checkPasswordEmpty(passwordMatch, enteredFirstPassword);
+        allFieldsCorrect = UserAuthenticator.checkFieldEmpty(passwordMatch, enteredFirstPassword,
+            "Please enter your password");
 
-        if (allFieldsCorrect) {
-          allFieldsCorrect = UserAuthenticator.authenticateEmailField(emailLabel,
-              enteredEmail);
+        if (allFieldsCorrect)
+          UserAuthenticator.checkFieldEmpty(passwordMatch, enteredSecondPassword,
+              "Please re-enter your password again");
+
+        allFieldsCorrect = UserAuthenticator.checkEmailFormat(emailLabel, enteredEmail);
+
+        if (allFieldsCorrect == true) {
+          allFieldsCorrect = UserAuthenticator.authenticateEmailField(emailLabel, enteredEmail,
+              "An account with this email was created");
         } else
           return;
 
+        UserAuthenticator.checkFieldEmpty(passwordMatch, enteredFirstPassword,
+            "Please enter your password");
+
+        UserAuthenticator.checkFieldEmpty(passwordMatch, enteredSecondPassword,
+            "Please re-enter your password again");
+
+        if (enteredFirstPassword.equals(enteredSecondPassword)) {
+
+          UserDao userHandler = new UserDaoImp();
+
+          User signUpUser = userHandler.createUserFromSignUp(enteredEmail, enteredUsername,
+              enteredSecondPassword, 0);
+
+          DBMethod.closeConnection();
+
+          new EventPageMain(signUpUser);
+          frame.dispose();
+
+        } else {
+          passwordMatch.setText("Paswords do not match");
+        }
       }
 
     });
@@ -103,40 +138,31 @@ public class SignUpPage extends JFrame {
   private void $$$setupUI$$$() {
     SUPanel = new JPanel();
     SUPanel.setLayout(new GridLayoutManager(15, 5, new Insets(0, 0, 0, 0), -1, -1));
+    emailDisplay = new JLabel();
+    emailDisplay.setText("Email adress");
+    SUPanel.add(emailDisplay, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
+        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     final Spacer spacer1 = new Spacer();
-    SUPanel.add(spacer1, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
+    SUPanel.add(spacer1, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
         1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-    EmailAdressLabel = new JLabel();
-    EmailAdressLabel.setText("Email adress");
-    SUPanel.add(EmailAdressLabel,
-        new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
+    firstPasswordDisplay = new JLabel();
+    firstPasswordDisplay.setText("Password");
+    SUPanel.add(firstPasswordDisplay,
+        new GridConstraints(7, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
             GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     final Spacer spacer2 = new Spacer();
-    SUPanel.add(spacer2, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
+    SUPanel.add(spacer2, new GridConstraints(9, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
         1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-    PasswordLabel = new JLabel();
-    PasswordLabel.setText("Password");
-    SUPanel.add(PasswordLabel, new GridConstraints(7, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
-        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-    email = new JTextField();
-    email.setText("");
-    SUPanel.add(email,
-        new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
-            GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null,
-            0, false));
-    final Spacer spacer3 = new Spacer();
-    SUPanel.add(spacer3, new GridConstraints(9, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
-        1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-    ReEnterPasswordLabel = new JLabel();
-    ReEnterPasswordLabel.setText("Re-Enter Password");
-    SUPanel.add(ReEnterPasswordLabel,
+    reEnteredPasswordDisplay = new JLabel();
+    reEnteredPasswordDisplay.setText("Re-Enter Password");
+    SUPanel.add(reEnteredPasswordDisplay,
         new GridConstraints(10, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
             GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-    final Spacer spacer4 = new Spacer();
-    SUPanel.add(spacer4, new GridConstraints(2, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
+    final Spacer spacer3 = new Spacer();
+    SUPanel.add(spacer3, new GridConstraints(2, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
         GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
-    final Spacer spacer5 = new Spacer();
-    SUPanel.add(spacer5, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
+    final Spacer spacer4 = new Spacer();
+    SUPanel.add(spacer4, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
         GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
     createAccountButton = new JButton();
     createAccountButton.setText("Create account");
@@ -144,14 +170,14 @@ public class SignUpPage extends JFrame {
         new GridConstraints(13, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
             GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
             GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    final Spacer spacer5 = new Spacer();
+    SUPanel.add(spacer5, new GridConstraints(14, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
+        1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     final Spacer spacer6 = new Spacer();
-    SUPanel.add(spacer6, new GridConstraints(14, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
+    SUPanel.add(spacer6, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
         1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     final Spacer spacer7 = new Spacer();
-    SUPanel.add(spacer7, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
-        1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-    final Spacer spacer8 = new Spacer();
-    SUPanel.add(spacer8, new GridConstraints(13, 2, 1, 1, GridConstraints.ANCHOR_CENTER,
+    SUPanel.add(spacer7, new GridConstraints(13, 2, 1, 1, GridConstraints.ANCHOR_CENTER,
         GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
     reEnteredPassword = new JPasswordField();
     reEnteredPassword.setText("");
@@ -170,8 +196,8 @@ public class SignUpPage extends JFrame {
         new GridConstraints(13, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
             GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
             GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-    final Spacer spacer9 = new Spacer();
-    SUPanel.add(spacer9, new GridConstraints(12, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
+    final Spacer spacer8 = new Spacer();
+    SUPanel.add(spacer8, new GridConstraints(12, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
         1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     final JLabel label1 = new JLabel();
     label1.setText("Already have an account?");
@@ -189,6 +215,26 @@ public class SignUpPage extends JFrame {
     emailLabel.setText("");
     SUPanel.add(emailLabel, new GridConstraints(5, 2, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    usernameDisplay = new JLabel();
+    usernameDisplay.setText("Username");
+    SUPanel.add(usernameDisplay, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
+        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    email = new JTextField();
+    email.setText("");
+    SUPanel.add(email,
+        new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
+            GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null,
+            0, false));
+    usernameLabel = new JLabel();
+    usernameLabel.setText("");
+    SUPanel.add(usernameLabel, new GridConstraints(3, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
+        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    username = new JTextField();
+    username.setText("");
+    SUPanel.add(username,
+        new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
+            GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null,
+            0, false));
   }
 
   /**

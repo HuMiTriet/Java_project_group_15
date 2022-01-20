@@ -67,19 +67,19 @@ public class LoginPage extends JFrame {
 
       DBMethod.createConnection();
 
+      UserAuthenticator.checkFieldEmpty(passwordLabel, enteredPassword, "Please enter your password");
+
       allFieldsCorrect = UserAuthenticator.checkEmailFormat(emailLabel,
           enteredEmail);
 
-      UserAuthenticator.checkPasswordEmpty(passwordLabel, enteredPassword);
-
       if (allFieldsCorrect) {
         allFieldsCorrect = UserAuthenticator.authenticateEmailField(emailLabel,
-            enteredEmail);
+            enteredEmail, "");
       } else
         return;
 
-      allFieldsCorrect = UserAuthenticator.checkPasswordEmpty(passwordLabel,
-          enteredPassword);
+      allFieldsCorrect = UserAuthenticator.checkFieldEmpty(passwordLabel, enteredPassword,
+          "Please enter your password");
 
       if (allFieldsCorrect) {
         allFieldsCorrect = UserAuthenticator.authenticatePasswordField(
@@ -87,7 +87,7 @@ public class LoginPage extends JFrame {
       } else
         return;
 
-      if (allFieldsCorrect) {
+      if (allFieldsCorrect == true && isAdminUser == false) {
         DBMethod.closeConnection();
         UserDao userHandler = new UserDaoImp();
         User loginUser = userHandler.createUserFromLogin(enteredEmail);

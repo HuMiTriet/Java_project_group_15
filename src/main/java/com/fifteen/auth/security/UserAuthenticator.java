@@ -32,7 +32,7 @@ public class UserAuthenticator {
 
   public static boolean checkEmailFormat(JLabel emailLabel, String enteredEmail) {
 
-    if (enteredEmail.isEmpty()) {
+    if (enteredEmail.isBlank()) {
       emailLabel.setText("Please enter your email");
       return false;
     } else {
@@ -48,14 +48,13 @@ public class UserAuthenticator {
   }
 
   public static boolean authenticateEmailField(JLabel emailLabel,
-      String enteredEmail) {
+      String enteredEmail, String message) {
 
     try {
       if (DBMethod.checkfieldExisted(enteredEmail, 'e')) {
-        emailLabel.setText("");
+        emailLabel.setText(message);
         return true;
       } else {
-        // emailLabel.setText("Invalid email or password");
         return false;
       }
 
@@ -66,12 +65,12 @@ public class UserAuthenticator {
 
   }
 
-  public static boolean checkPasswordEmpty(JLabel passwordLabel, String enteredPassword) {
-    if (enteredPassword.isEmpty()) {
-      passwordLabel.setText("Please enter your password");
+  public static boolean checkFieldEmpty(JLabel label, String enteredText, String message) {
+    if (enteredText.isBlank()) {
+      label.setText(message);
       return false;
     } else {
-      passwordLabel.setText("");
+      label.setText("");
       return true;
     }
   }
