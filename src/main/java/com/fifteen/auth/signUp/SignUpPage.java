@@ -84,16 +84,16 @@ public class SignUpPage extends JFrame {
         if (allFieldsCorrect == true) {
           allFieldsCorrect = UserAuthenticator.authenticateEmailField(emailLabel, enteredEmail,
               "An account with this email was created");
-        } else
-          return;
-
-        UserAuthenticator.checkFieldEmpty(passwordMatch, enteredFirstPassword,
+        }
+        allFieldsCorrect = UserAuthenticator.checkFieldEmpty(passwordMatch, enteredFirstPassword,
             "Please enter your password");
 
-        UserAuthenticator.checkFieldEmpty(passwordMatch, enteredSecondPassword,
-            "Please re-enter your password again");
+        if (allFieldsCorrect)
+          UserAuthenticator.checkFieldEmpty(passwordMatch, enteredSecondPassword,
+              "Please re-enter your password again");
 
-        if (enteredFirstPassword.equals(enteredSecondPassword)) {
+        if (enteredFirstPassword.equals(enteredSecondPassword) && !enteredEmail.isBlank() &&
+            !enteredUsername.isBlank() && !enteredSecondPassword.isBlank()) {
 
           UserDao userHandler = new UserDaoImp();
 
@@ -106,7 +106,10 @@ public class SignUpPage extends JFrame {
           frame.dispose();
 
         } else {
-          passwordMatch.setText("Paswords do not match");
+          if (!enteredFirstPassword.isBlank() && !enteredSecondPassword.isBlank()) {
+            passwordMatch.setText("Paswords do not match");
+          }
+          return;
         }
       }
 
