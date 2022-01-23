@@ -1,33 +1,80 @@
 package com.fifteen.mailApi;
 
 /**
- * simple program to establish a connection with an email provider (in this case gmail) and
- * send an email to that adress
+ * Establishing a connection with an email provider (in this case gmail) and
+ * sending an email from the user that created an event to all the participants (reminder, changes for event etc.)
  *
  *
  * @author Ante
  */
 
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.mail.internet.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class mailUtils {
-    public static void sendMail(String recipient) throws Exception {
+    Session newSession = null;
+    MimeMessage mimeMessage = null;
+
+    public void setupProperties()  {
         System.out.println("Preparing to send email");
-        Properties properties = new Properties(); //assign key and value to property
+        Properties properties = System.getProperties(); //assign key and value to property
 
-        //Setting up the data to connect to the gmail servers
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "587");
+        //Setting up the properties to connect to the gmail servers
+        properties.put("mail.smtp.auth", "true"); //Set authentication for Google
+        properties.put("mail.smtp.starttls.enable", "true"); //Start TLS connection
+        properties.put("mail.smtp.host", "smtp.gmail.com"); //Gmail host location
+        properties.put("mail.smtp.port", "587"); //Port for TLS connection
 
-        String emailAddress = "javacomtwentyone@gmail.com";
-        String password = "StrongPassword21";
+        newSession = Session.getDefaultInstance(properties, null); //creating a new session
+    }
+
+    mailUtils mail = new mailUtils();
+    mail.draftEmail();
+    mail.sendEmail();
+
+    private MimeMessage draftEmail() throws AddressException, MessagingException {
+        String[] emailAdress = {"pj@gmail.com", "ante@gmail.com", "jorge@gmail.com", "tim@gmail.com"};
+        String emailSubject = "Reminder for your upcoming event";
+        String emailBody = "Hey There,\nThis is a reminder that your event INSERT_NAME will start in 12345 mins/hours/days/weeks";
+        String[] password = {"AnimeMan69", "CoffeAddict11", "MavenLover123", "SleepIsLife777"};
+        mimeMessage = new MimeMessage(newSession);
+
+        for (int i=0; i<emailAdress.length; i++){
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(emailAdress[i]));
+        }
+
+        mimeMessage.setSubject(emailSubject);
+        MimeMultipart multiPart = new MimeMultipart();
+
+        MimeBodyPart bodyPart = new MimeBodyPart();
+        bodyPart.setContent(emailBody, "html/text");
+        multiPart.addBodyPart(bodyPart);
+        mimeMessage.setContent(multiPart);
+        return mimeMessage;
+    }
+
+    //Send an email from admin account to all the
+    private void sendEmail() throws MessagingException {
+        String fromUser = "User that created event [username] => admin@gmail.com";
+        String fromUserPassword = "User that created event [password] = > *******";
+        String emailHost = "smtp.gmail.com";
+        Transport transport = newSession.getTransport("smtp"); //get object of the transport class using the new session that is created
+        transport.connect(emailHost, fromUser, fromUserPassword); //connecting to the account that the emails will be sent from
+        transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients()); //send the message and all their recipients from MimeMessage Method
+        transport.close(); //close email transport
+        System.out.println("Email sent successfully!");
+    }
+
+}
+
+/*
+                                            ********* OLD CODE *********
+
+String emailAddress = //"javacomtwentyone@gmail.com";
+        String password = //"StrongPassword21";
 
         //Session represents the connection to the mailserver
         //It contains the server data and an authentication object
@@ -50,12 +97,14 @@ public class mailUtils {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(emailAddress));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-            message.setSubject("THIS CODE WORKS WOHOOOO");
-            message.setText("Hey There, \n This is a reminder email for the upcoming event");
+            message.setSubject("Reminder for your upcoming event");
+            message.setText("Hey There,\nThis is a reminder that your event will start in 12345 mins/hours/days/weeks");
             return message;
         } catch (Exception e) {
             Logger.getLogger(mailUtils.class.getName()).log(Level.SEVERE, null, e);
         }
         return null;
-    }
-}
+    }*/
+
+
+
