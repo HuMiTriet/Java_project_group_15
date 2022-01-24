@@ -32,8 +32,8 @@ public class mailUtils {
     }
 
     mailUtils mail = new mailUtils();
-    mail.draftEmail();
-    mail.sendEmail();
+    //mail.draftEmail();
+    //mail.sendEmail();
 
     private MimeMessage draftEmail() throws AddressException, MessagingException {
         String[] emailAdress = {"pj@gmail.com", "ante@gmail.com", "jorge@gmail.com", "tim@gmail.com"};
