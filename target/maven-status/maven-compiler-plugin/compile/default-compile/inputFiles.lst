@@ -1,6 +1,8 @@
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/events/ShowEvents.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/App.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/auth/security/PasswordHasher.java
+/home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/events/local/Event.java
+/home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/events/local/CheckDate.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/events/local/JsonWriter.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/auth/security/UserAuthenticator.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/auth/login/LoginPage.java
@@ -14,5 +16,6 @@
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/auth/signUp/SignUpPage.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/database/UserDao.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/database/User.java
+/home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/events/local/Location.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/events/AddEvents.java
 /home/pj/coding/Java/Java_project_group_21/src/main/java/com/fifteen/database/DBConnection.java

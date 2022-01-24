@@ -29,21 +29,8 @@ public class App {
 
     // Added functionality to the Login page
     // Available user: email: t@g.com | password: B
-    // closeConnection();
-    // new LoginPage();
-    Set<String> par = new HashSet<String>();
-    par.add("\"Tim\"");
-    par.add("\"Ante\"");
-    par.add("\"PJ\"");
-    par.add("\"PJ\"");
-
-    Calendar bday = CheckDate.validate("13:15 02/02/1994");
-
-    Location location = new Location("FFM", 1.0, 1.0);
-    Priority pri = Priority.HIGH;
-    Event event = new Event("B", "test", bday, par, location, pri);
-
-    JsonWriter.addEventToLocalData(event);
+    closeConnection();
+    new LoginPage();
     // mailUtils.sendMail("javacomtwentyone@gmail.com");
   }
 }
