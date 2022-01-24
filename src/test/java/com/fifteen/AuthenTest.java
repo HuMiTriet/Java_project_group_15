@@ -56,9 +56,6 @@
 // }
 // }
 
-// @Test
-// void emailFeild() {
-
 // @AfterAll
 // public void closeConnection() {
 // DBMethod.closeConnection();

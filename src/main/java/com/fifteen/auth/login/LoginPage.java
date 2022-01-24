@@ -28,7 +28,7 @@ import com.fifteen.events.EventPageMain;
  * database. If the entered email existed and the password is correct then switch to the main 
  * event page.
  * The testing account: email: t@g.com | password: B
- * @author Ante, PJ
+ * @author Ante, Triet Huynh
  */
 
 import com.intellij.uiDesigner.core.GridConstraints;

@@ -1,9 +1,10 @@
 package com.fifteen;
 
+import static com.fifteen.database.DBMethod.closeConnection;
+
 import javax.swing.UIManager;
 
 import com.fifteen.auth.login.LoginPage;
-import com.fifteen.database.DBMethod;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 public class App {
@@ -18,13 +19,9 @@ public class App {
 
     // Added functionality to the Login page
     // Available user: email: t@g.com | password: B
-    DBMethod.closeConnection();
+    closeConnection();
     new LoginPage();
-    // new SignUpPage();
 
-    // new EventPageMain();
-
-    // Sending an email to recipient
     // mailUtils.sendMail("javacomtwentyone@gmail.com");
   }
 }

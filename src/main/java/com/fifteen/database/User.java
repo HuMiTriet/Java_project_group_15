@@ -13,7 +13,7 @@ import lombok.ToString;
  * Password is automatically hashed after the text password is passed in the
  * constructor
  * 
- * @author PJ
+ * @author Triet Huynh
  */
 @Getter
 @ToString

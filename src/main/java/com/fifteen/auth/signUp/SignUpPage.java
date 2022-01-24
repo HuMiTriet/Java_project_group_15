@@ -28,7 +28,7 @@ import com.intellij.uiDesigner.core.Spacer;
  * Sign Up page with email regex, check if username and email existed. If all
  * passwed a new user will be added to the database
  *
- * @author Ante(intially), PJ(modify)
+ * @author Ante(intially), Triet Huynh(modify)
  */
 public class SignUpPage extends JFrame {
   private JTextField email;

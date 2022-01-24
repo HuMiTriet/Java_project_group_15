@@ -4,7 +4,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * simple hash function to hash any string into a string of 64 character
- * @author PJ
+ * @author Triet Huynh
  * @see https://www.baeldung.com/sha-256-hashing-java
  */
 public class PasswordHasher {

@@ -6,10 +6,10 @@ import java.sql.SQLException;
 
 /**
  * A singleton class
- * Connects to the frankfurt UAS remote SQL server using PJ's account
+ * Connects to the frankfurt UAS remote SQL server using Triet Huynh's account
  * Database Architecture:
  * 
- * @author PJ
+ * @author Triet Huynh
  */
 public class DBConnection {
   private final static String URL = "jdbc:oracle:thin:@db1.fb2.frankfurt-university.de:1521:info01";
@@ -24,7 +24,7 @@ public class DBConnection {
   /**
    * Establish the connection to the remote database server
    * 
-   * @author PJ
+   * @author Triet Huynh
    */
 
   public static Connection getConnection() {

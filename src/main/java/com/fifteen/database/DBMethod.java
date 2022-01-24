@@ -37,7 +37,7 @@ public class DBMethod {
    * is not run the sever could be lag or not responsive due to the previous
    * connection still running
    * 
-   * @author PJ
+   * @author Triet Huynh
    */
   public static void closeConnection() {
     if (connection != null) {
@@ -58,7 +58,7 @@ public class DBMethod {
    * @param user take in a user object of the User class
    * @see User
    *      {@link package com.twenty.one.database}
-   * @author PJ
+   * @author Triet Huynh
    */
   public static void signUp(User user) throws SQLException {
 
