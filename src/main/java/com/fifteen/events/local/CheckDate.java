@@ -11,7 +11,7 @@ import org.apache.commons.validator.routines.CalendarValidator;
  * @author Triet Huynh
  */
 public class CheckDate {
-  private static final String PATTERN = "dd/MM/yyyy HH:mm";
+  private static final String PATTERN = "HH:mm dd/MM/yyyy";
   private static CalendarValidator calendarValidator = new CalendarValidator();
 
   /**

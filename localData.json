@@ -1,0 +1,26 @@
+{
+  "B_7b1df633-e5dc-48fb-a2b2-0c5b70db101d": {
+    "eventName": "test",
+    "location": {
+      "locationName": "FFM",
+      "latitude": 1.0,
+      "longtitude": 1.0
+    },
+    "time": {
+      "date": 2,
+      "dayOfWeek": 4,
+      "hour": 13,
+      "month": 2,
+      "year": 1994,
+      "minute": 15
+    },
+    "priority": "HIGH",
+    "participants": [
+      [
+        "PJ",
+        "Tim",
+        "Ante"
+      ]
+    ]
+  }
+}
