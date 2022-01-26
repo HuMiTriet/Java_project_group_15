@@ -75,7 +75,7 @@ public class EventPageMain extends JFrame {
 
         y1 = new JMenuItem("Profile");
         y2 = new JMenuItem("Settings");
-        y3 = new JMenuItem("Log Out");
+        y3 = new JMenuItem("Log Out and Exit");
 
         a1 = new JMenuItem("Documentation");
         // add menu items to menu
@@ -95,7 +95,6 @@ public class EventPageMain extends JFrame {
 
         // add menubar to frame
         frame.setJMenuBar(e_menuBar);
-
 
         frame.add(panel1);
         frame.pack();
@@ -142,6 +141,24 @@ public class EventPageMain extends JFrame {
         a29Button.addActionListener(new ShowEventsForDay());
         a30Button.addActionListener(new ShowEventsForDay());
         a31Button.addActionListener(new ShowEventsForDay());
+
+
+        class openSettings implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EventSettings();
+            }
+        }
+        y2.addActionListener(new openSettings());
+
+
+        class exitLogout implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        }
+        y3.addActionListener(new exitLogout());
 
     }
 
