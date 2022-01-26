@@ -1,5 +1,6 @@
 package com.fifteen.events;
 
+import com.fifteen.auth.login.LoginPage;
 import com.fifteen.database.User;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -51,7 +52,7 @@ public class EventPageMain extends JFrame {
     private JMenu x;
     private JMenuItem x1, x2, x3;
     private JMenu y;
-    private JMenuItem y1, y2, y3;
+    private JMenuItem y1, y2, y3, y4;
     private JMenu a;
     private JMenuItem a1;
 
@@ -75,7 +76,8 @@ public class EventPageMain extends JFrame {
 
         y1 = new JMenuItem("Profile");
         y2 = new JMenuItem("Settings");
-        y3 = new JMenuItem("Log Out and Exit");
+        y3 = new JMenuItem("Log Out");
+        y4 = new JMenuItem("Exit");
 
         a1 = new JMenuItem("Documentation");
         // add menu items to menu
@@ -86,6 +88,7 @@ public class EventPageMain extends JFrame {
         y.add(y1);
         y.add(y2);
         y.add(y3);
+        y.add(y4);
 
         a.add(a1);
         // add menu to menu bar
@@ -151,14 +154,22 @@ public class EventPageMain extends JFrame {
         }
         y2.addActionListener(new openSettings());
 
+        class logOut implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new LoginPage();
+                frame.dispose();
+            }
+        }
+        y3.addActionListener(new logOut());
 
-        class exitLogout implements ActionListener {
+        class eventExit implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         }
-        y3.addActionListener(new exitLogout());
+        y4.addActionListener(new eventExit());
 
     }
 
