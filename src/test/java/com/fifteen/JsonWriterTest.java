@@ -6,7 +6,7 @@ import java.util.Set;
 
 import com.fifteen.events.local.CheckDate;
 import com.fifteen.events.local.Event;
-import com.fifteen.events.local.JsonWriter;
+// import com.fifteen.events.local.JsonWriter;
 import com.fifteen.events.local.Location;
 import com.fifteen.events.local.Priority;
 
@@ -28,6 +28,6 @@ public class JsonWriterTest {
     Priority pri = Priority.HIGH;
     Event event = new Event("B", "test", bday, par, location, pri);
 
-    JsonWriter.addEventToLocalData(event);
+    // JsonWriter.addEventToLocalData(event);
   }
 }
