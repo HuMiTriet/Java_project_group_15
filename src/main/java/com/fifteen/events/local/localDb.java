@@ -44,36 +44,35 @@ public class localDb {
 
   public static void createLocalConncetion() throws SQLException {
     if (connection == null)
-      connection = DriverManager.getConnection("jdbc:sqlite:" + LOCAL_DATABASE);
+      connection = DriverManager.getConnection("jdbc:sqlite:local.db");
     if (statement == null)
       statement = connection.createStatement();
     statement.setQueryTimeout(30);
   }
 
   private static void createEventTable() throws SQLException {
+    System.out.println("EVENT");
     statement.executeUpdate(
         "create table event ("
-            + "	id 	varchar2(300) constraint event_eventId_pk primary key,"
+            + "	event_id 	varchar2(300) constraint event_eventId_pk primary key,"
             + "	name varchar2(200),"
             + "	priority varchar2(10))");
+
   }
 
   private static void createLocationTable() throws SQLException {
+    System.out.println("LOCATIOn");
     statement.executeUpdate(
-        "create table location ("
-            + "	id 	varchar2(300) constraint location_eventId_pk primary key,"
-            + "	name varchar2(200),"
-            + "	longitude REAL,"
-            + "	latitude REAL),"
-            + "constraint location_eventId_fk"
-            + "foreign key (id) references event(id) on delete cascade"
+        "create table location("
+            + "event_id varchar2(300) constraint location_eventId_pk primary key"
             + ")");
   }
 
   private static void createTimeTable() throws SQLException {
+    System.out.println("TIME");
     statement.executeUpdate(
         "create table time ("
-            + "	id 	varchar2(300) constraint time_eventId_pk primary key,"
+            + "event_id varchar2(300) constraint time_eventId_pk primary key,"
             + "minute INTEGER,"
             + "hour INTEGER,"
             + "day_of_week INTEGER,"
@@ -81,8 +80,45 @@ public class localDb {
             + "month INTEGER,"
             + "year INTEGER,"
             + "constraint time_eventId_fk"
-            + "foreign key (id) references event(id) on delete cascade"
+            + "foreign key (event_id) references event(event_id) on delete cascade"
             + ")");
+
+  }
+
+  public static void initializeLocalDatabase() {
+    loadSqliteDriver();
+    try {
+      if (checkLocalDatabaseExist()) {
+        createLocalConncetion();
+        System.out.println("EXISTED");
+      } else {
+        createLocalConncetion();
+        createEventTable();
+        // createLocationTable();
+        createTimeTable();
+        System.out.println("created new database locally");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    // try {
+    // createLocalConncetion();
+    // } catch (SQLException e) {
+    // e.printStackTrace();
+    // }
+
+    // if (checkLocalDatabaseExist()) {
+    // System.out.println("EXISTED");
+    // } else {
+    // try {
+    // createEventTable();
+    // createLocationTable();
+    // createTimeTable();
+    // System.out.println("created new database locally");
+    // } catch (SQLException e) {
+    // e.printStackTrace();
+    // }
+    // }
   }
 
 }

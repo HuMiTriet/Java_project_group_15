@@ -19,8 +19,8 @@ public class App {
     // Available user: email: t@g.com | password: B
     // closeConnection();
     // new LoginPage();
-    // localDb.initializeLocalDatabase();
-    // localDb.closeConnection();
+    localDb.initializeLocalDatabase();
+    localDb.closeLocalConnection();
 
     // mailUtils.sendMail("javacomtwentyone@gmail.com");
   }
