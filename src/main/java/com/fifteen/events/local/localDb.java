@@ -64,7 +64,11 @@ public class localDb {
     System.out.println("LOCATIOn");
     statement.executeUpdate(
         "create table location("
-            + "event_id varchar2(300) constraint location_eventId_pk primary key"
+            + "event_id varchar2(300) constraint location_eventId_pk primary key,"
+            + "name varchar2(200),"
+            + "longtitude REAL,"
+            + "latitude REAL,"
+            + "foreign key (event_id) references event(event_id) on delete cascade"
             + ")");
   }
 
@@ -79,7 +83,7 @@ public class localDb {
             + "day INTEGER,"
             + "month INTEGER,"
             + "year INTEGER,"
-            + "constraint time_eventId_fk"
+            // + "constraint time_eventId_fk"
             + "foreign key (event_id) references event(event_id) on delete cascade"
             + ")");
 
@@ -94,7 +98,7 @@ public class localDb {
       } else {
         createLocalConncetion();
         createEventTable();
-        // createLocationTable();
+        createLocationTable();
         createTimeTable();
         System.out.println("created new database locally");
       }
