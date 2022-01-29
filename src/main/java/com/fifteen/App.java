@@ -18,7 +18,7 @@ public class App {
     // create the object of Login Page to test if it's working
 
     try {
-      UIManager.setLookAndFeel(new FlatIntelliJLaf());
+      UIManager.setLookAndFeel(new FlatDarculaLaf());
     } catch (Exception ex) {
       System.err.println("Failed to initialize LaF");
     }
