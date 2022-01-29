@@ -10,16 +10,15 @@ import com.fifteen.database.UserDao;
 import com.fifteen.database.UserDaoImp;
 import com.fifteen.events.EventPageMain;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.fifteen.events.CalendarView;
-
-import java.util.Calendar;
 
 public class App {
   public static void main(String[] args) throws Exception {
     // create the object of Login Page to test if it's working
 
     try {
-      UIManager.setLookAndFeel(new FlatDarculaLaf());
+      UIManager.setLookAndFeel(new FlatIntelliJLaf());
     } catch (Exception ex) {
       System.err.println("Failed to initialize LaF");
     }
@@ -29,9 +28,9 @@ public class App {
 
     // closeConnection();
     // new LoginPage();
-    UserDao userHandler = new UserDaoImp();
-    User user = userHandler.createUserFromLogin("t@g.com");
-    //new EventPageMain(user);
+    // UserDao userHandler = new UserDaoImp();
+    // User user = userHandler.createUserFromLogin("t@g.com");
+    // new EventPageMain(user);
     new CalendarView();
 
     // localDb.initializeLocalDatabase();
