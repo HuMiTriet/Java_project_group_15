@@ -1,38 +1,32 @@
-// package com.fifteen;
+package com.fifteen;
 
-// import static org.junit.Assert.assertTrue;
-// import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import java.util.GregorianCalendar;
 
-// import org.apache.commons.validator.GenericValidator;
-// import org.apache.commons.validator.routines.DateValidator;
-// import org.junit.jupiter.api.BeforeAll;
-// import org.junit.jupiter.api.Test;
-// import org.junit.jupiter.api.TestInstance;
+import com.fifteen.events.local.CheckDate;
 
-// /**
-//  * for checking the date format
-//  */
-// // DateValidator a = new DateValidator();
-// // Date b = a.validate("02/02/1994 23:59", "dd/MM/yyyy HH:mm");
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
-// // System.out.println(b.toString());
-// @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-// public class DateValidatorTest {
-//   private DateValidator dateValidator;
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class DateValidatorTest {
+  @Test
+  void testDate() {
+    GregorianCalendar calendar = CheckDate.validateDate("14/02/2002");
+    System.out.println(calendar.get(GregorianCalendar.DATE));
+    System.out.println(calendar.get(GregorianCalendar.MONTH));
+    System.out.println(calendar.get(GregorianCalendar.YEAR));
+  }
 
-//   private static final String PATTERN = "dd/MM/yyyy HH:mm";
+  @Test
+  void testTime() {
+    GregorianCalendar time = CheckDate.validateTime("14:15");
+    System.out.println(time.get(GregorianCalendar.HOUR_OF_DAY));
+    System.out.println(time.get(GregorianCalendar.MINUTE));
+  }
 
-//   @BeforeAll
-//   void setUpValidator() {
-//     dateValidator = new DateValidator();
-//   }
-
-//   @Test
-//   void checkDate() {
-//     assertTrue(GenericValidator.isDate("02/02/1994 13:00", PATTERN, true));
-//   }
-
-//   // @Test
-//   // void convertToDateClassIfTrue() {
-//   // }
-// }
+  // @Test
+  // void testTimeReturnNull() {
+  // GregorianCalendar time = CheckDate.validateTime("14:15");
+  // assertTrue(CheckDate.validateTime(timeString))
+  // }
+}

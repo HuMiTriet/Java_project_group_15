@@ -1,6 +1,6 @@
 package com.fifteen.events.local;
 
-import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -18,26 +18,30 @@ import lombok.Getter;
  */
 @Getter
 public class Event {
-  private String eventID;
-  private String eventName;
-  private Calendar calendar;
-  private Set<String> participants = new HashSet<String>();
+  private String eventID = "null";
+  private String eventName = "null";
+  private GregorianCalendar dayOfEvent;
+  private int event_duration_minute = 0;
+  private Set<String> participants_email = new HashSet<String>();
   private Location location;
   private Priority priority;
+  private int priority_score;
 
-  public Event(String userEmail, String eventName, Calendar calendar, Set<String> participants,
-      Location location, Priority priority) {
+  public Event(String userEmail, String eventName, GregorianCalendar dayOfEvent, Set<String> participants_email,
+      Location location, Priority priority, int priority_score, int event_duration_minute) {
+    this.priority_score = priority_score;
     this.eventID = userEmail + "_" + UUID.randomUUID().toString();
     this.eventName = eventName;
-    this.calendar = calendar;
+    this.dayOfEvent = dayOfEvent;
+    this.event_duration_minute = event_duration_minute;
     this.location = location;
-    this.participants.addAll(participants);
+    this.participants_email.addAll(participants_email);
     this.priority = priority;
   }
 
   public void addParticipant(String[] participantsEmails) {
     for (int i = 0; i < participantsEmails.length; i++) {
-      this.participants.add("\"" + participantsEmails[i] + "\"");
+      this.participants_email.add("\"" + participantsEmails[i] + "\"");
     }
 
   }

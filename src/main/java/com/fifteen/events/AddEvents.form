@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="panel1" layout-manager="GridLayoutManager" row-count="18" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="544"/>
+      <xy x="20" y="20" width="569" height="614"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -26,7 +26,7 @@
           <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
-      <component id="75241" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="75241" class="javax.swing.JTextField" binding="eventNameText">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -52,13 +52,15 @@
           <text value="Start time"/>
         </properties>
       </component>
-      <component id="6fb4b" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+      <component id="6fb4b" class="javax.swing.JTextField" binding="startTimeText">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=""/>
+        </properties>
       </component>
       <component id="44dc8" class="javax.swing.JLabel">
         <constraints>
@@ -68,15 +70,17 @@
           <text value="End time"/>
         </properties>
       </component>
-      <component id="e87d2" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+      <component id="e87d2" class="javax.swing.JTextField" binding="eventDurationText">
         <constraints>
           <grid row="7" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=""/>
+        </properties>
       </component>
-      <component id="f63c8" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+      <component id="f63c8" class="javax.swing.JTextArea" binding="eventDescriptionText">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
@@ -168,10 +172,42 @@
           </model>
         </properties>
       </component>
-      <component id="4d3db" class="com.toedter.calendar.JDateChooser" binding="date" custom-create="true">
+      <component id="4d3db" class="com.toedter.calendar.JDateChooser" binding="jDateChooser" custom-create="true">
         <constraints>
           <grid row="9" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
+      </component>
+      <component id="1919a" class="javax.swing.JLabel" binding="errorGregorianCalendar">
+        <constraints>
+          <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="41271" class="javax.swing.JLabel" binding="eventNameLabel">
+        <constraints>
+          <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="fda06" class="javax.swing.JLabel" binding="startTimeLabel">
+        <constraints>
+          <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="99343" class="javax.swing.JLabel" binding="eventDurationLabel">
+        <constraints>
+          <grid row="7" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
       </component>
     </children>
   </grid>

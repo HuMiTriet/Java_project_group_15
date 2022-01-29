@@ -56,18 +56,21 @@ public class localDb {
         "create table event ("
             + "	event_id 	varchar2(300) constraint event_eventId_pk primary key,"
             + "	name varchar2(200),"
-            + "	priority varchar2(10))");
+            + "location_name varchar2(200),"
+            + "longtitude REAL,"
+            + "latitude REAL,"
+            + "	priority varchar2(10),"
+            + "priorty_score INTEGER"
+            + ")");
 
   }
 
   private static void createLocationTable() throws SQLException {
-    System.out.println("LOCATIOn");
+    System.out.println("participants");
     statement.executeUpdate(
-        "create table location("
-            + "event_id varchar2(300) constraint location_eventId_pk primary key,"
-            + "name varchar2(200),"
-            + "longtitude REAL,"
-            + "latitude REAL,"
+        "create table participants("
+            + "event_id varchar2(300) constraint participants_eventId_pk primary key,"
+            + "participants_email varchar2(200),"
             + "foreign key (event_id) references event(event_id) on delete cascade"
             + ")");
   }
@@ -77,10 +80,11 @@ public class localDb {
     statement.executeUpdate(
         "create table time ("
             + "event_id varchar2(300) constraint time_eventId_pk primary key,"
-            + "minute INTEGER,"
-            + "hour INTEGER,"
+            + "start_minute INTEGER,"
+            + "start_hour INTEGER,"
+            + "event_duration_minute INTEGER,"
             + "day_of_week INTEGER,"
-            + "day INTEGER,"
+            + "date INTEGER,"
             + "month INTEGER,"
             + "year INTEGER,"
             // + "constraint time_eventId_fk"
@@ -105,24 +109,6 @@ public class localDb {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    // try {
-    // createLocalConncetion();
-    // } catch (SQLException e) {
-    // e.printStackTrace();
-    // }
-
-    // if (checkLocalDatabaseExist()) {
-    // System.out.println("EXISTED");
-    // } else {
-    // try {
-    // createEventTable();
-    // createLocationTable();
-    // createTimeTable();
-    // System.out.println("created new database locally");
-    // } catch (SQLException e) {
-    // e.printStackTrace();
-    // }
-    // }
   }
 
 }
