@@ -10,6 +10,9 @@ import com.fifteen.database.UserDao;
 import com.fifteen.database.UserDaoImp;
 import com.fifteen.events.EventPageMain;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.fifteen.events.CalendarView;
+
+import java.util.Calendar;
 
 public class App {
   public static void main(String[] args) throws Exception {
@@ -28,7 +31,8 @@ public class App {
     // new LoginPage();
     UserDao userHandler = new UserDaoImp();
     User user = userHandler.createUserFromLogin("t@g.com");
-    new EventPageMain(user);
+    //new EventPageMain(user);
+    new CalendarView();
 
     // localDb.initializeLocalDatabase();
     // localDb.closeLocalConnection();
