@@ -49,8 +49,13 @@ public class CalendarView extends JFrame {
         currentYear = Year;
 
         //Create TableModel and add it to Table
-        mdlCalendar = new DefaultTableModel();
+        mdlCalendar = new DefaultTableModel() {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         tblCalendar.setModel(mdlCalendar);
+
         spanel1.add(tblCalendar);
         spanel1.setViewportView(tblCalendar);
 
@@ -94,7 +99,7 @@ public class CalendarView extends JFrame {
                 } else {
                     currentMonth -= 1;
                 }
-               updateCalendar(currentMonth, currentYear);
+                updateCalendar(currentMonth, currentYear);
 
             }
         });
