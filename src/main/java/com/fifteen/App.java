@@ -27,10 +27,11 @@ public class App {
     // closeConnection();
     // new LoginPage();
 
-    localDb.initializeLocalDatabase();
-    // UserDao userHandler = new UserDaoImp();
-    // User user = userHandler.createUserFromLogin("t@g.com");
-    // new CalendarView(user);
+    // localDb.initializeLocalDatabase();
+
+    UserDao userHandler = new UserDaoImp();
+    User user = userHandler.createUserFromLogin("t@g.com");
+    new CalendarView(user);
 
     // mailUtils.sendMail("javacomtwentyone@gmail.com");
   }
