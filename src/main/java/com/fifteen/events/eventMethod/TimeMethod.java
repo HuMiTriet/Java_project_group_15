@@ -4,7 +4,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.GregorianCalendar;
 
 /**
- * A suite of method to deal with problems related to Event time.
+ * A suite of method to deal with problems related to EventLocal time.
  * 
  * @author Triet Huynh
  */

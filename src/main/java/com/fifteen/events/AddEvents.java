@@ -3,8 +3,9 @@ package com.fifteen.events;
 import com.fifteen.database.User;
 import com.fifteen.events.eventMethod.TimeMethod;
 import com.fifteen.events.local.CheckDate;
+import com.fifteen.events.local.EventLocal;
 import com.fifteen.events.local.Location;
-import com.fifteen.events.local.Priority;
+import com.fifteen.events.local.localDb;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -44,7 +45,7 @@ public class AddEvents extends JFrame {
 
   public AddEvents(User user) {
 
-    frame = new JFrame("Add Event");
+    frame = new JFrame("Add EventLocal");
     $$$setupUI$$$();
     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     frame.setPreferredSize(new Dimension(500, 700));
@@ -109,11 +110,16 @@ public class AddEvents extends JFrame {
 
           GregorianCalendar currentDay = CheckDate.validateDate(date);
           Set<String> participants = new HashSet<String>();
-          participants.add("Balasdjka");
+          participants.add("Year");
+          participants.add("of");
+          participants.add("the");
+          participants.add("tiger");
 
-          Event newEvent = new Event(user.getEmail(), eventNameText.getText(), eventDescriptionText.getText(),
+          EventLocal newEventLocal = new EventLocal(user.getEmail(), eventNameText.getText(),
+              eventDescriptionText.getText(),
               currentDay, participants, location, priorityPicker.getSelectedItem().toString(),
               priority_score, durationMinute);
+          localDb.addEventLocal(newEventLocal);
 
           frame.dispose();
         }
@@ -146,7 +152,7 @@ public class AddEvents extends JFrame {
     panel1 = new JPanel();
     panel1.setLayout(new GridLayoutManager(24, 5, new Insets(0, 0, 0, 0), -1, -1));
     final JLabel label1 = new JLabel();
-    label1.setText("Event Name");
+    label1.setText("EventLocal Name");
     panel1.add(label1, new GridConstraints(0, 1, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE,
         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     final Spacer spacer1 = new Spacer();
@@ -162,7 +168,7 @@ public class AddEvents extends JFrame {
             GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null,
             0, false));
     final JLabel label2 = new JLabel();
-    label2.setText("Event description");
+    label2.setText("EventLocal description");
     panel1.add(label2, new GridConstraints(2, 1, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE,
         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     final JLabel label3 = new JLabel();
@@ -219,7 +225,7 @@ public class AddEvents extends JFrame {
     panel1.add(spacer3, new GridConstraints(22, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
         1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     addEventButton = new JButton();
-    addEventButton.setText("Add Event");
+    addEventButton.setText("Add EventLocal");
     panel1.add(addEventButton,
         new GridConstraints(23, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
             GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,

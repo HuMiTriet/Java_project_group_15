@@ -15,7 +15,7 @@ https://www.overleaf.com/1164281224nmzrsyycctwn
 - Password show/hide button
 - Switch to sign up page
 - Sign in with username t@g.com
-- Login into event page
+- Login into eventLocal page
 
 ## Sign up page
 - check Username exist
@@ -23,7 +23,7 @@ https://www.overleaf.com/1164281224nmzrsyycctwn
 - check email existed
 - check two password matches 
 - Create new user
-- Login into event page
+- Login into eventLocal page
 
 # Ask Mr. LaBlunda
 - What does it "Admin account" mean ? Is it like a team leader ? Or the
@@ -32,7 +32,7 @@ https://www.overleaf.com/1164281224nmzrsyycctwn
   Project week by week ? Version 1,2,3,etc. 
 
 # To-dos
-- Tell the team that we need to pass a User object to the event page.
+- Tell the team that we need to pass a User object to the eventLocal page.
 
 - Create a different Admin page
 
@@ -40,8 +40,8 @@ https://www.overleaf.com/1164281224nmzrsyycctwn
   + Ante create email API function (String email, String message) to send an
   email.
 
-- Duration of event
-- Location of event (GPS optional)
+- Duration of eventLocal
+- Location of eventLocal (GPS optional)
 - Participants
 - Attachments (files)
 

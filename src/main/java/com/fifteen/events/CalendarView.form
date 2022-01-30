@@ -68,7 +68,7 @@
         <properties>
           <horizontalAlignment value="0"/>
           <horizontalTextPosition value="11"/>
-          <text value="Add event"/>
+          <text value="Add eventLocal"/>
         </properties>
       </component>
     </children>

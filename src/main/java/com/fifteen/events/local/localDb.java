@@ -8,8 +8,6 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import com.fifteen.events.eventMethod.TimeMethod;
-
 import org.apache.commons.dbutils.DbUtils;
 
 /**
@@ -101,8 +99,44 @@ public class localDb {
 
   }
 
-  public static void addEventLocal(Event event) {
-      String sql = "insert ";
+  private static void addToEventTable(EventLocal eventLocal) throws SQLException {
+    String sql = "insert into event values("
+        + "'" + eventLocal.getEventID() + "',"
+        + "'" + eventLocal.getEventName() + "',"
+        + "'" + eventLocal.getLocation().getName() + "',"
+        + eventLocal.getLocation().getLongitude() + ","
+        + eventLocal.getLocation().getLatitude() + ","
+        + "'" + eventLocal.getPriority() + "',"
+        + eventLocal.getPriority_score()
+        + ")";
+    // System.out.println(sql);
+    statement.executeUpdate(sql);
+  }
+
+  // private static void addToParticipantsTable(EventLocal eventLocal) throws
+  // SQLException {
+
+  // for (String participant : eventLocal.getParticipants_email()) {
+  // statement.executeUpdate("insert into participants values("
+  // + "'" + eventLocal.getEventID() + "',"
+  // +"";
+  // );
+  // }
+  // }
+
+  private static void addToTimeTable() {
+  }
+
+  public static void addEventLocal(EventLocal eventLocal) {
+    loadSqliteDriver();
+    try {
+      createLocalConncetion();
+      addToEventTable(eventLocal);
+      closeLocalConnection();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
   }
 
   public static void initializeLocalDatabase() {

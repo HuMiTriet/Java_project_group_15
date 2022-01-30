@@ -10,8 +10,7 @@ import java.sql.ResultSet;
 /**
  * Class contains all of the method to work with the database.
  * Automatically create a connection when called but user have to close the
- * connection when they are done with it
- * to close the database
+ * connection when they are done with it to close the database
  * 
  * @see DBConnection
  *      {@link package com.twenty.one.database#closeConnection}
@@ -166,4 +165,5 @@ public class DBMethod {
       // userId = resultSet.getString("user_ID");
     }
   }
+
 }
