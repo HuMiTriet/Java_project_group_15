@@ -25,14 +25,14 @@ public class EventLocal {
   private GregorianCalendar startTime;
   private GregorianCalendar dayOfEvent;
   private long event_duration_minute = 0;
+  private int minutesUntilReminder = 0;
   private Set<String> participants_email = new HashSet<String>();
   private Location location;
   private String priority;
-  private int priority_score;
 
   public EventLocal(String eventName, String eventDescription, GregorianCalendar dayOfEvent,
-      GregorianCalendar startTime, long event_duration_minute,
-      Set<String> participants_email, Location location, String priority, int priority_score) {
+      GregorianCalendar startTime, long event_duration_minute, int minutesUntilReminder,
+      Set<String> participants_email, Location location, String priority) {
 
     this.eventID = UUID.randomUUID().toString();
     this.eventName = eventName;
@@ -40,10 +40,10 @@ public class EventLocal {
     this.startTime = startTime;
     this.dayOfEvent = dayOfEvent;
     this.event_duration_minute = event_duration_minute;
+    this.minutesUntilReminder = minutesUntilReminder;
     this.participants_email.addAll(participants_email);
     this.location = location;
     this.priority = priority;
-    this.priority_score = priority_score;
   }
 
   public void addParticipant(String[] participantsEmails) {
