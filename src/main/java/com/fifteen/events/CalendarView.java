@@ -204,7 +204,7 @@ public class CalendarView extends JFrame {
 
         //int day = (Integer) mdlCalendar.getValueAt(row, column);
 
-        //new ShowEvents(user, day, currentMonth);
+        //new ShowEvents(user, day, currentMonth, currentYear);
         new ShowEvents(user);
       }
     });
