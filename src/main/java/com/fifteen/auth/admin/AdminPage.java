@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,7 +31,9 @@ public class AdminPage extends JFrame {
 
     public AdminPage() {
 
-        DefaultTableModel model = new DefaultTableModel();
+        Statement stmt = null;
+        String sql = "SELECT * FROM USERDB";
+       // DefaultTableModel model = new DefaultTableModel();
 
         users.setAutoCreateRowSorter(true);
         users.setFillsViewportHeight(true);
@@ -41,7 +44,7 @@ public class AdminPage extends JFrame {
         model.addRow(new Object[]{"PJ@gmail.com", "PJtheDJ", "AnimeMan69"});
         model.addRow(new Object[]{"Tim@gmail.com", "SleepingMan", "MemeLegend77"});
         model.addRow(new Object[]{"Jorge@gmail.com", "ChocolateLover", "YESSEY"});*/
-        users.setModel(model);
+        // users.setModel(model);
 
 
         frame = new JFrame("Admin frame");
@@ -55,13 +58,14 @@ public class AdminPage extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+
         try {
             //create connection to database
             DBMethod.createConnection();
-            Statement st = DBConnection.getConnection().createStatement();
+            stmt = DBConnection.getConnection().createStatement();
             //sql query
             //executeQuery("select * from USERDB");
-            ResultSet rs = st.executeQuery("select * from USERDB");
+            ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
                 //data will be added until finish
@@ -78,11 +82,14 @@ public class AdminPage extends JFrame {
                 tblModel.addRow(tbData);
             }
 
-            DBMethod.closeConnection();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (stmt != null) {
+                DBMethod.closeConnection();
+            }
         }
-
 
     }
 
@@ -142,6 +149,7 @@ public class AdminPage extends JFrame {
     public JComponent $$$getRootComponent$$$() {
         return adminPanel;
     }
+
 }
 
 
