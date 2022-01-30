@@ -8,8 +8,16 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import com.fifteen.events.eventMethod.TimeMethod;
+
 import org.apache.commons.dbutils.DbUtils;
 
+/**
+ * List of local methods to connect with the local database which will be store
+ * in a SQLite file called local.db
+ * 
+ * @author Triet Huynh
+ */
 public class localDb {
   static Connection connection = null;
   static java.sql.Statement statement = null;
@@ -90,6 +98,10 @@ public class localDb {
             // + "constraint time_eventId_fk"
             + "foreign key (event_id) references event(event_id) on delete cascade"
             + ")");
+
+  }
+
+  public static void addEventLocal(Event event) {
 
   }
 

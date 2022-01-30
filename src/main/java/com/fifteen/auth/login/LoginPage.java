@@ -20,6 +20,7 @@ import com.fifteen.database.DBMethod;
 import com.fifteen.database.User;
 import com.fifteen.database.UserDao;
 import com.fifteen.database.UserDaoImp;
+import com.fifteen.events.CalendarView;
 import com.fifteen.events.EventPageMain;
 
 /**
@@ -92,7 +93,7 @@ public class LoginPage extends JFrame {
         UserDao userHandler = new UserDaoImp();
         User loginUser = userHandler.createUserFromLogin(enteredEmail);
 
-        new EventPageMain(loginUser);
+        new CalendarView(loginUser);
         frame.dispose();
       }
     });

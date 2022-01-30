@@ -30,7 +30,7 @@ public class Event {
   public Event(String userEmail, String eventName, GregorianCalendar dayOfEvent, Set<String> participants_email,
       Location location, Priority priority, int priority_score, int event_duration_minute) {
     this.priority_score = priority_score;
-    this.eventID = userEmail + "_" + UUID.randomUUID().toString();
+    this.eventID = UUID.randomUUID().toString();
     this.eventName = eventName;
     this.dayOfEvent = dayOfEvent;
     this.event_duration_minute = event_duration_minute;
