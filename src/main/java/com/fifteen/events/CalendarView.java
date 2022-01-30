@@ -1,5 +1,6 @@
 package com.fifteen.events;
 
+import com.fifteen.auth.login.LoginPage;
 import com.fifteen.database.User;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -29,12 +30,12 @@ public class CalendarView extends JFrame {
   private int Day, Month, Year, currentMonth, currentYear;
 
   private JMenuBar e_menuBar;
-  private JMenu x;
-  private JMenuItem x1, x2, x3;
-  private JMenu y;
-  private JMenuItem y1, y2, y3, y4;
-  private JMenu a;
-  private JMenuItem a1;
+  private JMenu menu;
+  private JMenuItem menu1, menu2, menu3, menu4;
+  private JMenu sview;
+  private JMenuItem sview1, sview2, sview3;
+  private JMenu about;
+  private JMenuItem about1;
 
   public CalendarView(User user) {
 
@@ -47,36 +48,36 @@ public class CalendarView extends JFrame {
     e_menuBar = new JMenuBar();
 
     // create a menu
-    y = new JMenu("Menu");
-    x = new JMenu("Switch View");
-    a = new JMenu("About");
+    menu = new JMenu("Menu");
+    sview = new JMenu("Switch View");
+    about = new JMenu("About");
 
     // create menuitems
-    x1 = new JMenuItem("Daily");
-    x2 = new JMenuItem("Weekly");
-    x3 = new JMenuItem("Monthly");
+    sview1 = new JMenuItem("Daily");
+    sview2 = new JMenuItem("Weekly");
+    sview3 = new JMenuItem("Monthly");
 
-    y1 = new JMenuItem("Profile");
-    y2 = new JMenuItem("Settings");
-    y3 = new JMenuItem("Log Out");
-    y4 = new JMenuItem("Exit");
+    menu1 = new JMenuItem("Profile");
+    menu2 = new JMenuItem("Settings");
+    menu3 = new JMenuItem("Log Out");
+    menu4 = new JMenuItem("Exit");
 
-    a1 = new JMenuItem("Documentation");
+    about1 = new JMenuItem("Documentation");
     // add menu items to menu
-    x.add(x1);
-    x.add(x2);
-    x.add(x3);
+    sview.add(sview1);
+    sview.add(sview2);
+    sview.add(sview3);
 
-    y.add(y1);
-    y.add(y2);
-    y.add(y3);
-    y.add(y4);
+    menu.add(menu1);
+    menu.add(menu2);
+    menu.add(menu3);
+    menu.add(menu4);
 
-    a.add(a1);
+    about.add(about1);
     // add menu to menu bar
-    e_menuBar.add(y);
-    e_menuBar.add(x);
-    e_menuBar.add(a);
+    e_menuBar.add(menu);
+    e_menuBar.add(sview);
+    e_menuBar.add(about);
 
     // add menubar to frame
     frame.setJMenuBar(e_menuBar);
@@ -86,6 +87,31 @@ public class CalendarView extends JFrame {
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
+
+    class openSettings implements ActionListener {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        new EventSettings();
+      }
+    }
+    menu2.addActionListener(new openSettings());
+
+    class logOut implements ActionListener {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        new LoginPage();
+        frame.dispose();
+      }
+    }
+    menu3.addActionListener(new logOut());
+
+    class eventExit implements ActionListener {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        System.exit(0);
+      }
+    }
+    menu4.addActionListener(new eventExit());
 
     // Create Calendar object and get current day, month and year
     GregorianCalendar cal = new GregorianCalendar();
@@ -159,7 +185,7 @@ public class CalendarView extends JFrame {
        */
       @Override
       public void actionPerformed(ActionEvent e) {
-        new AddEvents(user);
+        //new AddEvents(user);
       }
     });
   }

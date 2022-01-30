@@ -102,7 +102,7 @@ public class localDb {
   }
 
   public static void addEventLocal(Event event) {
-      String sql = "insert "
+      String sql = "insert ";
   }
 
   public static void initializeLocalDatabase() {
