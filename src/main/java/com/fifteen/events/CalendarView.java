@@ -189,6 +189,25 @@ public class CalendarView extends JFrame {
         new AddEvents(user);
       }
     });
+
+    //Clicking event cell opens ShowEventFrame
+    spanel1.addMouseListener(new MouseAdapter() {
+    });
+    tblCalendar.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        super.mouseClicked(e);
+
+        JTable tblCalender = (JTable) e.getSource();
+        int row = tblCalender.getSelectedColumn();
+        int column = tblCalender.getSelectedRow();
+
+        //int day = (Integer) mdlCalendar.getValueAt(row, column);
+
+        //new ShowEvents(user, day, currentMonth, currentYear);
+        new ShowEvents(user);
+      }
+    });
   }
 
   private void updateCalendar(int month, int year) {
