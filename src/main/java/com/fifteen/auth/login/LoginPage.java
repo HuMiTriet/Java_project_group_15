@@ -21,7 +21,6 @@ import com.fifteen.database.User;
 import com.fifteen.database.UserDao;
 import com.fifteen.database.UserDaoImp;
 import com.fifteen.events.CalendarView;
-import com.fifteen.events.EventPageMain;
 
 /**
  * Added in email pattern checking to see if email is in correct format (the format is must have @
