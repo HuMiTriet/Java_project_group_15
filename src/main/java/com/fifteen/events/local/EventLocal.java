@@ -8,7 +8,8 @@ import java.util.UUID;
 import lombok.Getter;
 
 /**
- * EventLocal class to be create whenever the user created a new event. This event
+ * EventLocal class to be create whenever the user created a new event. This
+ * event
  * will be stored locally inside our local.db file and will be sync to the
  * remote database every minutes or so. Each event will have an event ID
  * to unique identify it, the ID is created by the user email_a unique ID
@@ -18,24 +19,25 @@ import lombok.Getter;
  */
 @Getter
 public class EventLocal {
-  private String userEmail = "null";
   private String eventID = "null";
   private String eventName = "null";
   private String eventDescription = "null";
+  private GregorianCalendar startTime;
   private GregorianCalendar dayOfEvent;
+  private long event_duration_minute = 0;
   private Set<String> participants_email = new HashSet<String>();
   private Location location;
   private String priority;
   private int priority_score;
-  private long event_duration_minute = 0;
 
-  public EventLocal(String userEmail, String eventName, String eventDescription, GregorianCalendar dayOfEvent,
-                    Set<String> participants_email, Location location, String priority, int priority_score,
-                    long event_duration_minute) {
+  public EventLocal(String eventName, String eventDescription, GregorianCalendar dayOfEvent,
+      GregorianCalendar startTime, long event_duration_minute,
+      Set<String> participants_email, Location location, String priority, int priority_score) {
 
-    this.eventID = userEmail + "_" + UUID.randomUUID().toString();
+    this.eventID = UUID.randomUUID().toString();
     this.eventName = eventName;
     this.eventDescription = eventDescription;
+    this.startTime = startTime;
     this.dayOfEvent = dayOfEvent;
     this.event_duration_minute = event_duration_minute;
     this.participants_email.addAll(participants_email);

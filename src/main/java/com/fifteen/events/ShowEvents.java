@@ -38,7 +38,7 @@ public class ShowEvents extends JFrame {
     addEventsButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        new AddEvents(user);
+        new AddEvents();
       }
     });
   }

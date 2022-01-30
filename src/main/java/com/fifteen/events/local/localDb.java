@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 
@@ -57,7 +58,7 @@ public class localDb {
   }
 
   private static void createEventTable() throws SQLException {
-    System.out.println("EVENT");
+    // System.out.println("EVENT");
     statement.executeUpdate(
         "create table event ("
             + "	event_id 	varchar2(300) constraint event_eventId_pk primary key,"
@@ -72,17 +73,18 @@ public class localDb {
   }
 
   private static void createLocationTable() throws SQLException {
-    System.out.println("participants");
+    // System.out.println("participants");
     statement.executeUpdate(
         "create table participants("
-            + "event_id varchar2(300) constraint participants_eventId_pk primary key,"
+            + "event_id varchar2(300),"
             + "participants_email varchar2(200),"
-            + "foreign key (event_id) references event(event_id) on delete cascade"
+            + "foreign key (event_id) references event(event_id) on delete cascade,"
+            + "constraint participants_eventID_participantsEmail_pk primary key (event_id, participants_email)"
             + ")");
   }
 
   private static void createTimeTable() throws SQLException {
-    System.out.println("TIME");
+    // System.out.println("TIME");
     statement.executeUpdate(
         "create table time ("
             + "event_id varchar2(300) constraint time_eventId_pk primary key,"
@@ -118,11 +120,22 @@ public class localDb {
     for (String participant : eventLocal.getParticipants_email()) {
       statement.executeUpdate("insert into participants values("
           + "'" + eventLocal.getEventID() + "',"
-          + "");
+          + "'" + participant
+          + "')");
     }
   }
 
-  private static void addToTimeTable() {
+  private static void addToTimeTable(EventLocal eventLocal) throws SQLException {
+    statement.executeUpdate("insert into time values("
+        + "'" + eventLocal.getEventID() + "',"
+        + eventLocal.getDayOfEvent().get(GregorianCalendar.MINUTE) + ","
+        + eventLocal.getDayOfEvent().get(GregorianCalendar.HOUR_OF_DAY) + ","
+        + eventLocal.getEvent_duration_minute() + ","
+        + eventLocal.getDayOfEvent().get(GregorianCalendar.DAY_OF_WEEK) + ","
+        + eventLocal.getDayOfEvent().get(GregorianCalendar.DATE) + ","
+        + eventLocal.getDayOfEvent().get(GregorianCalendar.MONTH) + ","
+        + eventLocal.getDayOfEvent().get(GregorianCalendar.YEAR)
+        + ")");
   }
 
   public static void addEventLocal(EventLocal eventLocal) {
@@ -130,6 +143,8 @@ public class localDb {
     try {
       createLocalConncetion();
       addToEventTable(eventLocal);
+      addToParticipantsTable(eventLocal);
+      addToTimeTable(eventLocal);
       closeLocalConnection();
     } catch (SQLException e) {
       e.printStackTrace();
