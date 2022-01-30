@@ -60,20 +60,21 @@ public class AdminPage extends JFrame {
             DBMethod.createConnection();
             Statement st = DBConnection.getConnection().createStatement();
             //sql query
-            //executeQuery("select * from userdb");
-            ResultSet rs = st.executeQuery("select * from userdb");
+            //executeQuery("select * from USERDB");
+            ResultSet rs = st.executeQuery("select * from USERDB");
 
             while (rs.next()) {
                 //data will be added until finish
-                String email = String.valueOf(rs.getString("email"));
-                String username = rs.getString("username");
-                String password = rs.getString("password");
+                //String email = String.valueOf(rs.getString("EMAIL"));
+                String email = rs.getString("EMAIL");
+                String username = rs.getString("USERNAME");
+                String password = rs.getString("HASHED_PASSWORD");
 
-                //string array to store data into jtable
+                //string array to store data into jTable
                 String tbData[] = {email, username, password};
                 DefaultTableModel tblModel = (DefaultTableModel) users.getModel();
 
-                //add string array data into jtable
+                //add string array data into jTable
                 tblModel.addRow(tbData);
             }
 
