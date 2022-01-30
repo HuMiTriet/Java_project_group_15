@@ -51,10 +51,11 @@ public class DBMethod {
   }
 
   /**
-   * Method adds in a new row into the userdb table in the Oracle SQL remote
-   * server.
-   * 
    * @param user take in a user object of the User class
+   *             Method adds in a new row into the userdb table in the Oracle SQL
+   *             remote
+   *             server.
+   * 
    * @see User
    *      {@link package com.twenty.one.database}
    * @author Triet Huynh

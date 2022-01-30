@@ -113,16 +113,14 @@ public class localDb {
     statement.executeUpdate(sql);
   }
 
-  // private static void addToParticipantsTable(EventLocal eventLocal) throws
-  // SQLException {
+  private static void addToParticipantsTable(EventLocal eventLocal) throws SQLException {
 
-  // for (String participant : eventLocal.getParticipants_email()) {
-  // statement.executeUpdate("insert into participants values("
-  // + "'" + eventLocal.getEventID() + "',"
-  // +"";
-  // );
-  // }
-  // }
+    for (String participant : eventLocal.getParticipants_email()) {
+      statement.executeUpdate("insert into participants values("
+          + "'" + eventLocal.getEventID() + "',"
+          + "");
+    }
+  }
 
   private static void addToTimeTable() {
   }

@@ -19,7 +19,7 @@ import com.fifteen.database.DBMethod;
 import com.fifteen.database.User;
 import com.fifteen.database.UserDao;
 import com.fifteen.database.UserDaoImp;
-import com.fifteen.events.EventPageMain;
+import com.fifteen.events.CalendarView;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -111,7 +111,7 @@ public class SignUpPage extends JFrame {
 
           DBMethod.closeConnection();
 
-          new EventPageMain(signUpUser);
+          new CalendarView(signUpUser);
           frame.dispose();
 
         } else {
