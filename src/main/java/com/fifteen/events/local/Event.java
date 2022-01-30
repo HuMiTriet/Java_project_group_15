@@ -20,6 +20,7 @@ import lombok.Getter;
 public class Event {
   private String eventID = "null";
   private String eventName = "null";
+  private String eventDescription = "null";
   private GregorianCalendar dayOfEvent;
   private int event_duration_minute = 0;
   private Set<String> participants_email = new HashSet<String>();
@@ -27,16 +28,18 @@ public class Event {
   private Priority priority;
   private int priority_score;
 
-  public Event(String userEmail, String eventName, GregorianCalendar dayOfEvent, Set<String> participants_email,
-      Location location, Priority priority, int priority_score, int event_duration_minute) {
-    this.priority_score = priority_score;
+  public Event(String userEmail, String eventName, String eventDescription, GregorianCalendar dayOfEvent,
+      Set<String> participants_email, Location location, Priority priority, int priority_score,
+      int event_duration_minute) {
     this.eventID = UUID.randomUUID().toString();
     this.eventName = eventName;
+    this.eventDescription = eventDescription;
     this.dayOfEvent = dayOfEvent;
     this.event_duration_minute = event_duration_minute;
-    this.location = location;
     this.participants_email.addAll(participants_email);
+    this.location = location;
     this.priority = priority;
+    this.priority_score = priority_score;
   }
 
   public void addParticipant(String[] participantsEmails) {
