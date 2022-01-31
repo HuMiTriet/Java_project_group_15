@@ -114,13 +114,18 @@ public class AddEvents extends JFrame {
           participants.add("the");
           participants.add("tiger");
 
-          EventLocal newEventLocal = new EventLocal(user.getEmail(),
+          EventLocal eventLocal = new EventLocal(
               eventNameText.getText(),
               eventDescriptionText.getText(),
-              currentDay, participants, location,
-              priorityPicker.getSelectedItem().toString(),
-              priority_score, durationMinute);
-          localDb.addEventLocal(newEventLocal);
+              startTime,
+              currentDay,
+              durationMinute,
+              5, // fixed duration time
+              participants, // fixed participants
+              location, // manually typed in location
+              priorityPicker.getSelectedItem().toString());
+
+          localDb.addEventLocal(eventLocal);
 
           frame.dispose();
         }

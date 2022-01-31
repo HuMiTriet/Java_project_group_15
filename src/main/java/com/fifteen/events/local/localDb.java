@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
@@ -62,12 +63,12 @@ public class localDb {
     statement.executeUpdate(
         "create table event ("
             + "	event_id 	varchar2(300) constraint event_eventId_pk primary key,"
-            + "	name varchar2(200),"
+            + "	event_name varchar2(200),"
+            + "event_description varchar2(300),"
             + "location_name varchar2(200),"
-            + "longtitude REAL,"
-            + "latitude REAL,"
-            + "	priority varchar2(10),"
-            + "priorty_score INTEGER"
+            + "longtitude DOUBLE,"
+            + "latitude DOUBLE,"
+            + "	priority varchar2(10)"
             + ")");
 
   }
@@ -88,9 +89,10 @@ public class localDb {
     statement.executeUpdate(
         "create table time ("
             + "event_id varchar2(300) constraint time_eventId_pk primary key,"
-            + "start_minute INTEGER,"
             + "start_hour INTEGER,"
+            + "start_minute INTEGER,"
             + "event_duration_minute INTEGER,"
+            + "minutes_until_reminder INTEGER,"
             + "day_of_week INTEGER,"
             + "date INTEGER,"
             + "month INTEGER,"
@@ -105,11 +107,11 @@ public class localDb {
     String sql = "insert into event values("
         + "'" + eventLocal.getEventID() + "',"
         + "'" + eventLocal.getEventName() + "',"
+        + "'" + eventLocal.getEventDescription() + "',"
         + "'" + eventLocal.getLocation().getName() + "',"
         + eventLocal.getLocation().getLongitude() + ","
         + eventLocal.getLocation().getLatitude() + ","
-        + "'" + eventLocal.getPriority() + "',"
-        + eventLocal.getPriority_score()
+        + "'" + eventLocal.getPriority() + "'"
         + ")";
     // System.out.println(sql);
     statement.executeUpdate(sql);
@@ -128,9 +130,10 @@ public class localDb {
   private static void addToTimeTable(EventLocal eventLocal) throws SQLException {
     statement.executeUpdate("insert into time values("
         + "'" + eventLocal.getEventID() + "',"
-        + eventLocal.getDayOfEvent().get(GregorianCalendar.MINUTE) + ","
-        + eventLocal.getDayOfEvent().get(GregorianCalendar.HOUR_OF_DAY) + ","
+        + eventLocal.getStartTime().get(GregorianCalendar.HOUR_OF_DAY) + ","
+        + eventLocal.getStartTime().get(GregorianCalendar.MINUTE) + ","
         + eventLocal.getEvent_duration_minute() + ","
+        + eventLocal.getMinutesUntilReminder() + ","
         + eventLocal.getDayOfEvent().get(GregorianCalendar.DAY_OF_WEEK) + ","
         + eventLocal.getDayOfEvent().get(GregorianCalendar.DATE) + ","
         + eventLocal.getDayOfEvent().get(GregorianCalendar.MONTH) + ","
@@ -149,8 +152,30 @@ public class localDb {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  private static void getEventTable(EventLocal eventLocal, int month) throws SQLException {
+    resultSet = statement.executeQuery("select * from event");
+    while (resultSet.next()) {
+      // index of first column starts at 1
+      eventLocal.setEventID(resultSet.getString("event_id"));
+      eventLocal.setEventName(resultSet.getString("event_name"));
+      eventLocal.setEventDescription(resultSet.getString("event_description"));
+      eventLocal.getLocation().setName(resultSet.getString("location_name"));
+      eventLocal.getLocation().setLongitude(resultSet.getDouble("longtitude"));
+      eventLocal.getLocation().setLatitude(resultSet.getDouble("latitude"));
+      eventLocal.setPriority(resultSet.getString("priority"));
+    }
 
   }
+  // select *
+  // from event e
+  // NATURAL JOIN time t
+  // NATURAL JOIN participants p
+  // where month = 0;
+  // public static ArrayList<EventLocal> getEventsByMonth(int month) {
+  // ArrayList<EventLocal> eventList = new ArrayList<EventLocal>();
+  // }
 
   public static void initializeLocalDatabase() {
     loadSqliteDriver();

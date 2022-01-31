@@ -2,6 +2,7 @@ package com.fifteen.events.local;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -15,6 +16,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Getter
+@Setter
 public class Location {
   private String name = "NA";
   private double longitude = 0.0;
