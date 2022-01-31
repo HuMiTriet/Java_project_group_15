@@ -6,6 +6,7 @@ import com.fifteen.events.local.CheckDate;
 import com.fifteen.events.local.EventLocal;
 import com.fifteen.events.local.Location;
 import com.fifteen.events.local.localDb;
+import com.fifteen.events.local.localDbMethod;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -15,6 +16,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -125,7 +127,7 @@ public class AddEvents extends JFrame {
               location, // manually typed in location
               priorityPicker.getSelectedItem().toString());
 
-          localDb.addEventLocal(eventLocal);
+          localDbMethod.addEventLocal(eventLocal);
 
           frame.dispose();
         }

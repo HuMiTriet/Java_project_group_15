@@ -1,5 +1,7 @@
 package com.fifteen;
 
+import java.sql.SQLException;
+
 import javax.swing.UIManager;
 
 import com.fifteen.auth.admin.AdminPage;
@@ -9,6 +11,7 @@ import com.fifteen.database.UserDao;
 import com.fifteen.database.UserDaoImp;
 import com.fifteen.events.CalendarView;
 import com.fifteen.events.local.localDb;
+import com.fifteen.events.local.localDbMethod;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 
@@ -21,19 +24,29 @@ public class App {
     } catch (Exception ex) {
       System.err.println("Failed to initialize LaF");
     }
+    localDb.initializeLocalDatabase();
+
+    localDb.loadSqliteDriver();
+
+    try {
+      localDb.createLocalConncetion();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
 
     // Added functionality to the Login page
     // Available user: email: t@g.com | password: B
     // closeConnection();
     // new LoginPage();
 
-    // localDb.initializeLocalDatabase();
-
     // UserDao userHandler = new UserDaoImp();
     // User user = userHandler.createUserFromLogin("t@g.com");
     // new CalendarView(user);
+    localDbMethod.buildEventLocal(0);
+    // localDb.closeLocalConnection();
 
-    new AdminPage();
+    // new AdminPage();
+
     // mailUtils.sendMail("javacomtwentyone@gmail.com");
   }
 

@@ -25,7 +25,7 @@ public class localDb {
 
   private static final String LOCAL_DATABASE = "local.db";
 
-  private static boolean checkLocalDatabaseExist() {
+  protected static boolean checkLocalDatabaseExist() {
     File localData = new File(LOCAL_DATABASE);
     if (localData.exists() && !localData.isDirectory()) {
       return true;
@@ -34,7 +34,7 @@ public class localDb {
     }
   }
 
-  private static void loadSqliteDriver() {
+  public static void loadSqliteDriver() {
     try {
       Class.forName("org.sqlite.JDBC");
     } catch (ClassNotFoundException e) {
@@ -100,82 +100,15 @@ public class localDb {
             // + "constraint time_eventId_fk"
             + "foreign key (event_id) references event(event_id) on delete cascade"
             + ")");
-
   }
 
-  private static void addToEventTable(EventLocal eventLocal) throws SQLException {
-    String sql = "insert into event values("
-        + "'" + eventLocal.getEventID() + "',"
-        + "'" + eventLocal.getEventName() + "',"
-        + "'" + eventLocal.getEventDescription() + "',"
-        + "'" + eventLocal.getLocation().getName() + "',"
-        + eventLocal.getLocation().getLongitude() + ","
-        + eventLocal.getLocation().getLatitude() + ","
-        + "'" + eventLocal.getPriority() + "'"
-        + ")";
-    // System.out.println(sql);
-    statement.executeUpdate(sql);
+  private static void createViewFullEvent() throws SQLException {
+    statement.executeUpdate(
+        "CREATE VIEW event_time AS "
+            + " SELECT * "
+            + " FROM event e "
+            + "JOIN time t USING (event_id)");
   }
-
-  private static void addToParticipantsTable(EventLocal eventLocal) throws SQLException {
-
-    for (String participant : eventLocal.getParticipants_email()) {
-      statement.executeUpdate("insert into participants values("
-          + "'" + eventLocal.getEventID() + "',"
-          + "'" + participant
-          + "')");
-    }
-  }
-
-  private static void addToTimeTable(EventLocal eventLocal) throws SQLException {
-    statement.executeUpdate("insert into time values("
-        + "'" + eventLocal.getEventID() + "',"
-        + eventLocal.getStartTime().get(GregorianCalendar.HOUR_OF_DAY) + ","
-        + eventLocal.getStartTime().get(GregorianCalendar.MINUTE) + ","
-        + eventLocal.getEvent_duration_minute() + ","
-        + eventLocal.getMinutesUntilReminder() + ","
-        + eventLocal.getDayOfEvent().get(GregorianCalendar.DAY_OF_WEEK) + ","
-        + eventLocal.getDayOfEvent().get(GregorianCalendar.DATE) + ","
-        + eventLocal.getDayOfEvent().get(GregorianCalendar.MONTH) + ","
-        + eventLocal.getDayOfEvent().get(GregorianCalendar.YEAR)
-        + ")");
-  }
-
-  public static void addEventLocal(EventLocal eventLocal) {
-    loadSqliteDriver();
-    try {
-      createLocalConncetion();
-      addToEventTable(eventLocal);
-      addToParticipantsTable(eventLocal);
-      addToTimeTable(eventLocal);
-      closeLocalConnection();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-
-  private static void getEventTable(EventLocal eventLocal, int month) throws SQLException {
-    resultSet = statement.executeQuery("select * from event");
-    while (resultSet.next()) {
-      // index of first column starts at 1
-      eventLocal.setEventID(resultSet.getString("event_id"));
-      eventLocal.setEventName(resultSet.getString("event_name"));
-      eventLocal.setEventDescription(resultSet.getString("event_description"));
-      eventLocal.getLocation().setName(resultSet.getString("location_name"));
-      eventLocal.getLocation().setLongitude(resultSet.getDouble("longtitude"));
-      eventLocal.getLocation().setLatitude(resultSet.getDouble("latitude"));
-      eventLocal.setPriority(resultSet.getString("priority"));
-    }
-
-  }
-  // select *
-  // from event e
-  // NATURAL JOIN time t
-  // NATURAL JOIN participants p
-  // where month = 0;
-  // public static ArrayList<EventLocal> getEventsByMonth(int month) {
-  // ArrayList<EventLocal> eventList = new ArrayList<EventLocal>();
-  // }
 
   public static void initializeLocalDatabase() {
     loadSqliteDriver();
@@ -188,6 +121,7 @@ public class localDb {
         createEventTable();
         createLocationTable();
         createTimeTable();
+        createViewFullEvent();
         System.out.println("created new database locally");
       }
     } catch (SQLException e) {

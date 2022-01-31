@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -20,16 +21,17 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class EventLocal {
   private String eventID = "null";
   private String eventName = "null";
   private String eventDescription = "null";
-  private GregorianCalendar startTime;
-  private GregorianCalendar dayOfEvent;
+  private GregorianCalendar startTime = new GregorianCalendar();
+  private GregorianCalendar dayOfEvent = new GregorianCalendar();
   private long event_duration_minute = 0;
   private int minutesUntilReminder = 0;
   private Set<String> participants_email = new HashSet<String>();
-  private Location location;
+  private Location location = new Location();
   private String priority;
 
   public EventLocal(String eventName, String eventDescription, GregorianCalendar startTime,
