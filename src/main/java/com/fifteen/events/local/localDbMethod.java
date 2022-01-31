@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Vector;
 
 public class localDbMethod extends localDb {
 
@@ -93,5 +94,15 @@ public class localDbMethod extends localDb {
 
   public static void addToContactsTable(String email) throws SQLException {
     statement.executeUpdate("INSERT INTO contacts values('" + email + "')");
+  }
+
+  public static Vector<String> getAllContacts() throws SQLException {
+    resultSet = statement.executeQuery("select * from contacts");
+
+    Vector<String> contacts = new Vector<String>();
+    while (resultSet.next()) {
+      contacts.add(resultSet.getString("email"));
+    }
+    return contacts;
   }
 }
