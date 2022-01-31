@@ -8,6 +8,7 @@ import java.util.UUID;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * EventLocal class to be create whenever the user created a new event. This
@@ -22,11 +23,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class EventLocal {
   private String eventID = "null";
   private String eventName = "null";
   private String eventDescription = "null";
-  private GregorianCalendar startTime = new GregorianCalendar();
   private GregorianCalendar dayOfEvent = new GregorianCalendar();
   private long event_duration_minute = 0;
   private int minutesUntilReminder = 0;
@@ -34,14 +35,13 @@ public class EventLocal {
   private Location location = new Location();
   private String priority;
 
-  public EventLocal(String eventName, String eventDescription, GregorianCalendar startTime,
+  public EventLocal(String eventName, String eventDescription,
       GregorianCalendar dayOfEvent, long event_duration_minute, int minutesUntilReminder,
       Set<String> participants_email, Location location, String priority) {
 
     this.eventID = UUID.randomUUID().toString();
     this.eventName = eventName;
     this.eventDescription = eventDescription;
-    this.startTime = startTime;
     this.dayOfEvent = dayOfEvent;
     this.event_duration_minute = event_duration_minute;
     this.minutesUntilReminder = minutesUntilReminder;

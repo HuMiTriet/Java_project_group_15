@@ -108,8 +108,9 @@ public class AddEvents extends JFrame {
           SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
           String date = sdf.format(jDateChooser.getDate());
+          String timeDate = startTimeString + " " + date;
 
-          GregorianCalendar currentDay = CheckDate.validateDate(date);
+          GregorianCalendar currentDay = CheckDate.validateTimeDate(timeDate);
           Set<String> participants = new HashSet<String>();
           participants.add("Year");
           participants.add("of");
@@ -119,7 +120,6 @@ public class AddEvents extends JFrame {
           EventLocal eventLocal = new EventLocal(
               eventNameText.getText(),
               eventDescriptionText.getText(),
-              startTime,
               currentDay,
               durationMinute,
               5, // fixed duration time

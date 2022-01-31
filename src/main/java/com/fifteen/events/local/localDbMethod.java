@@ -34,8 +34,8 @@ public class localDbMethod extends localDb {
   private static void addToTimeTable(EventLocal eventLocal) throws SQLException {
     statement.executeUpdate("insert into time values("
         + "'" + eventLocal.getEventID() + "',"
-        + eventLocal.getStartTime().get(GregorianCalendar.HOUR_OF_DAY) + ","
-        + eventLocal.getStartTime().get(GregorianCalendar.MINUTE) + ","
+        + eventLocal.getDayOfEvent().get(GregorianCalendar.HOUR_OF_DAY) + ","
+        + eventLocal.getDayOfEvent().get(GregorianCalendar.MINUTE) + ","
         + eventLocal.getEvent_duration_minute() + ","
         + eventLocal.getMinutesUntilReminder() + ","
         + eventLocal.getDayOfEvent().get(GregorianCalendar.DAY_OF_WEEK) + ","
@@ -58,7 +58,7 @@ public class localDbMethod extends localDb {
   private static void getParticipantsTable(EventLocal eventLocal) throws SQLException {
 
     ResultSet participants_rs = statement.executeQuery("Select * from participants"
-    + " where event_id = " + "'"+eventLocal.getEventID()+"'");
+        + " where event_id = " + "'" + eventLocal.getEventID() + "'");
     while (participants_rs.next()) {
       eventLocal.getParticipants_email().add(participants_rs.getString("participants_email"));
     }
@@ -76,16 +76,16 @@ public class localDbMethod extends localDb {
       eventLocal.setEventName(resultSet.getString("event_name"));
       eventLocal.setEventDescription(resultSet.getString("event_description"));
 
-      eventLocal.getStartTime().set(GregorianCalendar.HOUR_OF_DAY, resultSet.getInt("start_hour"));
-      eventLocal.getStartTime().set(GregorianCalendar.MINUTE, resultSet.getInt("start_minute"));
+      eventLocal.getDayOfEvent().set(GregorianCalendar.HOUR_OF_DAY, resultSet.getInt("start_hour"));
+      eventLocal.getDayOfEvent().set(GregorianCalendar.MINUTE, resultSet.getInt("start_minute"));
 
       eventLocal.getLocation().setName(resultSet.getString("location_name"));
       eventLocal.getLocation().setLongitude(resultSet.getDouble("longtitude"));
       eventLocal.getLocation().setLatitude(resultSet.getDouble("latitude"));
+      eventLocal.setPriority(resultSet.getString("priority"));
 
       getParticipantsTable(eventLocal);
 
-      // eventLocal.setPriority(resultSet.getString("priority"));
       monthEvents.add(eventLocal);
     }
     return monthEvents;
