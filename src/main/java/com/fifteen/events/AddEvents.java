@@ -1,5 +1,20 @@
 package com.fifteen.events;
 
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Vector;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import com.fifteen.database.User;
 import com.fifteen.events.eventMethod.TimeMethod;
 import com.fifteen.events.local.CheckDate;
@@ -10,19 +25,6 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.toedter.calendar.JDateChooser;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Vector;
 
 public class AddEvents extends JFrame {
   private JFrame frame;
@@ -43,9 +45,9 @@ public class AddEvents extends JFrame {
   private JTextField LocationText;
   private JTextField LongitdudeText;
   private JTextField LatitudeText;
-  private JComboBox participantsComboBox;
   private JTextField reminderText;
   private JLabel reminderLabel;
+  private JList ParticipantList;
   private GregorianCalendar chosenGregorianCalendar;
 
   public AddEvents(User user) {
@@ -59,7 +61,7 @@ public class AddEvents extends JFrame {
     try {
       contacts = localDbMethod.getAllContacts();
       DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(contacts);
-      participantsComboBox.setModel(model);
+      ParticipantList.setModel(model);
     } catch (SQLException e1) {
       e1.printStackTrace();
     }
@@ -135,11 +137,7 @@ public class AddEvents extends JFrame {
           String timeDate = startTimeString + " " + date;
 
           GregorianCalendar currentDay = CheckDate.validateTimeDate(timeDate);
-          Set<String> participants = new HashSet<String>();
-          participants.add("Year");
-          participants.add("of");
-          participants.add("the");
-          participants.add("tiger");
+          Set<String> participants = new HashSet<String>(ParticipantList.getSelectedValuesList());
 
           EventLocal eventLocal = new EventLocal(
               eventNameText.getText(),
@@ -322,10 +320,6 @@ public class AddEvents extends JFrame {
         new GridConstraints(21, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
             GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null,
             0, false));
-    participantsComboBox = new JComboBox();
-    panel1.add(participantsComboBox,
-        new GridConstraints(13, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
-            GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     reminderText = new JTextField();
     reminderText.setText("");
     panel1.add(reminderText,
@@ -336,6 +330,11 @@ public class AddEvents extends JFrame {
     reminderLabel.setText("");
     panel1.add(reminderLabel, new GridConstraints(15, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    ParticipantList = new JList();
+    panel1.add(ParticipantList,
+        new GridConstraints(13, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH,
+            GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50),
+            null, 0, false));
   }
 
   /**

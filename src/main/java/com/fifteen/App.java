@@ -1,21 +1,14 @@
 package com.fifteen;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 import javax.swing.UIManager;
 
-import com.fifteen.auth.admin.AdminPage;
-import com.fifteen.auth.login.LoginPage;
 import com.fifteen.database.User;
 import com.fifteen.database.UserDao;
 import com.fifteen.database.UserDaoImp;
 import com.fifteen.events.CalendarView;
-import com.fifteen.events.local.EventLocal;
 import com.fifteen.events.local.localDb;
-import com.fifteen.events.local.localDbMethod;
-import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 
 public class App {
@@ -42,10 +35,9 @@ public class App {
     // closeConnection();
     // new LoginPage();
 
-     UserDao userHandler = new UserDaoImp();
-     User user = userHandler.createUserFromLogin("t@g.com");
-     new CalendarView(user);
-
+    UserDao userHandler = new UserDaoImp();
+    User user = userHandler.createUserFromLogin("t@g.com");
+    new CalendarView(user);
 
     // new AdminPage();
 
