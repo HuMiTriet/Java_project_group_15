@@ -110,6 +110,10 @@ public class localDb {
             + "JOIN time t USING (event_id)");
   }
 
+  private static void createContactsTable() throws SQLException {
+
+  }
+
   public static void initializeLocalDatabase() {
     loadSqliteDriver();
     try {
