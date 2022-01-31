@@ -29,6 +29,7 @@ public class CalendarView extends JFrame {
   private JButton addEvent;
   private JButton addContact;
   private JList upcomEvents;
+  private JButton exportAsPDFButton;
 
   private DefaultTableModel mdlCalendar;
   private JFrame frame;
@@ -357,6 +358,9 @@ public class CalendarView extends JFrame {
     panel2.add(spacer6, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
     final Spacer spacer7 = new Spacer();
     panel1.add(spacer7, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, 1, null, new Dimension(50, -1), null, 0, false));
+    exportAsPDFButton = new JButton();
+    exportAsPDFButton.setText("Export as PDF");
+    panel1.add(exportAsPDFButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
   }
 
   /**
