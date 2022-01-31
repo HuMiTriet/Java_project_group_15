@@ -46,16 +46,6 @@ public class App {
      User user = userHandler.createUserFromLogin("t@g.com");
      new CalendarView(user);
 
-    /*ArrayList<EventLocal> jan = localDbMethod.buildEventLocal(0);
-    localDb.closeLocalConnection();
-    for (int i = 0; i < jan.size(); i++) {
-      // System.out.println(jan.get(i).toString());
-      System.out.println(jan.get(i).getDayOfEvent().get(GregorianCalendar.HOUR_OF_DAY));
-      System.out.println(jan.get(i).getDayOfEvent().get(GregorianCalendar.MINUTE));
-      System.out.println(jan.get(i).getDayOfEvent().get(GregorianCalendar.DATE));
-      System.out.println(jan.get(i).getDayOfEvent().get(GregorianCalendar.MONTH));
-      System.out.println(jan.get(i).getDayOfEvent().get(GregorianCalendar.YEAR));
-    }*/
 
     // new AdminPage();
 

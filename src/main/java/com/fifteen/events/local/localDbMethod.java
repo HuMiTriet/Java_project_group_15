@@ -90,13 +90,8 @@ public class localDbMethod extends localDb {
     }
     return monthEvents;
   }
-  // }
-  // select *
-  // from event e
-  // NATURAL JOIN time t
-  // NATURAL JOIN participants p
-  // where month = 0;
-  // public static ArrayList<EventLocal> getEventsByMonth(int month) {
-  // ArrayList<EventLocal> eventList = new ArrayList<EventLocal>();
-  // }
+
+  public static void addToContactsTable(String email) throws SQLException {
+    statement.executeUpdate("INSERT INTO contacts values('" + email + "')");
+  }
 }

@@ -102,16 +102,19 @@ public class localDb {
             + ")");
   }
 
+  private static void createContactsTable() throws SQLException {
+    statement.executeUpdate(
+        "CREATE TABLE contacts("
+            + "email TEXT contraint contacts_email_pk primary key"
+            + ")");
+  }
+
   private static void createViewFullEvent() throws SQLException {
     statement.executeUpdate(
         "CREATE VIEW event_time AS "
             + " SELECT * "
             + " FROM event e "
             + "JOIN time t USING (event_id)");
-  }
-
-  private static void createContactsTable() throws SQLException {
-
   }
 
   public static void initializeLocalDatabase() {
@@ -125,6 +128,7 @@ public class localDb {
         createEventTable();
         createLocationTable();
         createTimeTable();
+        createContactsTable();
         createViewFullEvent();
         System.out.println("created new database locally");
       }
