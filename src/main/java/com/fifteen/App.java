@@ -38,17 +38,9 @@ public class App {
     // Available user: email: t@g.com | password: B
     //closeConnection();
     new LoginPage();
-
 <<<<<<< HEAD
-    // UserDao userHandler = new UserDaoImp();
-    // User user = userHandler.createUserFromLogin("t@g.com");
-    // new CalendarView(user);
-    localDbMethod.buildEventLocal(0);
-    // localDb.closeLocalConnection();
 
-    // new AdminPage();
 
-=======
     localDb.initializeLocalDatabase();
 
     UserDao userHandler = new UserDaoImp();
@@ -56,6 +48,7 @@ public class App {
     //new CalendarView(user);
 
     //new AdminPage();
+=======
 >>>>>>> c26308bec5139997dc96ab5e95af49da8d610c19
     // mailUtils.sendMail("javacomtwentyone@gmail.com");
   }
