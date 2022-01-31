@@ -5,6 +5,7 @@ import com.fifteen.database.User;
 import com.fifteen.events.settings.EventSettings;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
 import javax.swing.table.*;
@@ -26,10 +27,14 @@ public class CalendarView extends JFrame {
   private JLabel monthCalendar;
   private JLabel yearJlabel;
   private JButton addEvent;
+  private JButton addContact;
+  private JList upcomEvents;
+
   private DefaultTableModel mdlCalendar;
   private JFrame frame;
   private int Day, Month, Year, currentMonth, currentYear;
 
+  // @author Jorge
   private JMenuBar e_menuBar;
   private JMenu menu;
   private JMenuItem menu1, menu2, menu3, menu4;
@@ -48,7 +53,7 @@ public class CalendarView extends JFrame {
 
     e_menuBar = new JMenuBar();
 
-    // create a menu
+    // create menus
     menu = new JMenu("Menu");
     sview = new JMenu("Switch View");
     about = new JMenu("About");
@@ -89,6 +94,7 @@ public class CalendarView extends JFrame {
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
 
+
     class openSettings implements ActionListener {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -113,6 +119,14 @@ public class CalendarView extends JFrame {
       }
     }
     menu4.addActionListener(new eventExit());
+
+    class addContact_a implements ActionListener {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        new AddContact();
+      }
+    }
+    addContact.addActionListener(new addContact_a());
 
     // Create Calendar object and get current day, month and year
     GregorianCalendar cal = new GregorianCalendar();
@@ -208,6 +222,7 @@ public class CalendarView extends JFrame {
         new ShowEvents(user);
       }
     });
+
   }
 
   private void updateCalendar(int month, int year) {
@@ -279,7 +294,7 @@ public class CalendarView extends JFrame {
    */
   private void $$$setupUI$$$() {
     panel1 = new JPanel();
-    panel1.setLayout(new GridLayoutManager(3, 3, new Insets(0, 0, 0, 0), -1, -1));
+    panel1.setLayout(new GridLayoutManager(6, 5, new Insets(0, 0, 0, 0), -1, -1));
     nextMonth = new JButton();
     nextMonth.setText(">>");
     panel1.add(nextMonth, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
