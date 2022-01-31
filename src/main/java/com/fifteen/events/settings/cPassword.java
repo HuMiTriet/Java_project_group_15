@@ -14,6 +14,7 @@ public class cPassword extends JFrame {
     private JTextField enterEmailAdressTextField;
     private JTextField enterPasswordTextField;
     private JTextField enterNewPasswordTextField;
+    private JButton submitButton;
 
     public cPassword() {
         frame = new JFrame("Password Change");
@@ -46,7 +47,7 @@ public class cPassword extends JFrame {
      */
     private void $$$setupUI$$$() {
         panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(5, 3, new Insets(0, 0, 0, 0), -1, -1));
+        panel1.setLayout(new GridLayoutManager(6, 3, new Insets(0, 0, 0, 0), -1, -1));
         enterEmailAdressTextField = new JTextField();
         enterEmailAdressTextField.setText("Enter email adress");
         panel1.add(enterEmailAdressTextField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
@@ -71,7 +72,10 @@ public class cPassword extends JFrame {
         final Spacer spacer7 = new Spacer();
         panel1.add(spacer7, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final Spacer spacer8 = new Spacer();
-        panel1.add(spacer8, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        panel1.add(spacer8, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        submitButton = new JButton();
+        submitButton.setText("Submit");
+        panel1.add(submitButton, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
@@ -80,4 +84,5 @@ public class cPassword extends JFrame {
     public JComponent $$$getRootComponent$$$() {
         return panel1;
     }
+
 }

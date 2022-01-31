@@ -30,6 +30,7 @@ public class CalendarView extends JFrame {
   private JButton addEvent;
   private JButton addContact;
   private JList upcomEvents;
+  private JButton exportAsPDFButton;
 
   private DefaultTableModel mdlCalendar;
   private JFrame frame;
