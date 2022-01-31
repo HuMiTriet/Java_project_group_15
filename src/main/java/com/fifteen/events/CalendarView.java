@@ -150,7 +150,7 @@ public class CalendarView extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         // new AddContact();
-        // JFileChooser fileChooser = new JFileChooser(choo);
+        JFileChooser fileChooser = new JFileChooser();
         fileChooser.showSaveDialog(null);
 
       }
