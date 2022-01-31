@@ -49,7 +49,7 @@ public class AddEvents extends JFrame {
 
     frame = new JFrame("Add EventLocal");
     $$$setupUI$$$();
-    frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     frame.setPreferredSize(new Dimension(500, 700));
     frame.setResizable(false);
 

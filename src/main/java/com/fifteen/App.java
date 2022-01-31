@@ -42,11 +42,11 @@ public class App {
     // closeConnection();
     // new LoginPage();
 
-    // UserDao userHandler = new UserDaoImp();
-    // User user = userHandler.createUserFromLogin("t@g.com");
-    // new CalendarView(user);
+     UserDao userHandler = new UserDaoImp();
+     User user = userHandler.createUserFromLogin("t@g.com");
+     new CalendarView(user);
 
-    ArrayList<EventLocal> jan = localDbMethod.buildEventLocal(0);
+    /*ArrayList<EventLocal> jan = localDbMethod.buildEventLocal(0);
     localDb.closeLocalConnection();
     for (int i = 0; i < jan.size(); i++) {
       // System.out.println(jan.get(i).toString());
@@ -55,7 +55,7 @@ public class App {
       System.out.println(jan.get(i).getDayOfEvent().get(GregorianCalendar.DATE));
       System.out.println(jan.get(i).getDayOfEvent().get(GregorianCalendar.MONTH));
       System.out.println(jan.get(i).getDayOfEvent().get(GregorianCalendar.YEAR));
-    }
+    }*/
 
     // new AdminPage();
 
