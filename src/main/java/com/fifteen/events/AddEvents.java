@@ -50,7 +50,7 @@ public class AddEvents extends JFrame {
   private JList ParticipantList;
   private GregorianCalendar chosenGregorianCalendar;
 
-  public AddEvents(User user) {
+  public AddEvents() {
 
     frame = new JFrame("Add EventLocal");
 
