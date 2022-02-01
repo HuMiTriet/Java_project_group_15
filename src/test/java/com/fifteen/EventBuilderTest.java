@@ -1,5 +1,7 @@
 package com.fifteen;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ public class EventBuilderTest {
   void builEventsFebruaryTest() {
     try {
       ArrayList<EventLocal> february = localDbMethod.buildEventLocal(1);
-      System.out.println(february.size());
+      assertEquals(4, february.size(), "The event builder should all events of that month");
     } catch (SQLException e) {
       e.printStackTrace();
     }

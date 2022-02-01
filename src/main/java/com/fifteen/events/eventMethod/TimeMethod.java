@@ -34,4 +34,11 @@ public class TimeMethod {
 
     return CheckDate.validateDate(date);
   }
+
+  public static int reminderMinutes(GregorianCalendar reminder) {
+    int hour = reminder.get(GregorianCalendar.HOUR_OF_DAY);
+    int minutes = reminder.get(GregorianCalendar.MINUTE);
+
+    return hour * 60 + minutes;
+  }
 }
