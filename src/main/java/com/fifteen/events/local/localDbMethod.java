@@ -2,6 +2,7 @@ package com.fifteen.events.local;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Vector;
@@ -58,7 +59,10 @@ public class localDbMethod extends localDb {
 
   private static void getParticipantsTable(EventLocal eventLocal) throws SQLException {
 
-    ResultSet participants_rs = statement.executeQuery("Select * from participants"
+    Statement participantStatement = connection.createStatement();
+
+    ResultSet participants_rs = participantStatement.executeQuery("Select * from participants"
+
         + " where event_id = " + "'" + eventLocal.getEventID() + "'");
     while (participants_rs.next()) {
       eventLocal.getParticipants_email().add(participants_rs.getString("participants_email"));
@@ -92,7 +96,7 @@ public class localDbMethod extends localDb {
       eventLocal.getLocation().setLatitude(resultSet.getDouble("latitude"));
       eventLocal.setPriority(resultSet.getString("priority"));
 
-      // getParticipantsTable(eventLocal);
+      getParticipantsTable(eventLocal);
 
       monthEvents.add(eventLocal);
     }
