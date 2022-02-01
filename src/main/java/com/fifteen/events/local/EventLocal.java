@@ -6,6 +6,9 @@ import java.util.Set;
 import java.util.UUID;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * EventLocal class to be create whenever the user created a new event. This
@@ -18,32 +21,33 @@ import lombok.Getter;
  * @author Triet Huynh
  */
 @Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class EventLocal {
   private String eventID = "null";
   private String eventName = "null";
   private String eventDescription = "null";
-  private GregorianCalendar startTime;
-  private GregorianCalendar dayOfEvent;
+  private GregorianCalendar dayOfEvent = new GregorianCalendar();
   private long event_duration_minute = 0;
+  private int minutesUntilReminder = 0;
   private Set<String> participants_email = new HashSet<String>();
-  private Location location;
+  private Location location = new Location();
   private String priority;
-  private int priority_score;
 
-  public EventLocal(String eventName, String eventDescription, GregorianCalendar dayOfEvent,
-      GregorianCalendar startTime, long event_duration_minute,
-      Set<String> participants_email, Location location, String priority, int priority_score) {
+  public EventLocal(String eventName, String eventDescription,
+      GregorianCalendar dayOfEvent, long event_duration_minute, int minutesUntilReminder,
+      Set<String> participants_email, Location location, String priority) {
 
     this.eventID = UUID.randomUUID().toString();
     this.eventName = eventName;
     this.eventDescription = eventDescription;
-    this.startTime = startTime;
     this.dayOfEvent = dayOfEvent;
     this.event_duration_minute = event_duration_minute;
+    this.minutesUntilReminder = minutesUntilReminder;
     this.participants_email.addAll(participants_email);
     this.location = location;
     this.priority = priority;
-    this.priority_score = priority_score;
   }
 
   public void addParticipant(String[] participantsEmails) {

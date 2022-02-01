@@ -12,6 +12,7 @@ import org.apache.commons.validator.routines.CalendarValidator;
  */
 public class CheckDate {
   private static final String DATE = "dd/MM/yyyy";
+  private static final String TIME_AND_DATE = "HH:mm dd/MM/yyyy";
   private static final String TIME = "HH:mm";
   private static CalendarValidator GregorianCalendarValidator = new CalendarValidator();
 
@@ -30,4 +31,9 @@ public class CheckDate {
   public static GregorianCalendar validateTime(String timeString) {
     return (GregorianCalendar) GregorianCalendarValidator.validate(timeString, TIME);
   }
+
+  public static GregorianCalendar validateTimeDate(String timeString) {
+    return (GregorianCalendar) GregorianCalendarValidator.validate(timeString, TIME_AND_DATE);
+  }
+
 }
