@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="@db1.fb2.frankfurt-university.de">
-  <database-model serializer="dbm" dbms="ORACLE" family-id="ORACLE" format-version="4.23">
+  <database-model serializer="dbm" dbms="ORACLE" family-id="ORACLE" format-version="4.32">
     <root id="1">
       <ServerVersion>12.2.0.1.0</ServerVersion>
       <TablespacesHash>7229053152</TablespacesHash>
@@ -123,11 +123,11 @@
       <ObjectId>3395</ObjectId>
     </schema>
     <schema id="41" parent="1" name="PUBLIC">
-      <ObjectId>1</ObjectId>
       <CreatedTimestamp>2017-01-26.14:53:00</CreatedTimestamp>
-      <ModifiedTimestamp>2021-09-22.19:29:00</ModifiedTimestamp>
-      <IntrospectionVersion>200820</IntrospectionVersion>
       <IntrospectionTimestamp>2022-01-30.16:02:43</IntrospectionTimestamp>
+      <IntrospectionVersion>200820</IntrospectionVersion>
+      <ModifiedTimestamp>2021-09-22.19:29:00</ModifiedTimestamp>
+      <ObjectId>1</ObjectId>
     </schema>
     <schema id="42" parent="1" name="REMOTE_SCHEDULER_AGENT">
       <ObjectId>34</ObjectId>
@@ -592,12 +592,12 @@
       <ObjectId>3142</ObjectId>
     </schema>
     <schema id="196" parent="1" name="S1_STUDENT2_52">
-      <ObjectId>3143</ObjectId>
       <CreatedTimestamp>2021-12-07.00:11:56</CreatedTimestamp>
-      <ModifiedTimestamp>2022-01-27.18:07:27</ModifiedTimestamp>
-      <IntrospectionVersion>200820</IntrospectionVersion>
-      <IntrospectionTimestamp>2022-01-30.16:02:34</IntrospectionTimestamp>
       <Current>1</Current>
+      <IntrospectionTimestamp>2022-01-30.16:02:34</IntrospectionTimestamp>
+      <IntrospectionVersion>200820</IntrospectionVersion>
+      <ModifiedTimestamp>2022-01-27.18:07:27</ModifiedTimestamp>
+      <ObjectId>3143</ObjectId>
     </schema>
     <schema id="197" parent="1" name="S1_STUDENT2_53">
       <ObjectId>3144</ObjectId>
@@ -1377,12 +1377,12 @@
       <ObjectId>2147483638</ObjectId>
     </schema>
     <tablespace id="456" parent="1" name="STUDENTS">
+      <AutoSegmentManagement>1</AutoSegmentManagement>
       <BlockSize>8192</BlockSize>
       <ContentCategory>P</ContentCategory>
+      <LocalExtentManagement>1</LocalExtentManagement>
       <Logging>1</Logging>
       <Status>E</Status>
-      <LocalExtentManagement>1</LocalExtentManagement>
-      <AutoSegmentManagement>1</AutoSegmentManagement>
     </tablespace>
     <user id="457" parent="1" name="ANONYMOUS">
       <ObjectId>63</ObjectId>
@@ -1964,8 +1964,8 @@
       <ObjectId>3142</ObjectId>
     </user>
     <user id="650" parent="1" name="S1_STUDENT2_52">
-      <ObjectId>3143</ObjectId>
       <DefaultTablespace>STUDENTS</DefaultTablespace>
+      <ObjectId>3143</ObjectId>
       <TemporaryTablespace>TEMP</TemporaryTablespace>
     </user>
     <user id="651" parent="1" name="S1_STUDENT2_53">
@@ -2745,370 +2745,5 @@
     <user id="909" parent="1" name="XS$NULL">
       <ObjectId>2147483638</ObjectId>
     </user>
-    <sequence id="910" parent="196" name="DEPARTMENTS_SEQ">
-      <ObjectId>694363</ObjectId>
-      <CreatedTimestamp>2021-12-29.22:18:32</CreatedTimestamp>
-      <ModifiedTimestamp>2021-12-29.22:18:32</ModifiedTimestamp>
-      <SequenceIdentity>1(280)+10..9990</SequenceIdentity>
-      <CacheSize>-2147483648</CacheSize>
-    </sequence>
-    <sequence id="911" parent="196" name="EMPLOYEES_SEQ">
-      <ObjectId>694369</ObjectId>
-      <CreatedTimestamp>2021-12-29.22:18:33</CreatedTimestamp>
-      <ModifiedTimestamp>2021-12-29.22:18:33</ModifiedTimestamp>
-      <SequenceIdentity>1(207)</SequenceIdentity>
-      <CacheSize>-2147483648</CacheSize>
-    </sequence>
-    <sequence id="912" parent="196" name="EMPLOYEE_ID_SEQ">
-      <ObjectId>693805</ObjectId>
-      <CreatedTimestamp>2021-12-27.14:30:10</CreatedTimestamp>
-      <ModifiedTimestamp>2021-12-27.14:30:10</ModifiedTimestamp>
-      <SequenceIdentity>1(21)</SequenceIdentity>
-    </sequence>
-    <sequence id="913" parent="196" name="LOCATIONS_SEQ">
-      <ObjectId>694360</ObjectId>
-      <CreatedTimestamp>2021-12-29.22:18:31</CreatedTimestamp>
-      <ModifiedTimestamp>2021-12-29.22:18:31</ModifiedTimestamp>
-      <SequenceIdentity>1(3300)+100..9900</SequenceIdentity>
-      <CacheSize>-2147483648</CacheSize>
-    </sequence>
-    <table id="914" parent="196" name="EVENT">
-      <ObjectId>707014</ObjectId>
-      <CreatedTimestamp>2022-01-27.17:22:59</CreatedTimestamp>
-      <ModifiedTimestamp>2022-01-27.17:22:59</ModifiedTimestamp>
-      <TemporaryPreserve>1</TemporaryPreserve>
-    </table>
-    <table id="915" parent="196" name="LOCATION">
-      <ObjectId>707032</ObjectId>
-      <CreatedTimestamp>2022-01-27.18:07:27</CreatedTimestamp>
-      <ModifiedTimestamp>2022-01-27.18:07:27</ModifiedTimestamp>
-      <TemporaryPreserve>1</TemporaryPreserve>
-    </table>
-    <table id="916" parent="196" name="TIME">
-      <ObjectId>707030</ObjectId>
-      <CreatedTimestamp>2022-01-27.17:55:55</CreatedTimestamp>
-      <ModifiedTimestamp>2022-01-27.17:55:55</ModifiedTimestamp>
-      <TemporaryPreserve>1</TemporaryPreserve>
-    </table>
-    <table id="917" parent="196" name="USERDB">
-      <ObjectId>702481</ObjectId>
-      <CreatedTimestamp>2022-01-17.21:23:15</CreatedTimestamp>
-      <ModifiedTimestamp>2022-01-17.21:23:15</ModifiedTimestamp>
-      <TemporaryPreserve>1</TemporaryPreserve>
-    </table>
-    <view id="918" parent="196" name="DEPARTMENT_METADATA">
-      <ObjectId>694431</ObjectId>
-      <SourceTextLength>94</SourceTextLength>
-      <Invalid>1</Invalid>
-      <CreatedTimestamp>2021-12-29.23:40:44</CreatedTimestamp>
-      <ModifiedTimestamp>2021-12-29.23:40:44</ModifiedTimestamp>
-      <Modifiable>1</Modifiable>
-    </view>
-    <view id="919" parent="196" name="DEPT_SUMMARY">
-      <ObjectId>694662</ObjectId>
-      <SourceTextLength>76</SourceTextLength>
-      <Invalid>1</Invalid>
-      <CreatedTimestamp>2021-12-30.13:41:59</CreatedTimestamp>
-      <ModifiedTimestamp>2021-12-30.13:41:59</ModifiedTimestamp>
-      <Modifiable>1</Modifiable>
-    </view>
-    <view id="920" parent="196" name="MORE__EMP">
-      <ObjectId>694661</ObjectId>
-      <SourceTextLength>84</SourceTextLength>
-      <Invalid>1</Invalid>
-      <DependsOnIds>694660</DependsOnIds>
-      <CreatedTimestamp>2021-12-30.13:39:52</CreatedTimestamp>
-      <ModifiedTimestamp>2021-12-30.13:39:52</ModifiedTimestamp>
-      <Modifiable>1</Modifiable>
-    </view>
-    <view id="921" parent="196" name="PROJECT_META">
-      <ObjectId>694660</ObjectId>
-      <SourceTextLength>229</SourceTextLength>
-      <Invalid>1</Invalid>
-      <CreatedTimestamp>2021-12-30.13:32:55</CreatedTimestamp>
-      <ModifiedTimestamp>2021-12-30.13:33:02</ModifiedTimestamp>
-      <Modifiable>1</Modifiable>
-    </view>
-    <view id="922" parent="196" name="RE_EMP">
-      <ObjectId>694659</ObjectId>
-      <SourceTextLength>222</SourceTextLength>
-      <Invalid>1</Invalid>
-      <DependsOnIds>694431</DependsOnIds>
-      <CreatedTimestamp>2021-12-30.13:16:44</CreatedTimestamp>
-      <ModifiedTimestamp>2021-12-30.13:19:59</ModifiedTimestamp>
-      <Modifiable>1</Modifiable>
-    </view>
-    <routine id="923" parent="196" name="ADD_JOB_HISTORY">
-      <ObjectId>683415</ObjectId>
-      <CreatedTimestamp>2021-12-07.00:11:56</CreatedTimestamp>
-      <ModifiedTimestamp>2021-12-29.22:48:31</ModifiedTimestamp>
-      <SourceTextLength>503</SourceTextLength>
-      <Invalid>1</Invalid>
-      <Errors>2:24:PLS-00201: identifier &apos;JOB_HISTORY.EMPLOYEE_ID&apos; must be declared
-0:0:PL/SQL: Compilation unit analysis terminated</Errors>
-      <RoutineKind>procedure</RoutineKind>
-    </routine>
-    <column id="924" parent="914" name="ID">
-      <Position>1</Position>
-      <DataType>VARCHAR2(300 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="925" parent="914" name="NAME">
-      <Position>2</Position>
-      <DataType>VARCHAR2(200 byte)|0s</DataType>
-    </column>
-    <column id="926" parent="914" name="PRIORITY">
-      <Position>3</Position>
-      <DataType>VARCHAR2(10 byte)|0s</DataType>
-    </column>
-    <index id="927" parent="914" name="EVENT_EVENTID_PK">
-      <ObjectId>707015</ObjectId>
-      <CreatedTimestamp>2022-01-27.17:22:59</CreatedTimestamp>
-      <ModifiedTimestamp>2022-01-27.17:22:59</ModifiedTimestamp>
-      <TablespaceName>STUDENTS</TablespaceName>
-      <ColNames>ID</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <key id="928" parent="914" name="EVENT_EVENTID_PK">
-      <ModifiedTimestamp>2022-01-27.17:22:59</ModifiedTimestamp>
-      <ColNames>ID</ColNames>
-      <InitiallyDeferred>1</InitiallyDeferred>
-      <UnderlyingIndexName>EVENT_EVENTID_PK</UnderlyingIndexName>
-      <Primary>1</Primary>
-    </key>
-    <column id="929" parent="915" name="ID">
-      <Position>1</Position>
-      <DataType>VARCHAR2(300 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="930" parent="915" name="NAME">
-      <Position>2</Position>
-      <DataType>VARCHAR2(200 byte)|0s</DataType>
-    </column>
-    <column id="931" parent="915" name="LONGITUDE">
-      <Position>3</Position>
-      <DataType>FLOAT(63 digit)|0s</DataType>
-    </column>
-    <column id="932" parent="915" name="LATITUDE">
-      <Position>4</Position>
-      <DataType>FLOAT(63 digit)|0s</DataType>
-    </column>
-    <index id="933" parent="915" name="LOCATION_EVENTID_PK">
-      <ObjectId>707033</ObjectId>
-      <CreatedTimestamp>2022-01-27.18:07:27</CreatedTimestamp>
-      <ModifiedTimestamp>2022-01-27.18:07:27</ModifiedTimestamp>
-      <TablespaceName>STUDENTS</TablespaceName>
-      <ColNames>ID</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <key id="934" parent="915" name="LOCATION_EVENTID_PK">
-      <ModifiedTimestamp>2022-01-27.18:07:27</ModifiedTimestamp>
-      <ColNames>ID</ColNames>
-      <InitiallyDeferred>1</InitiallyDeferred>
-      <UnderlyingIndexName>LOCATION_EVENTID_PK</UnderlyingIndexName>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="935" parent="915" name="LOCATION_EVENTID_FK">
-      <ModifiedTimestamp>2022-01-27.18:07:27</ModifiedTimestamp>
-      <ColNames>ID</ColNames>
-      <RefSchemaName>S1_STUDENT2_52</RefSchemaName>
-      <RefTableName>EVENT</RefTableName>
-      <RefKeyName>EVENT_EVENTID_PK</RefKeyName>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <column id="936" parent="916" name="ID">
-      <Position>1</Position>
-      <DataType>VARCHAR2(300 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="937" parent="916" name="MINUTE">
-      <Position>2</Position>
-      <DataType>NUMBER(*)|0s</DataType>
-    </column>
-    <column id="938" parent="916" name="HOUR">
-      <Position>3</Position>
-      <DataType>NUMBER(*)|0s</DataType>
-    </column>
-    <column id="939" parent="916" name="DAY_OF_WEEK">
-      <Position>4</Position>
-      <DataType>NUMBER(*)|0s</DataType>
-    </column>
-    <column id="940" parent="916" name="DAY">
-      <Position>5</Position>
-      <DataType>NUMBER(*)|0s</DataType>
-    </column>
-    <column id="941" parent="916" name="MONTH">
-      <Position>6</Position>
-      <DataType>NUMBER(*)|0s</DataType>
-    </column>
-    <column id="942" parent="916" name="YEAR">
-      <Position>7</Position>
-      <DataType>NUMBER(*)|0s</DataType>
-    </column>
-    <index id="943" parent="916" name="TIME_EVENTID_PK">
-      <ObjectId>707031</ObjectId>
-      <CreatedTimestamp>2022-01-27.17:55:55</CreatedTimestamp>
-      <ModifiedTimestamp>2022-01-27.17:55:55</ModifiedTimestamp>
-      <TablespaceName>STUDENTS</TablespaceName>
-      <ColNames>ID</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <key id="944" parent="916" name="TIME_EVENTID_PK">
-      <ModifiedTimestamp>2022-01-27.17:55:56</ModifiedTimestamp>
-      <ColNames>ID</ColNames>
-      <InitiallyDeferred>1</InitiallyDeferred>
-      <UnderlyingIndexName>TIME_EVENTID_PK</UnderlyingIndexName>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="945" parent="916" name="TIME_EVENTID_FK">
-      <ModifiedTimestamp>2022-01-27.17:55:56</ModifiedTimestamp>
-      <ColNames>ID</ColNames>
-      <RefSchemaName>S1_STUDENT2_52</RefSchemaName>
-      <RefTableName>EVENT</RefTableName>
-      <RefKeyName>EVENT_EVENTID_PK</RefKeyName>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <column id="946" parent="917" name="EMAIL">
-      <Position>1</Position>
-      <DataType>VARCHAR2(100 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="947" parent="917" name="USERNAME">
-      <Position>2</Position>
-      <DataType>VARCHAR2(100 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="948" parent="917" name="HASHED_PASSWORD">
-      <Position>3</Position>
-      <DataType>VARCHAR2(64 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="949" parent="917" name="USER_ID">
-      <Position>4</Position>
-      <DataType>RAW(16 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>sys_guid()</DefaultExpression>
-    </column>
-    <column id="950" parent="917" name="IS_ADMIN">
-      <Position>5</Position>
-      <DataType>NUMBER(1 digit)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <index id="951" parent="917" name="SYS_C00389440">
-      <ObjectId>702483</ObjectId>
-      <NameSurrogate>1</NameSurrogate>
-      <CreatedTimestamp>2022-01-17.21:23:15</CreatedTimestamp>
-      <ModifiedTimestamp>2022-01-17.21:23:15</ModifiedTimestamp>
-      <TablespaceName>STUDENTS</TablespaceName>
-      <ColNames>EMAIL</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <index id="952" parent="917" name="USERDB_USERID_PK">
-      <ObjectId>702482</ObjectId>
-      <CreatedTimestamp>2022-01-17.21:23:15</CreatedTimestamp>
-      <ModifiedTimestamp>2022-01-17.21:23:15</ModifiedTimestamp>
-      <TablespaceName>STUDENTS</TablespaceName>
-      <ColNames>USER_ID</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <key id="953" parent="917" name="USERDB_USERID_PK">
-      <ModifiedTimestamp>2022-01-17.21:23:15</ModifiedTimestamp>
-      <ColNames>USER_ID</ColNames>
-      <InitiallyDeferred>1</InitiallyDeferred>
-      <UnderlyingIndexName>USERDB_USERID_PK</UnderlyingIndexName>
-      <Primary>1</Primary>
-    </key>
-    <key id="954" parent="917" name="SYS_C00389440">
-      <NameSurrogate>1</NameSurrogate>
-      <ModifiedTimestamp>2022-01-17.21:23:15</ModifiedTimestamp>
-      <ColNames>EMAIL</ColNames>
-      <InitiallyDeferred>1</InitiallyDeferred>
-      <UnderlyingIndexName>SYS_C00389440</UnderlyingIndexName>
-    </key>
-    <column id="955" parent="918" name="DNAME">
-      <Position>1</Position>
-      <DataType>VARCHAR2(25 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="956" parent="918" name="LNAME">
-      <Position>2</Position>
-      <DataType>VARCHAR2(15 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="957" parent="918" name="SALARY">
-      <Position>3</Position>
-      <DataType>NUMBER(10,2 digit)|0s</DataType>
-    </column>
-    <column id="958" parent="919" name="D">
-      <Position>1</Position>
-      <DataType>NUMBER(4 digit)|0s</DataType>
-    </column>
-    <column id="959" parent="919" name="C">
-      <Position>2</Position>
-      <DataType>NUMBER(*)|0s</DataType>
-    </column>
-    <column id="960" parent="919" name="TOTAL_S">
-      <Position>3</Position>
-      <DataType>NUMBER(*)|0s</DataType>
-    </column>
-    <column id="961" parent="919" name="AVERAGE_S">
-      <Position>4</Position>
-      <DataType>NUMBER(*)|0s</DataType>
-    </column>
-    <column id="962" parent="920" name="PROJECT_NAME">
-      <Position>1</Position>
-      <DataType>VARCHAR2(25 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="963" parent="920" name="CON_DEPT">
-      <Position>2</Position>
-      <DataType>VARCHAR2(25 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="964" parent="920" name="NO_EMP">
-      <Position>3</Position>
-      <DataType>NUMBER(*)|0s</DataType>
-    </column>
-    <column id="965" parent="920" name="HOURS">
-      <Position>4</Position>
-      <DataType>NUMBER(*)|0s</DataType>
-    </column>
-    <column id="966" parent="921" name="PROJECT_NAME">
-      <Position>1</Position>
-      <DataType>VARCHAR2(25 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="967" parent="921" name="CON_DEPT">
-      <Position>2</Position>
-      <DataType>VARCHAR2(25 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="968" parent="921" name="NO_EMP">
-      <Position>3</Position>
-      <DataType>NUMBER(*)|0s</DataType>
-    </column>
-    <column id="969" parent="921" name="HOURS">
-      <Position>4</Position>
-      <DataType>NUMBER(*)|0s</DataType>
-    </column>
-    <column id="970" parent="922" name="LNAME">
-      <Position>1</Position>
-      <DataType>VARCHAR2(15 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="971" parent="922" name="SUPER_LNAME">
-      <Position>2</Position>
-      <DataType>VARCHAR2(15 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="972" parent="922" name="SALARY">
-      <Position>3</Position>
-      <DataType>NUMBER(10,2 digit)|0s</DataType>
-    </column>
-    <column id="973" parent="922" name="DNAME">
-      <Position>4</Position>
-      <DataType>VARCHAR2(25 byte)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
   </database-model>
 </dataSource>
