@@ -2,6 +2,7 @@ package com.fifteen.events;
 
 import com.fifteen.auth.login.LoginPage;
 import com.fifteen.database.User;
+import com.fifteen.events.eventMethod.eventsPerDate;
 import com.fifteen.events.local.localDb;
 import com.fifteen.events.local.localDbMethod;
 import com.fifteen.events.local.EventLocal;
@@ -231,7 +232,7 @@ public class CalendarView extends JFrame {
        */
       @Override
       public void actionPerformed(ActionEvent e) {
-        new AddEvents();
+        new AddEvents(Day, currentMonth, currentYear);
       }
     });
 
@@ -256,28 +257,29 @@ public class CalendarView extends JFrame {
       }
     });
 
-    ArrayList<EventLocal> eventMonths = new ArrayList<>();
-
-    try {
-      eventMonths = localDbMethod.buildEventLocal(8);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-
-    // System.out.println(eventMonths.get(0).getDayOfEvent().get(GregorianCalendar.DATE));
-    // System.out.println(eventMonths.get(0));
-    // System.out.println(eventMonths.get(0).getEventName());
-    // System.out.println(eventMonths.get(0).getDayOfEvent().get(GregorianCalendar.DAY_OF_MONTH));
-    //System.out.println(eventMonths.size());
-
   }
 
   private void updateCalendar(int month, int year) {
 
     String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September",
             "October", "November", "December"};
+    ArrayList<Integer> daysWithEvent = new ArrayList<>();
     int startMonth, numberDays;
 
+    //Get Events
+    ArrayList<EventLocal> eventMonths = new ArrayList<>();
+
+    try {
+      eventMonths = localDbMethod.buildEventLocal(month);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    //Get days with events
+    if (eventMonths.isEmpty() != true) {
+      for (int i = 0; i < eventMonths.size(); i++) {
+        daysWithEvent.add(eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.DATE));
+      }
+    }
     // Update current month label
     monthCalendar.setText(months[month]);
     yearJlabel.setText(String.valueOf(currentYear));
@@ -303,6 +305,7 @@ public class CalendarView extends JFrame {
 
     // Render Table, set cell colour
     tblCalendar.setDefaultRenderer(tblCalendar.getColumnClass(0), new tblCalendarRenderer());
+
   }
 
   public class tblCalendarRenderer extends DefaultTableCellRenderer {

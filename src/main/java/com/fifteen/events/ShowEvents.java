@@ -82,7 +82,7 @@ public class ShowEvents extends JFrame {
     addEventsButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        new AddEvents();
+        new AddEvents(currentDay, currentMonth, currentYear);
       }
     });
     fillTable(currentMonth, currentDay);
@@ -122,7 +122,7 @@ public class ShowEvents extends JFrame {
         mdlCalendar.setValueAt(eventsToday.get(i).getDayOfEvent().get(GregorianCalendar.HOUR_OF_DAY), i, j + 2);
         mdlCalendar.setValueAt(eventsToday.get(i).getEvent_duration_minute(), i, j + 3);
         mdlCalendar.setValueAt(eventsToday.get(i).getLocation().getName(), i, j + 4);
-        mdlCalendar.setValueAt(null, i, j + 5);
+        mdlCalendar.setValueAt(null, i, j + 5); //Missing participants
         mdlCalendar.setValueAt(eventsToday.get(i).getPriority(), i, j + 6);
       }
     }
