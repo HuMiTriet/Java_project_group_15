@@ -18,7 +18,7 @@ public class ShowEvents extends JFrame {
   private JButton backButton;
   private JLabel dateSelectedEvent;
 
-  public ShowEvents(User user) {
+  public ShowEvents(User user, int currentDay, int currentMonth, int currentYear) {
 
     frame = new JFrame("Events for this day");
     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -30,7 +30,11 @@ public class ShowEvents extends JFrame {
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
 
-    //dateSelectedEvent.setText(day + " " + month + " " + year);
+    String day = String.valueOf(currentDay);
+    String month = String.valueOf(currentMonth + 1);
+    String year = String.valueOf(currentYear);
+
+    dateSelectedEvent.setText(day + " " + month  + " " + year);
 
     backButton.addActionListener(new ActionListener() {
       @Override
