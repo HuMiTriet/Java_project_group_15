@@ -4,8 +4,10 @@ package com.fifteen.mailApi;
  * Establishing a connection with an email provider (in this case gmail) and
  * sending an email from the user that created an event to all the participants (reminder, changes for event etc.)
  *
+ * IMPORTANT NOTE: Settings need to be changed to "Less secure app access: ON" for the emails to be received
  *
- * @author Ante
+ *
+ * @author Ante Maric (1273904)
  */
 
 import javax.mail.*;
@@ -17,68 +19,79 @@ import java.util.logging.Logger;
 public class mailUtils {
   Session newSession = null;
   MimeMessage mimeMessage = null;
+  String emailAddressSender = "javacomtwentyone@gmail.com";
+  String passwordSender = "StrongPassword21";
 
   public void setupProperties() {
     System.out.println("Preparing to send email");
     Properties properties = System.getProperties(); // assign key and value to property
 
     // Setting up the properties to connect to the gmail servers
-    properties.put("mail.smtp.auth", "true"); // Set authentication for Google
-    properties.put("mail.smtp.starttls.enable", "true"); // Start TLS connection
-    properties.put("mail.smtp.host", "smtp.gmail.com"); // Gmail host location
-    properties.put("mail.smtp.port", "587"); // Port for TLS connection
+    // SMTP = Simple Mail Transfer Protocol (most common protocol to send email messages)
+    properties.put("mail.smtp.auth", "true"); // Set authentication to true (standard is false) so the session can attempt to connect to authenticate the user
+    properties.put("mail.smtp.starttls.enable", "true"); // Starts the STARTTLS command on the server which switches to a TLS protected connection
+    properties.put("mail.smtp.host", "smtp.gmail.com"); // Gmail host location - smtp server to connect to
+    properties.put("mail.smtp.port", "587"); // Port for TLS connection - smtp server port to connect to (gmail is 587)
+    properties.put("mail.transport.protocol", "smtp"); // Specifies the default transport protocol, in this case it's SMTP
 
-    newSession = Session.getDefaultInstance(properties, null); // creating a new session
+    // creating a new session
+    // Authenticator - abstract class that represents an object that knows how to obtain information for a network connection
+    // getPasswordAuthentication is called when a password authorization is needed. (In this case when we sign in to the gmail account)
+    newSession = Session.getDefaultInstance(properties, new Authenticator() {
+      @Override
+      protected PasswordAuthentication getPasswordAuthentication() {
+        return new PasswordAuthentication(emailAddressSender, passwordSender);
+      }
+    });
   }
 
   mailUtils mail = new mailUtils();
   // mail.draftEmail();
   // mail.sendEmail();
 
-  private MimeMessage draftEmail(String[] emailAdress, String emailSubject, String emailBody)
-      throws AddressException, MessagingException {
-    // String[] emailAdress = { "pj@gmail.com", "ante@gmail.com", "jorge@gmail.com",
-    // "tim@gmail.com" };
-    // String emailSubject = "Reminder for your upcoming event";
-    // String[] password = { "AnimeMan69", "CoffeAddict11", "MavenLover123",
-    // "SleepIsLife777" };
-    // String emailBody = "Hey There,\nThis is a reminder that your event
-    // INSERT_NAME will start in 12345 mins/hours/days/weeks";
-    mimeMessage = new MimeMessage(newSession);
+  //MIME = Multipurpose Internet Mail Extension - Defines the content that an email is going to have
+  private MimeMessage draftEmail(String[] emailAddressReceiver, String[] passwordReceiver, String emailSubject, String emailBody) throws MessagingException {
+     //Scheme on how to build and email (Subject, body, email address and password of receivers)
+     /*
+     String[] emailAddressReceiver = {"pj@gmail.com", "ante@gmail.com", "jorge@gmail.com", "tim@gmail.com"};
+     String[] passwordReceiver = {"AnimeMan69", "CoffeeAddict11", "MavenLover123", "SleepIsLife777"};
+     String emailSubject = "Reminder for your upcoming event";
+     String emailBody = "Hey There,\nThis is a reminder that your event INSERT_NAME will start in 12345 minutes/hours/days/weeks";
+     */
+      mimeMessage = new MimeMessage(newSession);
 
-    for (int i = 0; i < emailAdress.length; i++) {
-      mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(emailAdress[i]));
-    }
+      //for loop that adds all the recipients that were passed in as parameters in draftEmail to receive the email
+      for (int i = 0; i < emailAddressReceiver.length; i++) {
+        mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(emailAddressReceiver[i]));
+      }
 
-    mimeMessage.setSubject(emailSubject);
-    MimeMultipart multiPart = new MimeMultipart();
+      mimeMessage.setSubject(emailSubject);
+      MimeMultipart multiPart = new MimeMultipart();
 
-    MimeBodyPart bodyPart = new MimeBodyPart();
-    bodyPart.setContent(emailBody, "html/text");
-    multiPart.addBodyPart(bodyPart);
-    mimeMessage.setContent(multiPart);
-    return mimeMessage;
+      MimeBodyPart bodyPart = new MimeBodyPart();
+      bodyPart.setContent(emailBody, "html/text");
+      multiPart.addBodyPart(bodyPart);
+      mimeMessage.setContent(multiPart);
+      return mimeMessage;
   }
 
   // Send an email from admin account to all the
   private void sendEmail() throws MessagingException {
-    String fromUser = "User that created event [username] => admin@gmail.com";
-    String fromUserPassword = "User that created event [password] = > *******";
-    String emailHost = "smtp.gmail.com";
-    Transport transport = newSession.getTransport("smtp"); // get object of the transport class using the new session
-                                                           // that is created
-    transport.connect(emailHost, fromUser, fromUserPassword); // connecting to the account that the emails will be sent
-                                                              // from
-    transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients()); // send the message and all their recipients
-                                                                        // from MimeMessage Method
+    String emailAddressSender = "javacomtwentyone@gmail.com"; // "Admin gmail address from which all reminders/changes will be sent out to the recipients (Users)
+    String passwordSender = "StrongPassword21";     // Admin gmail password
+    String emailHost = "smtp.gmail.com";            // gmail host
+    Transport transport = newSession.getTransport("smtp"); // get object of the transport class using the new session that is created
+    transport.connect(emailHost, emailAddressSender, passwordSender); // connecting to the account that the emails will sent from
+    transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients()); // send the message to all the recipients from MimeMessage Method
     transport.close(); // close email transport
-    System.out.println("Email sent successfully!");
+    System.out.println("Email sent successfully!"); // Will be printed out on the cmd line if executed successful
   }
 
 }
 
 /*
  ********* OLD CODE *********
+ * String[] emailAdress, String emailSubject, String emailBody
  * 
  * String emailAddress = //"javacomtwentyone@gmail.com";
  * String password = //"StrongPassword21";
