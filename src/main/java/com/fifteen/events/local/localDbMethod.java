@@ -79,7 +79,13 @@ public class localDbMethod extends localDb {
 
       eventLocal.getDayOfEvent().set(GregorianCalendar.HOUR_OF_DAY, resultSet.getInt("start_hour"));
       eventLocal.getDayOfEvent().set(GregorianCalendar.MINUTE, resultSet.getInt("start_minute"));
-      eventLocal.getDayOfEvent().set(GregorianCalendar.DAY_OF_MONTH, resultSet.getInt("date"));//Testing stuff (Tim)
+      eventLocal.getDayOfEvent().set(GregorianCalendar.DAY_OF_WEEK, resultSet.getInt("day_of_week"));// Testing stuff
+      eventLocal.getDayOfEvent().set(GregorianCalendar.DATE, resultSet.getInt("date"));
+      eventLocal.getDayOfEvent().set(GregorianCalendar.MONTH, resultSet.getInt("month"));
+      eventLocal.getDayOfEvent().set(GregorianCalendar.YEAR, resultSet.getInt("year"));
+
+      eventLocal.setEvent_duration_minute(resultSet.getLong("event_duration_minute"));
+      eventLocal.setMinutesUntilReminder(resultSet.getInt("minutes_until_reminder"));
 
       eventLocal.getLocation().setName(resultSet.getString("location_name"));
       eventLocal.getLocation().setLongitude(resultSet.getDouble("longtitude"));
