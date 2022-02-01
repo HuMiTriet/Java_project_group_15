@@ -3,6 +3,8 @@ package com.fifteen.events;
 import com.fifteen.auth.login.LoginPage;
 import com.fifteen.database.User;
 import com.fifteen.events.local.localDb;
+import com.fifteen.events.local.localDbMethod;
+import com.fifteen.events.local.EventLocal;
 import com.fifteen.events.settings.EventSettings;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -12,6 +14,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -251,7 +254,22 @@ public class CalendarView extends JFrame {
       }
     });
 
+    ArrayList<EventLocal> eventMonths = null;
+    try {
+      eventMonths = localDbMethod.buildEventLocal(2);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+
+    //System.out.println(eventMonths.get(0).getDayOfEvent().get(GregorianCalendar.DATE));
+    //System.out.println(eventMonths.get(0));
+    //System.out.println(eventMonths.get(0).getEventName());
+    //System.out.println(eventMonths.get(0).getDayOfEvent().get(GregorianCalendar.DAY_OF_MONTH));
+
   }
+
+
 
   private void updateCalendar(int month, int year) {
 
