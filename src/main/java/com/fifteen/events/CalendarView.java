@@ -7,6 +7,8 @@ import com.fifteen.events.local.localDb;
 import com.fifteen.events.local.localDbMethod;
 import com.fifteen.events.local.EventLocal;
 import com.fifteen.events.settings.EventSettings;
+import com.fifteen.profile.AddContact;
+import com.fifteen.profile.ProfilePage;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -45,8 +47,8 @@ public class CalendarView extends JFrame {
   private JMenuItem sview1, sview2, sview3;
   private JMenu export;
   private JMenuItem txt;
-  private JMenu contacts;
-  private JMenuItem contacts1;
+  private JMenu database;
+  private JMenuItem dimport, dexport;
   private JMenu about;
   private JMenuItem about1;
 
@@ -64,7 +66,7 @@ public class CalendarView extends JFrame {
     menu = new JMenu("Menu");
     sview = new JMenu("Switch View");
     export = new JMenu("Export");
-    contacts = new JMenu("Contacts");
+    database = new JMenu("Database");
     about = new JMenu("About");
 
     // create menuitems
@@ -79,7 +81,8 @@ public class CalendarView extends JFrame {
 
     txt = new JMenuItem(".txt");
 
-    contacts1 = new JMenuItem("Add Contact");
+    dimport = new JMenuItem("Import Database");
+    dexport = new JMenuItem("Export Database");
 
     about1 = new JMenuItem("Documentation");
 
@@ -95,7 +98,8 @@ public class CalendarView extends JFrame {
 
     export.add(txt);
 
-    contacts.add(contacts1);
+    database.add(dimport);
+    database.add(dexport);
 
     about.add(about1);
 
@@ -103,7 +107,7 @@ public class CalendarView extends JFrame {
     e_menuBar.add(menu);
     e_menuBar.add(sview);
     e_menuBar.add(export);
-    e_menuBar.add(contacts);
+    e_menuBar.add(database);
     e_menuBar.add(about);
 
     // add menubar to frame
@@ -114,6 +118,14 @@ public class CalendarView extends JFrame {
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
+
+    class openProfile implements ActionListener {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        new ProfilePage();
+      }
+    }
+    menu1.addActionListener(new openProfile());
 
     class openSettings implements ActionListener {
       @Override
@@ -140,14 +152,6 @@ public class CalendarView extends JFrame {
       }
     }
     menu4.addActionListener(new eventExit());
-
-    class addContact_a implements ActionListener {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        new AddContact();
-      }
-    }
-    contacts1.addActionListener(new addContact_a());
 
     class addExportAction implements ActionListener {
       @Override

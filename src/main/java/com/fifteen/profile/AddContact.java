@@ -1,4 +1,4 @@
-package com.fifteen.events;
+package com.fifteen.profile;
 
 import com.fifteen.auth.security.UserAuthenticator;
 import com.fifteen.events.local.localDbMethod;
