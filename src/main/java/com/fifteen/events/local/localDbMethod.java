@@ -92,7 +92,7 @@ public class localDbMethod extends localDb {
       eventLocal.getLocation().setLatitude(resultSet.getDouble("latitude"));
       eventLocal.setPriority(resultSet.getString("priority"));
 
-      getParticipantsTable(eventLocal);
+      // getParticipantsTable(eventLocal);
 
       monthEvents.add(eventLocal);
     }
