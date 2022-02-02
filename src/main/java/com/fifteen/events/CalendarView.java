@@ -243,7 +243,7 @@ public class CalendarView extends JFrame {
        */
       @Override
       public void actionPerformed(ActionEvent e) {
-        new AddEvents(Day, currentMonth, currentYear);
+        new AddEvents(Day, Month, Year);
         updateCalendar(currentMonth, currentYear);
       }
     });
@@ -328,7 +328,7 @@ public class CalendarView extends JFrame {
     if (eventMonths.isEmpty() != true) {
       for (int i = 0; i < eventMonths.size(); i++) {
         mdlList.addElement(eventMonths.get(i).getEventName() + " " + eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.DATE)
-                + " " + eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.MONTH)
+                + " " + eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.MONTH + 1)
                 + " " + eventMonths.get(i).getPriority());
         mdlList.addElement(" ");
       }
