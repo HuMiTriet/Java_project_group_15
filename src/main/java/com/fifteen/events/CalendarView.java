@@ -2,12 +2,10 @@ package com.fifteen.events;
 
 import com.fifteen.auth.login.LoginPage;
 import com.fifteen.database.User;
-import com.fifteen.events.eventMethod.eventsPerDate;
 import com.fifteen.events.local.localDb;
 import com.fifteen.events.local.localDbMethod;
 import com.fifteen.events.local.EventLocal;
 import com.fifteen.events.settings.EventSettings;
-import com.fifteen.profile.AddContact;
 import com.fifteen.profile.ProfilePage;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -35,7 +33,9 @@ public class CalendarView extends JFrame {
   private JLabel yearJlabel;
   private JButton addEvent;
   private JList upcomEvents;
+  private JPanel panel2;
   private DefaultTableModel mdlCalendar;
+  private DefaultListModel mdlList;
   private JFrame frame;
   private int Day, Month, Year, currentMonth, currentYear;
 
@@ -172,6 +172,10 @@ public class CalendarView extends JFrame {
     currentMonth = Month;
     currentYear = Year;
 
+    // Initialize JList
+    mdlList = new DefaultListModel();
+    upcomEvents.setModel(mdlList);
+
     // Create TableModel and add it to Table
     mdlCalendar = new DefaultTableModel() {
       public boolean isCellEditable(int row, int column) {
@@ -295,6 +299,9 @@ public class CalendarView extends JFrame {
       }
     }
 
+    // Clear list
+    mdlList.removeAllElements();
+
     // Get number of days in month
     GregorianCalendar cal = new GregorianCalendar(year, month, 1);
     numberDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
@@ -307,6 +314,13 @@ public class CalendarView extends JFrame {
       mdlCalendar.setValueAt(i, row, column);
     }
 
+    // Add upcoming events in month
+    if (eventMonths.isEmpty() != true) {
+      for (int i = 0; i < eventMonths.size(); i++) {
+        mdlList.addElement(eventMonths.get(i).getEventName());
+        mdlList.addElement(" ");
+      }
+    }
     // Render Table, set cell colour
     tblCalendar.setDefaultRenderer(tblCalendar.getColumnClass(0), new tblCalendarRenderer());
 
@@ -373,8 +387,8 @@ public class CalendarView extends JFrame {
     panel1.add(spacer1, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     final Spacer spacer2 = new Spacer();
     panel1.add(spacer2, new GridConstraints(5, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-    final JPanel panel2 = new JPanel();
-    panel2.setLayout(new GridLayoutManager(4, 3, new Insets(0, 0, 0, 0), -1, -1));
+    panel2 = new JPanel();
+    panel2.setLayout(new GridLayoutManager(3, 3, new Insets(0, 0, 0, 0), -1, -1));
     panel2.setBackground(new Color(-10855075));
     panel2.setDoubleBuffered(false);
     panel1.add(panel2, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
@@ -386,25 +400,14 @@ public class CalendarView extends JFrame {
     addEvent.setMinimumSize(new Dimension(16, 10));
     addEvent.setText("New Event");
     panel2.add(addEvent, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-    upcomEvents = new JList();
-    final DefaultListModel defaultListModel1 = new DefaultListModel();
-    defaultListModel1.addElement("-Upcoming work meeting exmpl");
-    defaultListModel1.addElement("");
-    defaultListModel1.addElement("-LaBlunda lecture (be on \"time\")");
-    defaultListModel1.addElement("");
-    defaultListModel1.addElement("-Mama's Birthday next week");
-    defaultListModel1.addElement("");
-    defaultListModel1.addElement("-Pick up milk from supermarket");
-    upcomEvents.setModel(defaultListModel1);
-    panel2.add(upcomEvents, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
     final Spacer spacer3 = new Spacer();
-    panel2.add(spacer3, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+    panel2.add(spacer3, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     final Spacer spacer4 = new Spacer();
-    panel2.add(spacer4, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+    panel2.add(spacer4, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
     final Spacer spacer5 = new Spacer();
-    panel2.add(spacer5, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
-    final Spacer spacer6 = new Spacer();
-    panel2.add(spacer6, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+    panel2.add(spacer5, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+    upcomEvents = new JList();
+    panel2.add(upcomEvents, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
   }
 
   /**
