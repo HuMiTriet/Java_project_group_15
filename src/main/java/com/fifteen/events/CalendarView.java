@@ -292,12 +292,14 @@ public class CalendarView extends JFrame {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+
     //Get days with events
-    if (eventMonths.isEmpty() != true) {
+    /*if (eventMonths.isEmpty() != true) {
       for (int i = 0; i < eventMonths.size(); i++) {
         daysWithEvent.add(eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.DATE));
       }
-    }
+    }*/
+
     // Update current month label
     monthCalendar.setText(months[month]);
     yearJlabel.setText(String.valueOf(currentYear));
@@ -320,7 +322,7 @@ public class CalendarView extends JFrame {
     // Draw calendar
     for (int i = 1; i <= numberDays; i++) {
       int row = (i + startMonth - 2) / 7;
-      int column = (i + startMonth - 2) % 7;
+      int column = ((i + startMonth) - 2) % 7;
       mdlCalendar.setValueAt(i, row, column);
     }
 
@@ -328,7 +330,6 @@ public class CalendarView extends JFrame {
     if (eventMonths.isEmpty() != true) {
       for (int i = 0; i < eventMonths.size(); i++) {
         mdlList.addElement(eventMonths.get(i).getEventName() + " " + eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.DATE)
-                + " " + eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.MONTH + 1)
                 + " " + eventMonths.get(i).getPriority());
         mdlList.addElement(" ");
       }
@@ -343,14 +344,36 @@ public class CalendarView extends JFrame {
                                                    int row, int column) {
       super.getTableCellRendererComponent(table, value, selected, focused, row, column);
 
+      int priorityOfDay;
+
+      //Get Events
+      ArrayList<EventLocal> eventMonths = new ArrayList<>();
+
+      try {
+        eventMonths = localDbMethod.buildEventLocal(currentMonth);
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+
       setBackground(new Color(255, 255, 255));
 
       if (value != null) {
+
+        for (int i = 1; i < eventMonths.size(); i++) {
+
+          if (Integer.parseInt(value.toString()) == eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.DATE)) {
+            setBackground(new Color(194, 15, 15));
+          }
+        }
+      }
+
+      /*if (value != null) {
         if (Integer.parseInt(value.toString()) == Day && currentMonth == Month && currentYear == Year) {
           setBackground(new Color(220, 220, 255));
         }
-      }
+      }*/
       setForeground(Color.black);
+
       return this;
     }
 
