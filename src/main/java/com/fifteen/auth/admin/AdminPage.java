@@ -29,6 +29,7 @@ public class AdminPage extends JFrame {
     private JButton deleteButton;
     private JTable users;
     private JLabel Database;
+    private JScrollPane dbTable;
     private JFrame frame;
 
     public AdminPage() {
@@ -59,6 +60,10 @@ public class AdminPage extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        model.addColumn("EMAIL");
+        model.addColumn("USERNAME");
+        model.addColumn("IS ADMIN?");
+
         DefaultTableModel tblModel = (DefaultTableModel) users.getModel();
         try {
             // create connection to database
@@ -66,16 +71,16 @@ public class AdminPage extends JFrame {
             Statement st = DBConnection.getConnection().createStatement();
             // sql query
             // executeQuery("select * from userdb");
-            ResultSet rs = st.executeQuery("select * from userdb");
+            ResultSet rs = st.executeQuery("SELECT * FROM userdb");
 
             while (rs.next()) {
                 // data will be added until finish
-                String email = String.valueOf(rs.getString("email"));
+                String email = rs.getString("email");
                 String username = rs.getString("username");
-                String password = rs.getString("hashed_password");
+                String is_admin = rs.getString("is_admin");
 
                 // string array to store data into jtable
-                String tbData[] = new String[]{email, username, password};
+                String tbData[] = new String[]{email, username, is_admin};
                 System.out.println(Arrays.toString(tbData));
 
                 // add string array data into jtable
@@ -130,10 +135,13 @@ public class AdminPage extends JFrame {
         panel1.add(spacer3, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer4 = new Spacer();
         panel1.add(spacer4, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        final JScrollPane scrollPane1 = new JScrollPane();
-        panel1.add(scrollPane1, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        dbTable = new JScrollPane();
+        panel1.add(dbTable, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         users = new JTable();
-        scrollPane1.setViewportView(users);
+        users.setAutoResizeMode(4);
+        users.setEnabled(true);
+        users.putClientProperty("Table.isFileList", Boolean.FALSE);
+        dbTable.setViewportView(users);
         final Spacer spacer5 = new Spacer();
         panel1.add(spacer5, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     }

@@ -70,7 +70,7 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <scrollpane id="394c0">
+          <scrollpane id="394c0" binding="dbTable">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -79,7 +79,13 @@
             <children>
               <component id="6a1dc" class="javax.swing.JTable" binding="users">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <autoResizeMode value="4"/>
+                  <enabled value="true"/>
+                </properties>
+                <clientProperties>
+                  <Table.isFileList class="java.lang.Boolean" value="false"/>
+                </clientProperties>
               </component>
             </children>
           </scrollpane>
