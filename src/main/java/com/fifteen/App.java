@@ -4,12 +4,14 @@ import java.sql.SQLException;
 
 import javax.swing.UIManager;
 
+import com.fifteen.auth.admin.AdminPage;
 import com.fifteen.database.User;
 import com.fifteen.database.UserDao;
 import com.fifteen.database.UserDaoImp;
 import com.fifteen.events.CalendarView;
 import com.fifteen.events.local.localDb;
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.fifteen.auth.login.LoginPage;
 
 public class App {
   public static void main(String[] args) throws Exception {
@@ -33,13 +35,13 @@ public class App {
     // Added functionality to the Login page
     // Available user: email: t@g.com | password: B
     // closeConnection();
-    // new LoginPage();
+     new LoginPage();
 
     UserDao userHandler = new UserDaoImp();
     User user = userHandler.createUserFromLogin("t@g.com");
-    new CalendarView(user);
+    //new CalendarView(user);
 
-    // new AdminPage();
+     //new AdminPage();
 
     // mailUtils.sendMail("javacomtwentyone@gmail.com");
   }
