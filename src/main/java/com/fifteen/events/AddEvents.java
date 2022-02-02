@@ -13,6 +13,7 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import com.fifteen.database.User;
+import com.fifteen.events.CalendarView;
 import com.fifteen.events.eventMethod.TimeMethod;
 import com.fifteen.events.local.CheckDate;
 import com.fifteen.events.local.EventLocal;
@@ -152,7 +153,6 @@ public class AddEvents extends JFrame {
                   priorityPicker.getSelectedItem().toString());
 
           localDbMethod.addEventLocal(eventLocal);
-
           frame.dispose();
         }
       }
