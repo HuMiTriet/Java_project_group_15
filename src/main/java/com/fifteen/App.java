@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javax.swing.UIManager;
 
+import com.fifteen.auth.login.LoginPage;
 import com.fifteen.database.User;
 import com.fifteen.database.UserDao;
 import com.fifteen.database.UserDaoImp;
@@ -32,16 +33,19 @@ public class App {
 
     // Added functionality to the Login page
     // Available user: email: t@g.com | password: B
-    // closeConnection();
-    // new LoginPage();
+    closeConnection();
+    new LoginPage();
 
-    UserDao userHandler = new UserDaoImp();
-    User user = userHandler.createUserFromLogin("t@g.com");
-    new CalendarView(user);
+    // UserDao userHandler = new UserDaoImp();
+    // User user = userHandler.createUserFromLogin("t@g.com");
+    // new CalendarView(user);
 
     // new AdminPage();
 
     // mailUtils.sendMail("javacomtwentyone@gmail.com");
+  }
+
+  private static void closeConnection() {
   }
 
 }
