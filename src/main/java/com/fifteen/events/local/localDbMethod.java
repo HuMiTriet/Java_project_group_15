@@ -71,9 +71,10 @@ public class localDbMethod extends localDb {
 
   }
 
-  public static ArrayList<EventLocal> buildEventLocal(int month) throws SQLException {
+  public static ArrayList<EventLocal> buildEventLocal(int month, int year) throws SQLException {
     ArrayList<EventLocal> monthEvents = new ArrayList<EventLocal>();
-    resultSet = statement.executeQuery("select * from event_time where month = " + month);
+    resultSet = statement.executeQuery("select * from event_time where month = " + month +
+        " and  year = " + year);
     while (resultSet.next()) {
       EventLocal eventLocal = new EventLocal();
       // index of first column starts at 1
