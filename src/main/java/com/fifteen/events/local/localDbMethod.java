@@ -116,4 +116,11 @@ public class localDbMethod extends localDb {
     }
     return contacts;
   }
+
+  private static void getAllEventTimeView() throws SQLException {
+    resultSet = statement.executeQuery("SELECT * FROM event_time");
+    while (resultSet.next()) {
+
+    }
+  }
 }
