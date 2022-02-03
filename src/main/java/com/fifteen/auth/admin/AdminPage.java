@@ -39,14 +39,6 @@ public class AdminPage extends JFrame {
         users.setAutoCreateRowSorter(true);
         users.setFillsViewportHeight(true);
         users.setPreferredScrollableViewportSize(new Dimension(550, 200));
-        /*
-         * model.addColumn("email");
-         * model.addColumn("username");
-         * model.addColumn("password");
-         * model.addRow(new Object[]{"PJ@gmail.com", "PJtheDJ", "AnimeMan69"});
-         * model.addRow(new Object[]{"Tim@gmail.com", "SleepingMan", "MemeLegend77"});
-         * model.addRow(new Object[]{"Jorge@gmail.com", "ChocolateLover", "YESSEY"});
-         */
         users.setModel(model);
 
         frame = new JFrame("Admin frame");
