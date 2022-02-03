@@ -118,10 +118,50 @@ public class localDbMethod extends localDb {
     return contacts;
   }
 
-  private static void getAllEventTimeView() throws SQLException {
+  private static ArrayList<String> getAllEventTimeView() throws SQLException {
+    ArrayList<String> result = new ArrayList<>();
     resultSet = statement.executeQuery("SELECT * FROM event_time");
     while (resultSet.next()) {
-
+      String row = resultSet.getString("event_id") + " "
+          + resultSet.getString("event_description") + " "
+          + resultSet.getString("location_name") + " "
+          + resultSet.getString("longtitude") + " "
+          + resultSet.getString("latitude") + " "
+          + resultSet.getString("priority") + " "
+          + resultSet.getString("start_hour") + " "
+          + resultSet.getString("start_minute") + " "
+          + resultSet.getString("event_duration_minute") + " "
+          + resultSet.getString("minutes_until_reminder") + " "
+          + resultSet.getString("day_of_week") + " "
+          + resultSet.getString("date") + " "
+          + resultSet.getString("month") + " "
+          + resultSet.getString("year") + " ";
+      result.add(row);
     }
+    return result;
+  }
+
+  private static ArrayList<String> getAllParticipants() throws SQLException {
+    ArrayList<String> result = new ArrayList<>();
+    resultSet = statement.executeQuery("SELECT * FROM participants");
+
+    result.add("event ID | participant email");
+    while (resultSet.next()) {
+      String row = resultSet.getString("event_id") + " "
+          + resultSet.getString("participants_email");
+      result.add(row);
+    }
+    return result;
+  }
+
+  public static String getExportContent() throws SQLException {
+    ArrayList<String> eventTime = getAllEventTimeView();
+    String stringEventTime = String.join("\n", eventTime);
+    stringEventTime = stringEventTime + " \n ----------------------------------------- \n";
+
+    ArrayList<String> participants = getAllParticipants();
+    String Stringparticipants = String.join("\n", participants);
+
+    return stringEventTime + Stringparticipants;
   }
 }
