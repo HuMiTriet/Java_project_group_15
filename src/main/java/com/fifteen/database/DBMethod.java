@@ -160,10 +160,8 @@ public class DBMethod {
 
     while (resultSet.next()) {
       loginUser.setUsername(resultSet.getString("username"));
-      // loginUser.setHashedPassword(resultSet.getString("hashed_password"));
       loginUser.setUserID(resultSet.getString("user_id"));
       loginUser.setIsAdmin(resultSet.getInt("is_admin"));
-      // userId = resultSet.getString("user_ID");
     }
   }
 
