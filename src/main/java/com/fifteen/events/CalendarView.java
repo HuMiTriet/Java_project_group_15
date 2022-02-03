@@ -367,6 +367,7 @@ public class CalendarView extends JFrame {
             super.getTableCellRendererComponent(table, value, selected, focused, row, column);
 
             int priorityOfDay;
+            int temp;
 
             // Get Events
             ArrayList<EventLocal> eventMonths = new ArrayList<>();
@@ -381,10 +382,45 @@ public class CalendarView extends JFrame {
 
             if (value != null) {
 
-                for (int i = 1; i < eventMonths.size(); i++) {
+                priorityOfDay = 0;
+
+                for (int i = 0; i < eventMonths.size(); i++) {
 
                     if (Integer.parseInt(value.toString()) == eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.DATE)) {
-                        setBackground(new Color(194, 15, 15));
+
+                        if (eventMonths.get(i).getPriority().equals("high")) {
+
+                            temp = 3;
+
+                            if (temp > priorityOfDay) {
+
+                                priorityOfDay = temp;
+                                setBackground(new Color(236, 9, 9));
+                            }
+
+                        }
+                        else if (eventMonths.get(i).getPriority().equals("medium")) {
+
+                            temp = 2;
+
+                            if (temp > priorityOfDay) {
+
+                                priorityOfDay = temp;
+                                setBackground(new Color(208, 196, 65));
+                            }
+                        }
+                        else if (eventMonths.get(i).getPriority().equals("low")) {
+
+                            temp = 1;
+
+                            if (temp > priorityOfDay) {
+
+                                priorityOfDay = temp;
+                                setBackground(new Color(119, 206, 13));
+                            }
+
+                        }
+
                     }
                 }
             }
@@ -397,6 +433,7 @@ public class CalendarView extends JFrame {
              * }
              * }
              */
+
             setForeground(Color.black);
 
             return this;
