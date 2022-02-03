@@ -34,7 +34,11 @@ public class AdminPage extends JFrame {
 
   public AdminPage() {
 
-    DefaultTableModel model = new DefaultTableModel();
+    DefaultTableModel model = new DefaultTableModel() {
+      public boolean isCellEditable(int row, int column) {
+        return false;
+      }
+    };
 
     users.setAutoCreateRowSorter(true);
     users.setFillsViewportHeight(true);

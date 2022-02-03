@@ -7,7 +7,7 @@ package com.fifteen.mailApi;
  * IMPORTANT NOTE: Settings need to be changed to "Less secure app access: ON" for the emails to be received
  *
  *
- * @author Ante Maric (1273904)
+ * @author Ante Maric 1273904
  */
 
 import javax.mail.*;
