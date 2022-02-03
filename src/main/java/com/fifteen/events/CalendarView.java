@@ -288,7 +288,7 @@ public class CalendarView extends JFrame {
     ArrayList<EventLocal> eventMonths = new ArrayList<>();
 
     try {
-      eventMonths = localDbMethod.buildEventLocal(month);
+      eventMonths = localDbMethod.buildEventLocal(month, year);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -350,7 +350,7 @@ public class CalendarView extends JFrame {
       ArrayList<EventLocal> eventMonths = new ArrayList<>();
 
       try {
-        eventMonths = localDbMethod.buildEventLocal(currentMonth);
+        eventMonths = localDbMethod.buildEventLocal(currentMonth, currentYear);
       } catch (SQLException e) {
         e.printStackTrace();
       }

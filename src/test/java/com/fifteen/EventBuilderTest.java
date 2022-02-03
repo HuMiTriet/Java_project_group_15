@@ -27,7 +27,7 @@ public class EventBuilderTest {
     }
   }
 
-  @Test
+  /*@Test
   void builEventsJanuaryTest() {
     try {
       ArrayList<EventLocal> january = localDbMethod.buildEventLocal(0);
@@ -46,7 +46,7 @@ public class EventBuilderTest {
       e.printStackTrace();
     }
   }
-
+  */
   @Test
   void printingEventFebruary() {
 
