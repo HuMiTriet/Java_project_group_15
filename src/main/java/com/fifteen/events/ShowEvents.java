@@ -30,7 +30,7 @@ public class ShowEvents extends JFrame {
   private DefaultTableModel mdlCalendar;
   private JScrollPane scpane;
 
-  public ShowEvents(User user, int currentDay, int currentMonth, int currentYear) {
+  public ShowEvents(User user, int currentDay, int currentMonth, int currentYear, CalendarView calendar) {
 
     // Create frame
     frame = new JFrame();
@@ -82,7 +82,8 @@ public class ShowEvents extends JFrame {
     addEventsButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        new AddEvents(currentDay, currentMonth, currentYear);
+        new AddEvents(user, currentDay, currentMonth, currentYear, calendar);
+        frame.dispose();
       }
     });
     fillTable(currentMonth, currentDay, currentYear);

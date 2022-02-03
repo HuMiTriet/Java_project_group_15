@@ -13,7 +13,7 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import com.fifteen.database.User;
-import com.fifteen.events.CalendarView;
+import com.fifteen.events.ShowEvents;
 import com.fifteen.events.eventMethod.TimeMethod;
 import com.fifteen.events.local.CheckDate;
 import com.fifteen.events.local.EventLocal;
@@ -48,7 +48,7 @@ public class AddEvents extends JFrame {
   private JList ParticipantList;
   private GregorianCalendar chosenGregorianCalendar;
 
-  public AddEvents(int day, int month, int year) {
+  public AddEvents(User user, int day, int month, int year, CalendarView calendar) {
 
     frame = new JFrame("Add EventLocal");
 
@@ -153,6 +153,8 @@ public class AddEvents extends JFrame {
                   priorityPicker.getSelectedItem().toString());
 
           localDbMethod.addEventLocal(eventLocal);
+          calendar.updateCalendar(month, year);
+          new ShowEvents(user, day, month, year, calendar);
           frame.dispose();
         }
       }

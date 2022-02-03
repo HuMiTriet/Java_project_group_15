@@ -243,7 +243,7 @@ public class CalendarView extends JFrame {
        */
       @Override
       public void actionPerformed(ActionEvent e) {
-        new AddEvents(Day, Month, Year);
+        new AddEvents(user, Day, Month, Year, CalendarView.this);
         updateCalendar(currentMonth, currentYear);
       }
     });
@@ -263,7 +263,7 @@ public class CalendarView extends JFrame {
         if (mdlCalendar.getValueAt(row, column) != null) {
           int day = (Integer) mdlCalendar.getValueAt(row, column);
 
-          new ShowEvents(user, day, currentMonth, currentYear);
+          new ShowEvents(user, day, currentMonth, currentYear, CalendarView.this);
         }
 
       }
@@ -277,7 +277,7 @@ public class CalendarView extends JFrame {
     });
   }
 
-  private void updateCalendar(int month, int year) {
+  public void updateCalendar(int month, int year) {
 
     String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September",
             "October", "November", "December"};
