@@ -4,10 +4,9 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
 import java.util.Arrays;
 
 import com.fifteen.database.*;
@@ -61,6 +60,7 @@ public class AdminPage extends JFrame {
     model.addColumn("IS ADMIN?");
 
     DefaultTableModel tblModel = (DefaultTableModel) users.getModel();
+
     try {
       // create connection to database
       DBMethod.createConnection();
@@ -89,7 +89,24 @@ public class AdminPage extends JFrame {
     }
 
 
-
+    deleteButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        try {
+          DBMethod.createConnection();
+          // work with the row selected in the db
+          int row = users.getSelectedRow();
+          String name = users.getValueAt(row, 0).toString();
+          PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement("DELETE FROM userdb WHERE EMAIL = ?");
+          preparedStatement.setString(1, name);
+          preparedStatement.executeUpdate();
+          System.out.println("USER SUCCESSFULLY DELETED");
+          DBMethod.closeConnection();
+        } catch (SQLException ex) {
+          ex.printStackTrace();
+        }
+      }
+    });
   }
 
   {
