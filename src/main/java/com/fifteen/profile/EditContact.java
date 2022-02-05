@@ -24,9 +24,13 @@ public class EditContact extends JFrame {
   private JList existingParticipantList;
   private JButton deleteButton;
 
-  public EditContact() {
-    frame = new JFrame("Edit Contact");
-
+  /**
+   * A helper method to update the contact list of the user to reduce boiler plate
+   * code.
+   * 
+   * @author Triet Huynh
+   */
+  private void updateContactList() {
     Vector<String> contacts;
 
     try {
@@ -36,6 +40,12 @@ public class EditContact extends JFrame {
     } catch (SQLException e1) {
       e1.printStackTrace();
     }
+  }
+
+  public EditContact() {
+    frame = new JFrame("Edit Contact");
+
+    updateContactList();
 
     frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     frame.setPreferredSize(new Dimension(300, 150));
@@ -66,6 +76,7 @@ public class EditContact extends JFrame {
             error.printStackTrace();
           }
         }
+        updateContactList();
 
       }
     });
@@ -84,14 +95,7 @@ public class EditContact extends JFrame {
           e1.printStackTrace();
         }
 
-        Vector<String> contacts;
-        try {
-          contacts = localDbMethod.getAllContacts();
-          DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(contacts);
-          existingParticipantList.setModel(model);
-        } catch (SQLException e2) {
-          e2.printStackTrace();
-        }
+        updateContactList();
       }
     });
   }
