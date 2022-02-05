@@ -36,14 +36,14 @@ public class App {
     // Added functionality to the Login page
     // Available user: email: t@g.com | password: t
     // Available admin: email: f@g.com | password: f
-    // DBMethod.closeConnection();
-    // new LoginPage();
+     //DBMethod.closeConnection();
+     //new LoginPage();
 
-    UserDao userHandler = new UserDaoImp();
-    User user = userHandler.createUserFromLogin("t@g.com");
-    new CalendarView(user);
+    //UserDao userHandler = new UserDaoImp();
+    //User user = userHandler.createUserFromLogin("t@g.com");
+    //new CalendarView(user);
 
-    // new AdminPage();
+    new AdminPage();
 
     // mailUtils.sendMail("javacomtwentyone@gmail.com");
   }

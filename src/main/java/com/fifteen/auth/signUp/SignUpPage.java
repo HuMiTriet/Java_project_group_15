@@ -49,7 +49,7 @@ public class SignUpPage extends JFrame {
 
   public SignUpPage() {
     frame = new JFrame("Sign Up for new account");
-    frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     frame.setPreferredSize(new Dimension(500, 700));
     frame.setResizable(false);
 
