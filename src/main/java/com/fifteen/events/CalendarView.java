@@ -8,6 +8,7 @@ import com.fifteen.events.local.exportImport.FileTypeFilter;
 import com.fifteen.events.local.exportImport.exportTxt;
 import com.fifteen.events.local.EventLocal;
 import com.fifteen.events.settings.EventSettings;
+import com.fifteen.events.sync.localDatabaseFile;
 import com.fifteen.profile.ProfilePage;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -354,18 +355,13 @@ public class CalendarView extends JFrame {
     syncButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        updateCalendar(currentMonth, currentYear);
-      }
-    });
-    syncButton.addActionListener(new ActionListener() {
-      /**
-       * Invoked when an action occurs.
-       *
-       * @param e the event to be processed
-       */
-      @Override
-      public void actionPerformed(ActionEvent e) {
-
+        try {
+          localDatabaseFile.uploadLocalDatabase(user);
+        } catch (IOException | SQLException e1) {
+          e1.printStackTrace();
+        }
+        JOptionPane.showMessageDialog(frame, "Database synced successfully!", "Success",
+            JOptionPane.INFORMATION_MESSAGE);
       }
     });
   }
