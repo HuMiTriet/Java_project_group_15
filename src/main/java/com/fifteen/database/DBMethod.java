@@ -62,7 +62,8 @@ public class DBMethod {
    */
   public static void signUp(User user) throws SQLException {
 
-    String sqlStatement = "INSERT INTO " + TABLE_NAME + " VALUES('" + user.getEmail() + "','"
+    String sqlStatement = "INSERT INTO " + TABLE_NAME
+        + " (email, username, hashed_password, user_id, is_admin) VALUES('" + user.getEmail() + "','"
         + user.getUsername() + "','" +
         /**
          * sys_guid() is a method of Oracle SQL to generate a Global unique Identifier.
@@ -153,7 +154,8 @@ public class DBMethod {
   }
 
   public static void fillInUserInfoFromUserEmail(User loginUser, String hashedPassword) throws SQLException {
-    String sqlStatement = "select * from " + TABLE_NAME + " where email = '"
+    String sqlStatement = "select email, username, hashed_password, user_id, is_admin from " + TABLE_NAME
+        + " where email = '"
         + loginUser.getEmail() + "'";
 
     resultSet = executeQuery(sqlStatement);
@@ -162,6 +164,7 @@ public class DBMethod {
       loginUser.setUsername(resultSet.getString("username"));
       loginUser.setUserID(resultSet.getString("user_id"));
       loginUser.setIsAdmin(resultSet.getInt("is_admin"));
+      loginUser.setHashedPassword(hashedPassword);
     }
   }
 

@@ -171,13 +171,17 @@ public class CalendarView extends JFrame {
         if (respond == JFileChooser.APPROVE_OPTION) {
           File file = chooser.getSelectedFile();
           String path = file.getAbsolutePath();
-          System.out.println(path);
 
           try {
             FileUtils.copyFile(new File(path), new File("local.db"), StandardCopyOption.REPLACE_EXISTING);
           } catch (IOException e1) {
             e1.printStackTrace();
           }
+
+          JOptionPane.showMessageDialog(frame, "Database imported successfully! \n Please restart the application",
+              "Success",
+              JOptionPane.INFORMATION_MESSAGE);
+
         }
       }
     }
