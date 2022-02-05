@@ -21,7 +21,7 @@ public class EditContact extends JFrame {
   private JTextArea emailText;
   private JButton submit;
   private JLabel emailLabel;
-  private JList existingParticipantList;
+  private JList<String> existingParticipantList;
   private JButton deleteButton;
 
   /**

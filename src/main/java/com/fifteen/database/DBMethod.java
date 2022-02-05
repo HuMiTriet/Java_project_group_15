@@ -165,4 +165,15 @@ public class DBMethod {
     }
   }
 
+  /**
+   * Get all existing users from the remote database
+   * 
+   * @return ResultSet of all users
+   * @author Triet Huynh
+   */
+  public static ResultSet getAllUsers() throws SQLException {
+    String sqlStatement = "select * from " + TABLE_NAME;
+    return executeQuery(sqlStatement);
+  }
+
 }
