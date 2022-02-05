@@ -178,9 +178,6 @@ public class CalendarView extends JFrame {
           } catch (IOException e1) {
             e1.printStackTrace();
           }
-
-          new CalendarView(user);
-          frame.dispose();
         }
       }
     }
