@@ -69,6 +69,7 @@ public class CalendarView extends JFrame {
 
         e_menuBar = new JMenuBar();
 
+
         // create menus
         menu = new JMenu("Menu");
         sview = new JMenu("Switch View");
@@ -129,7 +130,7 @@ public class CalendarView extends JFrame {
         class openProfile implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ProfilePage();
+                new ProfilePage(user);
             }
         }
         menu1.addActionListener(new openProfile());

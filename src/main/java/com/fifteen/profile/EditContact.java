@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class AddContact extends JFrame {
+public class EditContact extends JFrame {
     private JFrame frame;
     private JPanel panel1;
     private JLabel prompt;
@@ -20,7 +20,7 @@ public class AddContact extends JFrame {
     private JButton submit;
     private JLabel emailLabel;
 
-    public AddContact() {
+    public EditContact() {
         frame = new JFrame("New Contact");
 
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

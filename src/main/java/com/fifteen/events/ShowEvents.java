@@ -34,7 +34,7 @@ public class ShowEvents extends JFrame {
 
         // Create frame
         frame = new JFrame();
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frame.setPreferredSize(new Dimension(1000, 700));
         frame.setResizable(false);
 
