@@ -244,16 +244,6 @@
           <text value=""/>
         </properties>
       </component>
-      <component id="869f0" class="javax.swing.JTextField" binding="reminderText">
-        <constraints>
-          <grid row="15" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value=""/>
-        </properties>
-      </component>
       <component id="954ed" class="javax.swing.JLabel" binding="reminderLabel">
         <constraints>
           <grid row="15" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -275,6 +265,19 @@
           </component>
         </children>
       </scrollpane>
+      <component id="462a5" class="javax.swing.JComboBox" binding="reminderComboBox">
+        <constraints>
+          <grid row="15" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <model>
+            <item value="10 minutes"/>
+            <item value="1 hour"/>
+            <item value="3 days"/>
+            <item value="1 week"/>
+          </model>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

@@ -13,12 +13,12 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import com.fifteen.database.User;
-import com.fifteen.events.ShowEvents;
 import com.fifteen.events.eventMethod.TimeMethod;
 import com.fifteen.events.local.CheckDate;
 import com.fifteen.events.local.EventLocal;
 import com.fifteen.events.local.Location;
 import com.fifteen.events.local.localDbMethod;
+import com.fifteen.events.reminder.convertOptionToMinute;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -46,6 +46,7 @@ public class AddEvents extends JFrame {
   private JTextField reminderText;
   private JLabel reminderLabel;
   private JList ParticipantList;
+  private JComboBox reminderComboBox;
   private GregorianCalendar chosenGregorianCalendar;
 
   public AddEvents(User user, int day, int month, int year, CalendarView calendar) {
@@ -104,14 +105,6 @@ public class AddEvents extends JFrame {
         } else
           startTimeLabel.setText("");
 
-        String reminderString = reminderText.getText();
-        GregorianCalendar reminderTime = CheckDate.validateTime(reminderString);
-        if (reminderString.isBlank() == true || reminderTime == null) {
-          reminderLabel.setText("Please enter a valid reminder(format HH:mm)");
-          allFieldsCorrect = false;
-        } else
-          reminderLabel.setText("");
-
         String endTimeString = eventDurationText.getText();
         GregorianCalendar endTime = CheckDate.validateTime(endTimeString);
         if (endTimeString.isBlank() == true || endTime == null) {
@@ -130,7 +123,6 @@ public class AddEvents extends JFrame {
               Double.parseDouble(LatitudeText.getText()));
 
           long durationMinute = TimeMethod.minutesBetween(startTime, endTime);
-          int reminderMinute = TimeMethod.reminderMinutes(reminderTime);
 
           SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -139,6 +131,10 @@ public class AddEvents extends JFrame {
 
           GregorianCalendar currentDay = CheckDate.validateTimeDate(timeDate);
           Set<String> participants = new HashSet<String>(ParticipantList.getSelectedValuesList());
+
+          String reminder = reminderComboBox.getSelectedItem().toString();
+
+          int reminderMinute = convertOptionToMinute.convert(reminder);
 
           EventLocal eventLocal = new EventLocal(
               eventNameText.getText(),
@@ -322,12 +318,6 @@ public class AddEvents extends JFrame {
         new GridConstraints(21, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
             GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null,
             0, false));
-    reminderText = new JTextField();
-    reminderText.setText("");
-    panel1.add(reminderText,
-        new GridConstraints(15, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
-            GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null,
-            0, false));
     reminderLabel = new JLabel();
     reminderLabel.setText("");
     panel1.add(reminderLabel, new GridConstraints(15, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
@@ -339,6 +329,16 @@ public class AddEvents extends JFrame {
             GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     ParticipantList = new JList();
     scrollPane1.setViewportView(ParticipantList);
+    reminderComboBox = new JComboBox();
+    final DefaultComboBoxModel defaultComboBoxModel2 = new DefaultComboBoxModel();
+    defaultComboBoxModel2.addElement("10 minutes");
+    defaultComboBoxModel2.addElement("1 hour");
+    defaultComboBoxModel2.addElement("3 days");
+    defaultComboBoxModel2.addElement("1 week");
+    reminderComboBox.setModel(defaultComboBoxModel2);
+    panel1.add(reminderComboBox,
+        new GridConstraints(15, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
+            GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
   }
 
   /**
@@ -347,4 +347,5 @@ public class AddEvents extends JFrame {
   public JComponent $$$getRootComponent$$$() {
     return panel1;
   }
+
 }
