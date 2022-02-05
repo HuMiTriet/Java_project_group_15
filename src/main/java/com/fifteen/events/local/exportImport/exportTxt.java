@@ -8,7 +8,7 @@ import java.io.IOException;
 public class exportTxt {
 
   public static void writeEvents(File file, String data) throws IOException {
-    FileWriter fileWriter = new FileWriter(file.getAbsolutePath());
+    FileWriter fileWriter = new FileWriter(file.getAbsolutePath() + ".txt");
     BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
     bufferedWriter.write(data);
