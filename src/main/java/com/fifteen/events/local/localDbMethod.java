@@ -108,6 +108,20 @@ public class localDbMethod extends localDb {
     statement.executeUpdate("INSERT INTO contacts values('" + email + "')");
   }
 
+  /**
+   * Function to delete all contacts chosen by the user in the edit contacts page
+   * from the local database
+   * 
+   * @param ArrayList<String> emails - emails of contacts that are to be deleted
+   * @throws SQLException
+   * @author Triet Huynh
+   */
+  public static void deleteContacts(ArrayList<String> emails) throws SQLException {
+    for (String email : emails) {
+      statement.executeUpdate("DELETE FROM contacts WHERE email = '" + email + "'");
+    }
+  }
+
   public static Vector<String> getAllContacts() throws SQLException {
     resultSet = statement.executeQuery("select * from contacts");
 
