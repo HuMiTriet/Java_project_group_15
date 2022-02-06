@@ -28,7 +28,6 @@ public class App {
     // Added functionality to the Login page
     // Available user: email: t@g.com | password: t
     // Available admin: email: f@g.com | password: f
-
     DBMethod.closeConnection();
     new LoginPage();
 

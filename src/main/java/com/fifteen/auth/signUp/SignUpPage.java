@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -27,6 +28,8 @@ import com.fifteen.events.sync.localDatabaseFile;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+
+import org.apache.commons.io.FileUtils;
 
 /**
  * Sign Up page with email regex, check if username and email existed. If all
@@ -107,6 +110,8 @@ public class SignUpPage extends JFrame {
 
         if (!enteredEmail.isBlank() && !enteredUsername.isBlank() &&
             !enteredFirstPassword.isBlank() && !enteredSecondPassword.isBlank()) {
+
+          FileUtils.deleteQuietly(new File("local.db"));
 
           UserDao userHandler = new UserDaoImp();
 

@@ -53,7 +53,7 @@ public class localDatabaseFile {
   }
 
   public static void localDatabase(User user) throws IOException, SQLException {
-    FileUtils.deleteQuietly(new File("local.db"));
+    // FileUtils.deleteQuietly(new File("local.db"));
     downloadLocalDatabase(user);
   }
 
