@@ -23,27 +23,20 @@ public class App {
     } catch (Exception ex) {
       System.err.println("Failed to initialize LaF");
     }
-    localDb.initializeLocalDatabase();
-
-    localDb.loadSqliteDriver();
-
-    try {
-      localDb.createLocalConncetion();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+    // localDb.initializeLocalDatabase();
 
     // Added functionality to the Login page
     // Available user: email: t@g.com | password: t
     // Available admin: email: f@g.com | password: f
-     //DBMethod.closeConnection();
-     //new LoginPage();
 
-    //UserDao userHandler = new UserDaoImp();
-    //User user = userHandler.createUserFromLogin("t@g.com");
-    //new CalendarView(user);
+    DBMethod.closeConnection();
+    new LoginPage();
 
-    new AdminPage();
+    // UserDao userHandler = new UserDaoImp();
+    // User user = userHandler.createUserFromLogin("t@g.com");
+    // new CalendarView(user);
+
+    // new AdminPage();
 
     // mailUtils.sendMail("javacomtwentyone@gmail.com");
   }

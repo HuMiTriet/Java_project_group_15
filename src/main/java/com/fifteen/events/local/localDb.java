@@ -5,8 +5,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 
@@ -25,7 +23,7 @@ public class localDb {
 
   private static final String LOCAL_DATABASE = "local.db";
 
-  protected static boolean checkLocalDatabaseExist() {
+  public static boolean checkLocalDatabaseExist() {
     File localData = new File(LOCAL_DATABASE);
     if (localData.exists() && !localData.isDirectory()) {
       return true;
@@ -122,7 +120,7 @@ public class localDb {
     try {
       if (checkLocalDatabaseExist()) {
         createLocalConncetion();
-        System.out.println("EXISTED");
+        // System.out.println("EXISTED");
       } else {
         createLocalConncetion();
         createEventTable();
@@ -130,7 +128,7 @@ public class localDb {
         createTimeTable();
         createContactsTable();
         createViewFullEvent();
-        System.out.println("created new database locally");
+        // System.out.println("created new database locally");
       }
     } catch (SQLException e) {
       e.printStackTrace();

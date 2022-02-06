@@ -98,6 +98,7 @@ public class LoginPage extends JFrame {
         try {
           DBMethod.fillInUserInfoFromUserEmail(loginUser, hashedPassword);
           if (loginUser.getIsAdmin() == 0) {
+
             new CalendarView(loginUser);
           } else {
             new AdminPage();

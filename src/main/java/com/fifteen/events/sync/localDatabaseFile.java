@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import com.fifteen.database.DBConnection;
 import com.fifteen.database.DBMethod;
 import com.fifteen.database.User;
+import com.fifteen.events.local.localDb;
 
 import org.apache.commons.io.FileUtils;
 
@@ -44,9 +45,16 @@ public class localDatabaseFile {
 
     ResultSet rs = preparedStatement.executeQuery();
 
-    byte[] localDb = rs.getBytes("local_data");
+    while (rs.next()) {
+      byte[] localDb = rs.getBytes("local_data");
+      FileUtils.writeByteArrayToFile(new File("local.db"), localDb);
+    }
 
-    FileUtils.writeByteArrayToFile(new File("local.db"), localDb);
+  }
+
+  public static void localDatabase(User user) throws IOException, SQLException {
+    FileUtils.deleteQuietly(new File("local.db"));
+    downloadLocalDatabase(user);
   }
 
 }
