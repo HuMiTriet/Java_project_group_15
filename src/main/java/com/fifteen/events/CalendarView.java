@@ -397,7 +397,7 @@ public class CalendarView extends JFrame {
           e1.printStackTrace();
         }
         JOptionPane.showMessageDialog(frame, "Database synced successfully!", "Success",
-            JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE);
       }
     });
   }
