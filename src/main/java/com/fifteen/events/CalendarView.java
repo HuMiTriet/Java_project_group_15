@@ -94,8 +94,7 @@ public class CalendarView extends JFrame {
     frame = new JFrame("Calendar View");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setResizable(true);
-    // frame.setPreferredSize(new Dimension(1280, 720));
-    frame.setResizable(false);
+    frame.setPreferredSize(new Dimension(1080, 1920));
 
     e_menuBar = new JMenuBar();
 
