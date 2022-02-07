@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -29,6 +31,8 @@ public class ShowEvents extends JFrame {
     private JTable tblCalendar;
     private DefaultTableModel mdlCalendar;
     private JScrollPane scpane;
+    private ArrayList<EventLocal> eventMonths = new ArrayList<>();
+    private ArrayList<EventLocal> eventsToday = new ArrayList<>();
 
     public ShowEvents(User user, int currentDay, int currentMonth, int currentYear, CalendarView calendar) {
 
@@ -87,13 +91,36 @@ public class ShowEvents extends JFrame {
             }
         });
         fillTable(currentMonth, currentDay, currentYear);
+        // Clicking event cell opens ShowEventFrame
+        scpane.addMouseListener(new MouseAdapter() {
+        });
+        tblCalendar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                EventLocal selectedEvent;
+
+                JTable tblCalender = (JTable) e.getSource();
+                int row = tblCalender.getSelectedRow();
+                int column = tblCalender.getSelectedColumn();
+
+                if (mdlCalendar.getValueAt(row, column) != null) {
+
+                    selectedEvent = eventsToday.get(row);
+
+                    new EditEvent(selectedEvent);
+                }
+
+            }
+        });
     }
 
     private void fillTable(int month, int day, int year) {
 
         // Get Events
-        ArrayList<EventLocal> eventMonths = new ArrayList<>();
-        ArrayList<EventLocal> eventsToday = new ArrayList<>();
+        //ArrayList<EventLocal> eventMonths = new ArrayList<>();
+        //ArrayList<EventLocal> eventsToday = new ArrayList<>();
 
         try {
             eventMonths = localDbMethod.buildEventLocal(month, year);
