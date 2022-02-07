@@ -35,7 +35,7 @@ public class localDatabaseFile {
     preparedStatement.setString(2, user.getUserID());
 
     preparedStatement.executeUpdate();
-
+    DBMethod.closeConnection();
   }
 
   private static void downloadLocalDatabase(User user) throws IOException, SQLException {

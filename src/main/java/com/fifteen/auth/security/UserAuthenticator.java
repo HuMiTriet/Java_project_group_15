@@ -26,6 +26,8 @@ public class UserAuthenticator {
    *                 username of user
    * @param password
    *                 password of user
+   * @throws SQLException - if the application 1can't connect to the remote
+   *                      database
    * @return true if user is authenticated, false otherwise
    * @author Triet Huynh
    */
@@ -56,6 +58,9 @@ public class UserAuthenticator {
   }
 
   /**
+   * @param emailLabel   - the Jlabel that will be used to display error message.
+   * @param enteredEmail - the email that user entered in the Jtextfield
+   * 
    * @return false if the email is not filled or filled with spaces, true if
    *         otherwise and the email is in the correct format
    * @author Triet Huynh
@@ -107,6 +112,17 @@ public class UserAuthenticator {
 
   }
 
+  /**
+   * General function to check whther the field has any character entered or is
+   * not fill with blank space
+   * 
+   * @param label        the label that will show the error
+   * @param enteredField the field that the user entered email, password or
+   *                     username
+   * @return true if the field is filled with some characters that is blank space,
+   *         otherwise return false
+   * @author Triet Huynh
+   */
   public static boolean checkFieldEmpty(JLabel label, String enteredText, String message) {
     if (enteredText.isBlank()) {
       label.setText(message);
@@ -117,6 +133,21 @@ public class UserAuthenticator {
     }
   }
 
+  /**
+   * Wrapper function for the authenticate function. Function will run when the
+   * user click login button in the login page. The error message that is display
+   * is kept intentionally vague, as to make people who are pretending to be the
+   * real user keep guessing whether or not that email has been used or not.
+   * 
+   * @param passwordLabel   - the label that will show the error
+   * @param enteredEmail    - the email that the user entered
+   * @param enteredPassword - the password that the user entered
+   * 
+   * @return true if the user with that email has the same hash pasword, false if
+   *         either
+   *         the email entered does not exist or the password is incorrect
+   * @author Triet Huynh
+   */
   public static boolean authenticatePasswordField(JLabel passwordLabel,
       String enteredEmail, String stringPassword) {
     try {

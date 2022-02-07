@@ -65,6 +65,17 @@ public class SignUpPage extends JFrame {
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
+
+    /**
+     * Add event listener for create account button. When pressed will check all
+     * fields to see if they are all valid, if yes then create a new user and
+     * then checks if any local database file already exists, if yes then delete it
+     * and create a new file, which will be uploaed to the remote database. This
+     * is done to clear out older user previous data.
+     * 
+     * @author Ante Maric 1273904 (GUI), Triet Huynh (functionality)
+     * 
+     */
     createAccountButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -136,6 +147,9 @@ public class SignUpPage extends JFrame {
         }
       }
 
+      /**
+       * close connection and switch back to the login page
+       */
     });
     signInButton.addActionListener(new ActionListener() {
       @Override

@@ -18,20 +18,41 @@ public class CheckDate {
 
   /**
    * Return a GregorianCalendar class object if the String is in the correct
-   * format if the
-   * String is not correct return null
-   *
+   * format if the String is not correct return null
+   * 
+   * @param timeString String to be checked
+   * 
    * @see GregorianCalendar
+   * 
    * @author Triet Huynh
    */
   public static GregorianCalendar validateDate(String timeString) {
     return (GregorianCalendar) GregorianCalendarValidator.validate(timeString, DATE);
   }
 
+  /**
+   * Return a GregorianCalendar class object if the String is in the correct
+   * hour and minute if the String is not correct return null
+   * 
+   * @param timeString String to be checked
+   * 
+   * @see GregorianCalendar
+   * @author Triet Huynh
+   */
   public static GregorianCalendar validateTime(String timeString) {
     return (GregorianCalendar) GregorianCalendarValidator.validate(timeString, TIME);
   }
 
+  /**
+   * Return a GregorianCalendar class object if the String is in the correct
+   * hour. minute, date, month and year if the String is not correct return null
+   * 
+   * @param timeString String to be checked
+   * 
+   * @see GregorianCalendar
+   * 
+   * @author Triet Huynh
+   */
   public static GregorianCalendar validateTimeDate(String timeString) {
     return (GregorianCalendar) GregorianCalendarValidator.validate(timeString, TIME_AND_DATE);
   }

@@ -15,6 +15,7 @@ import java.sql.ResultSet;
  * @see DBConnection
  *      {@link package com.twenty.one.database#closeConnection}
  *      To see the database schema
+ * @author Triet Huynh
  */
 public class DBMethod {
   static Connection connection = null;
@@ -45,16 +46,30 @@ public class DBMethod {
     }
   }
 
+  /**
+   * Wrapper function to execute a query on the remote database.
+   * param: sqlStatement - the sql statement to be executed
+   * 
+   * @throws SQLException if can't execute the query
+   * @return ResultSet the result of the query
+   * 
+   * @author Triet Huynh
+   */
   private static ResultSet executeQuery(String sqlStatement) throws SQLException {
     statement = connection.createStatement();
     return statement.executeQuery(sqlStatement);
   }
 
   /**
+   * Method run to create a new user in the remote database and assign them with
+   * a unique user id.
+   * 
    * @param user take in a user object of the User class
    *             Method adds in a new row into the userdb table in the Oracle SQL
    *             remote
    *             server.
+   * 
+   * @throws SQLException if can't execute the query
    * 
    * @see User
    *      {@link package com.twenty.one.database}
@@ -76,11 +91,13 @@ public class DBMethod {
 
   /**
    * Since the user ID is assigned by the Oracle DB through the SYS_GUID()
-   * function
-   * we need to get it from the DB to assign it
+   * function we need to get it from the DB to assign it to the user as login.
    * 
    * @param user
    *             {@link package com.twenty.one.database}
+   * @throws SQLException - if can't retrieve user id
+   * @return userID - the user id of the user as a String class
+   * @author Triet Huynh
    */
   public static String getUserId(User user) throws SQLException {
 
@@ -105,6 +122,7 @@ public class DBMethod {
    * @param flag    specify whether the propose is an email e flag, username u
    *                flag, or password p flag
    * @return boolean true if field is already been used, false if not
+   * @author Triet Huynh
    */
   public static boolean checkfieldExisted(String propose, char flag) throws SQLException {
 
@@ -139,6 +157,17 @@ public class DBMethod {
     return fieldExisted;
   }
 
+  /***
+   * Query the remote database to get the user's hased password store on it
+   * 
+   * @param email - the email of the user
+   * 
+   * @throws SQLException if can't retrieve the password
+   * 
+   * @return String the hashed password of the user
+   * 
+   * @author Triet Huynh
+   */
   public static String getUserHashedPasswordFromEmail(String email) throws SQLException {
     String hashedPassword = "NA";
 
@@ -153,8 +182,19 @@ public class DBMethod {
     return hashedPassword;
   }
 
+  /**
+   * After the user has successfuly login from the login page, at that point only
+   * the user's hashed password and email is known the rest of the information of
+   * the user, which is on the remote database, must be queried and filled in.
+   * 
+   * @param loginUser      - User object that needed to be filled in.
+   * @param hashedPassword - the hashed password that they entered
+   * @throws SQLException - if can't retrieve the user information.
+   * 
+   * @author Triet Huynh
+   */
   public static void fillInUserInfoFromUserEmail(User loginUser, String hashedPassword) throws SQLException {
-    String sqlStatement = "select email, username, hashed_password, user_id, is_admin from " + TABLE_NAME
+    String sqlStatement = "select username, user_id, is_admin from " + TABLE_NAME
         + " where email = '"
         + loginUser.getEmail() + "'";
 
@@ -164,8 +204,8 @@ public class DBMethod {
       loginUser.setUsername(resultSet.getString("username"));
       loginUser.setUserID(resultSet.getString("user_id"));
       loginUser.setIsAdmin(resultSet.getInt("is_admin"));
-      loginUser.setHashedPassword(hashedPassword);
     }
+    loginUser.setHashedPassword(hashedPassword);
   }
 
   /**

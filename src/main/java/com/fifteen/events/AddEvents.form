@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.fifteen.events.AddEvents">
   <scrollpane id="fea82">
     <constraints>
-      <xy x="20" y="20" width="569" height="913"/>
+      <xy x="20" y="20" width="802" height="1097"/>
     </constraints>
     <properties>
       <verticalScrollBarPolicy value="22"/>

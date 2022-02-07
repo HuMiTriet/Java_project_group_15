@@ -8,7 +8,8 @@ import lombok.ToString;
 
 /**
  * Class to store the location and a function to calculate the distance between
- * two Location class
+ * two Location class. This class is taken from Princeton University's cs class
+ * please check the link to the orginal code.
  * 
  * @see https://introcs.cs.princeton.edu/java/44st/Location.java.html
  * 

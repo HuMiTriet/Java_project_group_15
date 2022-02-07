@@ -26,7 +26,15 @@ public class TimeMethod {
   }
 
   /**
-  */
+   * Becase the JdateChooser retuns the String of the date being choosen but the
+   * date of each event is stored as objects of the GregorianCalendar class, this
+   * function is needed to convert the String of the date to the GregorianCalendar
+   * object.
+   * 
+   * @param JdateChooser - the JDateChooser class that open a little GUI window to
+   *                     choose the date
+   * @author Triet Huynh
+   */
   public static GregorianCalendar getGregorianCalendarFromJdateChooser(JDateChooser jDateChooser) {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -35,10 +43,4 @@ public class TimeMethod {
     return CheckDate.validateDate(date);
   }
 
-  public static int reminderMinutes(GregorianCalendar reminder) {
-    int hour = reminder.get(GregorianCalendar.HOUR_OF_DAY);
-    int minutes = reminder.get(GregorianCalendar.MINUTE);
-
-    return hour * 60 + minutes;
-  }
 }
