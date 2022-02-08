@@ -126,7 +126,7 @@
           <text value="Participants"/>
         </properties>
       </component>
-      <scrollpane id="f5a98">
+      <scrollpane id="f5a98" binding="scpane1">
         <constraints>
           <grid row="14" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -136,6 +136,7 @@
           <component id="b340" class="javax.swing.JList" binding="ParticipantList">
             <constraints/>
             <properties>
+              <enabled value="false"/>
               <model/>
             </properties>
           </component>

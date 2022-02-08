@@ -90,8 +90,10 @@ public class ShowEvents extends JFrame {
                 frame.dispose();
             }
         });
+
         fillTable(currentMonth, currentDay, currentYear);
-        // Clicking event cell opens ShowEventFrame
+
+        // Clicking event opens EditEvent frame with detailed information bout selected event
         scpane.addMouseListener(new MouseAdapter() {
         });
         tblCalendar.addMouseListener(new MouseAdapter() {
@@ -109,7 +111,7 @@ public class ShowEvents extends JFrame {
 
                     selectedEvent = eventsToday.get(row);
 
-                    new EditEvent(selectedEvent);
+                    new EditEvent(selectedEvent, calendar, currentMonth, currentYear);
                 }
 
             }
@@ -117,10 +119,6 @@ public class ShowEvents extends JFrame {
     }
 
     private void fillTable(int month, int day, int year) {
-
-        // Get Events
-        //ArrayList<EventLocal> eventMonths = new ArrayList<>();
-        //ArrayList<EventLocal> eventsToday = new ArrayList<>();
 
         try {
             eventMonths = localDbMethod.buildEventLocal(month, year);
@@ -150,7 +148,7 @@ public class ShowEvents extends JFrame {
                 mdlCalendar.setValueAt(eventsToday.get(i).getDayOfEvent().get(GregorianCalendar.HOUR_OF_DAY), i, j + 2);
                 mdlCalendar.setValueAt(eventsToday.get(i).getEvent_duration_minute(), i, j + 3);
                 mdlCalendar.setValueAt(eventsToday.get(i).getLocation().getName(), i, j + 4);
-                mdlCalendar.setValueAt(null, i, j + 5); // Missing participants
+                mdlCalendar.setValueAt(eventsToday.get(i).getParticipants_email(), i, j + 5);
                 mdlCalendar.setValueAt(eventsToday.get(i).getPriority(), i, j + 6);
             }
         }

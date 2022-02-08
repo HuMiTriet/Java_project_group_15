@@ -2,6 +2,7 @@ package com.fifteen.events.eventMethod;
 
 import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import com.fifteen.events.local.CheckDate;
@@ -23,6 +24,12 @@ public class TimeMethod {
    */
   public static long minutesBetween(GregorianCalendar startTime, GregorianCalendar endTime) {
     return ChronoUnit.MINUTES.between(startTime.toInstant(), endTime.toInstant());
+  }
+
+  public static int getEndTime(GregorianCalendar startTime, long duration) {
+    GregorianCalendar endTime = (GregorianCalendar ) startTime.clone();
+    endTime.add(Calendar.MINUTE, Math.toIntExact(duration));
+    return endTime.get(GregorianCalendar.HOUR_OF_DAY);
   }
 
   /**

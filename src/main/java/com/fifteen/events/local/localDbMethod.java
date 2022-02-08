@@ -57,6 +57,14 @@ public class localDbMethod extends localDb {
     }
   }
 
+  public static void deleteEvent(String id) throws SQLException {
+
+    statement.executeUpdate("DELETE FROM event WHERE event_id = '" + id + "'");
+    statement.executeUpdate("DELETE FROM participants WHERE event_id = '" + id + "'");
+    statement.executeUpdate("DELETE FROM time WHERE event_id = '" + id + "'");
+
+  }
+
   private static void getParticipantsTable(EventLocal eventLocal) throws SQLException {
 
     Statement participantStatement = connection.createStatement();

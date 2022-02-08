@@ -6,11 +6,18 @@ import com.fifteen.events.local.EventLocal;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.toedter.calendar.JDateChooser;
+import com.fifteen.events.local.localDbMethod;
+import com.fifteen.events.CalendarView;
+import com.fifteen.events.eventMethod.TimeMethod;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -29,6 +36,7 @@ public class EditEvent {
     private JDateChooser JDateChooser;
     private JComboBox priorityPicker;
     private JList ParticipantList;
+    private DefaultListModel mdlList;
     private JComboBox reminderPicker;
     private JTextField locationText;
     private JTextField longtitudeText;
@@ -36,10 +44,11 @@ public class EditEvent {
     private JButton saveButton;
     private JButton editButton;
     private JButton deleteButton;
+    private JScrollPane scpane1;
     private JFrame frame;
 
 
-    public EditEvent(EventLocal event) {
+    public EditEvent(EventLocal event, CalendarView calendar, int month, int year) {
 
         //Create frame
         frame = new JFrame("Edit Event");
@@ -54,6 +63,10 @@ public class EditEvent {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        // Initialize JList
+        mdlList = new DefaultListModel();
+        ParticipantList.setModel(mdlList);
+
         displayEventInformation(event);
 
         // Enable text fields
@@ -67,11 +80,32 @@ public class EditEvent {
                 startTimeText.setEditable(true);
                 endTimeTextField.setEditable(true);
                 JDateChooser.setEnabled(true);
+                ParticipantList.setEnabled(true);
                 priorityPicker.setEnabled(true);
                 reminderPicker.setEnabled(true);
                 locationText.setEditable(true);
                 latitudeText.setEditable(true);
                 longtitudeText.setEditable(true);
+            }
+        });
+
+        // Delete Event
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String id = event.getEventID();
+                try {
+                    localDbMethod.deleteEvent(id);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                calendar.updateCalendar(month, year);
+            }
+        });
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }
@@ -83,15 +117,16 @@ public class EditEvent {
         eventNameText.setText(event.getEventName());
         eventDescriptionText.setText(event.getEventDescription());
         startTimeText.setText(String.valueOf(event.getDayOfEvent().get(GregorianCalendar.HOUR_OF_DAY)));
+        endTimeTextField.setText(String.valueOf(TimeMethod.getEndTime(event.getDayOfEvent(), event.getEvent_duration_minute())));
         Date dayOfEvent = new Date(event.getDayOfEvent().get(GregorianCalendar.YEAR) - 1900, event.getDayOfEvent().get(GregorianCalendar.MONTH
         ), event.getDayOfEvent().get(GregorianCalendar.DATE));
         JDateChooser.setDate(dayOfEvent);
+        mdlList.addElement(event.getParticipants_email());
         priorityPicker.setSelectedItem(event.getPriority());
         reminderPicker.setSelectedItem(event.getMinutesUntilReminder());
         locationText.setText(event.getLocation().getName());
         latitudeText.setText(String.valueOf(event.getLocation().getLatitude()));
         longtitudeText.setText(String.valueOf(event.getLocation().getLongitude()));
-
     }
 
     /**
@@ -151,12 +186,13 @@ public class EditEvent {
         final JLabel label7 = new JLabel();
         label7.setText("Participants");
         panel1.add(label7, new GridConstraints(13, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JScrollPane scrollPane1 = new JScrollPane();
-        panel1.add(scrollPane1, new GridConstraints(14, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        scpane1 = new JScrollPane();
+        panel1.add(scpane1, new GridConstraints(14, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         ParticipantList = new JList();
+        ParticipantList.setEnabled(false);
         final DefaultListModel defaultListModel1 = new DefaultListModel();
         ParticipantList.setModel(defaultListModel1);
-        scrollPane1.setViewportView(ParticipantList);
+        scpane1.setViewportView(ParticipantList);
         final JLabel label8 = new JLabel();
         label8.setText("Reminder");
         panel1.add(label8, new GridConstraints(15, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
