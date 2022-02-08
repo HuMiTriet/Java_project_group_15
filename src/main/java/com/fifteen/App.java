@@ -1,18 +1,14 @@
 package com.fifteen;
 
-import java.sql.SQLException;
+import java.io.File;
 
 import javax.swing.UIManager;
 
-import com.fifteen.auth.admin.AdminPage;
-import com.fifteen.database.DBMethod;
-import com.fifteen.database.User;
-import com.fifteen.database.UserDao;
-import com.fifteen.database.UserDaoImp;
-import com.fifteen.events.CalendarView;
-import com.fifteen.events.local.localDb;
-import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.fifteen.auth.login.LoginPage;
+import com.fifteen.database.DBMethod;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+
+import org.apache.commons.io.FileUtils;
 
 public class App {
   public static void main(String[] args) throws Exception {

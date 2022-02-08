@@ -210,6 +210,7 @@ public class CalendarView extends JFrame {
             e1.printStackTrace();
           }
 
+          updateCalendar(currentMonth, currentYear);
           JOptionPane.showMessageDialog(frame, "Database imported successfully! \n Please restart the application",
               "Success",
               JOptionPane.INFORMATION_MESSAGE);
@@ -263,8 +264,8 @@ public class CalendarView extends JFrame {
             e1.printStackTrace();
           }
         }
-        System.exit(0);
         localDb.closeLocalConnection();
+        System.exit(0);
       }
     }
     menu4.addActionListener(new eventExit());
