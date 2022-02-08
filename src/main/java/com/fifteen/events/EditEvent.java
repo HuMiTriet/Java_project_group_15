@@ -7,6 +7,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.toedter.calendar.JDateChooser;
 import com.fifteen.events.local.localDbMethod;
+import com.fifteen.events.ShowEvents;
 import com.fifteen.events.CalendarView;
 import com.fifteen.events.eventMethod.TimeMethod;
 
@@ -48,7 +49,7 @@ public class EditEvent {
     private JFrame frame;
 
 
-    public EditEvent(EventLocal event, CalendarView calendar, int month, int year) {
+    public EditEvent(EventLocal event, CalendarView calendar, ShowEvents eventsOfDay, int day, int month, int year) {
 
         //Create frame
         frame = new JFrame("Edit Event");
@@ -99,6 +100,7 @@ public class EditEvent {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                eventsOfDay.fillTable(month, day, year);
                 calendar.updateCalendar(month, year);
             }
         });

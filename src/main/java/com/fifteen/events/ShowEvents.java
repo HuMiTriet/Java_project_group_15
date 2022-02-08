@@ -111,14 +111,14 @@ public class ShowEvents extends JFrame {
 
                     selectedEvent = eventsToday.get(row);
 
-                    new EditEvent(selectedEvent, calendar, currentMonth, currentYear);
+                    new EditEvent(selectedEvent, calendar, ShowEvents.this, currentDay, currentMonth, currentYear);
                 }
 
             }
         });
     }
 
-    private void fillTable(int month, int day, int year) {
+    public void fillTable(int month, int day, int year) {
 
         try {
             eventMonths = localDbMethod.buildEventLocal(month, year);
