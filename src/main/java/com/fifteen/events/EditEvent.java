@@ -1,13 +1,15 @@
 package com.fifteen.events;
 
+import com.fifteen.events.local.CheckDate;
+import com.fifteen.events.local.Location;
+import com.fifteen.events.reminder.convertOptionToMinute;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.fifteen.events.local.EventLocal;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.toedter.calendar.JDateChooser;
 import com.fifteen.events.local.localDbMethod;
-import com.fifteen.events.ShowEvents;
-import com.fifteen.events.CalendarView;
+import com.fifteen.events.reminder.convertMinutesToOption;
 import com.fifteen.events.eventMethod.TimeMethod;
 
 import javax.swing.*;
@@ -17,7 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -46,6 +48,7 @@ public class EditEvent {
   private JButton deleteButton;
   private JScrollPane scpane1;
   private JFrame frame;
+  private GregorianCalendar chosenGregorianCalendar;
 
   public EditEvent(EventLocal event, CalendarView calendar, ShowEvents eventsOfDay, int day, int month, int year) {
 
@@ -107,6 +110,10 @@ public class EditEvent {
       @Override
       public void actionPerformed(ActionEvent e) {
 
+        updateEvent(event);
+        eventsOfDay.fillTable(month, day, year);
+        calendar.updateCalendar(month, year);
+        frame.dispose();
 
       }
     });
@@ -125,11 +132,55 @@ public class EditEvent {
     JDateChooser.setDate(dayOfEvent);
     mdlList.addElement(event.getParticipants_email());
     priorityPicker.setSelectedItem(event.getPriority());
-    reminderPicker.setSelectedItem(event.getMinutesUntilReminder());
+    reminderPicker.setSelectedItem(convertMinutesToOption.convert(event.getMinutesUntilReminder()));
     locationText.setText(event.getLocation().getName());
     latitudeText.setText(String.valueOf(event.getLocation().getLatitude()));
     longtitudeText.setText(String.valueOf(event.getLocation().getLongitude()));
 
+
+  }
+  private void updateEvent(EventLocal event) {
+
+    chosenGregorianCalendar = (GregorianCalendar) JDateChooser.getCalendar();
+
+    String startTimeString = startTimeText.getText();
+    GregorianCalendar startTime = CheckDate.validateTime(startTimeString);
+    String endTimeString = endTimeTextField.getText();
+    GregorianCalendar endTime = CheckDate.validateTime(endTimeString);
+
+    long durationMinute = TimeMethod.minutesBetween(startTime, endTime);
+
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    String date = sdf.format(JDateChooser.getDate());
+    String timeDate = startTimeString + " " + date;
+
+    GregorianCalendar editedDay = CheckDate.validateTimeDate(timeDate);
+
+    String reminder = reminderPicker.getSelectedItem().toString();
+
+    int reminderMinute = convertOptionToMinute.convert(reminder);
+
+    Location location = new Location(locationText.getText(), Double.parseDouble(longtitudeText.getText()),
+            Double.parseDouble(latitudeText.getText()));
+
+
+
+
+    event.setEventName(eventNameText.getText());
+    event.setEventDescription(eventDescriptionText.getText());
+    event.setDayOfEvent(editedDay);
+    event.setEvent_duration_minute(durationMinute);
+    event.setMinutesUntilReminder(reminderMinute);
+    event.setPriority(priorityPicker.getSelectedItem().toString());
+    event.setLocation(location);
+
+
+    try {
+      localDbMethod.editEvent(event);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
 
   }
 

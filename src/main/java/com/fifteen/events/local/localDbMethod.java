@@ -65,6 +65,49 @@ public class localDbMethod extends localDb {
 
   }
 
+  public static void editEvent(EventLocal eventLocal) throws SQLException {
+    try {
+      editEventTable(eventLocal);
+      editTimeTable(eventLocal);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  private static void editEventTable(EventLocal eventLocal) throws SQLException {
+    statement.executeUpdate("UPDATE event SET event_name = '" + eventLocal.getEventName() +
+            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+    statement.executeUpdate("UPDATE event SET event_description = '" + eventLocal.getEventDescription() +
+            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+    statement.executeUpdate("UPDATE event SET location_name = '" + eventLocal.getLocation().getName() +
+            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+    statement.executeUpdate("UPDATE event SET longtitude = '" + eventLocal.getLocation().getLongitude() +
+            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+    statement.executeUpdate("UPDATE event SET latitude = '" + eventLocal.getLocation().getLatitude() +
+            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+    statement.executeUpdate("UPDATE event SET priority = '" + eventLocal.getPriority() +
+            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+  }
+
+  private static void editTimeTable(EventLocal eventLocal) throws SQLException {
+    statement.executeUpdate("UPDATE time SET start_hour = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.HOUR_OF_DAY) +
+            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+    statement.executeUpdate("UPDATE time SET start_minute = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.MINUTE) +
+            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+    statement.executeUpdate("UPDATE time SET event_duration_minute = '" + eventLocal.getEvent_duration_minute() +
+            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+    statement.executeUpdate("UPDATE time SET minutes_until_reminder = '" + eventLocal.getMinutesUntilReminder() +
+            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+    statement.executeUpdate("UPDATE time SET day_of_week = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.DAY_OF_WEEK) +
+            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+    statement.executeUpdate("UPDATE time SET date = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.DATE) +
+            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+    statement.executeUpdate("UPDATE time SET month = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.MONTH) +
+            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+    statement.executeUpdate("UPDATE time SET year = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.YEAR) +
+            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+  }
   private static void getParticipantsTable(EventLocal eventLocal) throws SQLException {
 
     Statement participantStatement = connection.createStatement();
