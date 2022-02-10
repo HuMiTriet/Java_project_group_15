@@ -401,7 +401,7 @@ public class CalendarView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (user.getEmail().equals("Guest")) {
-
+                    System.out.println("You are not logged in");
                     new reAuthenticatePage();
 
                 } else {
