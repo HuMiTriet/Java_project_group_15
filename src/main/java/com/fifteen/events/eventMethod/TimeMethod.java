@@ -26,16 +26,26 @@ public class TimeMethod {
     return ChronoUnit.MINUTES.between(startTime.toInstant(), endTime.toInstant());
   }
 
-  public static int getEndTime(GregorianCalendar startTime, long duration) {
+  public static String getEndTime(GregorianCalendar startTime, long duration) {
     GregorianCalendar endTime = (GregorianCalendar) startTime.clone();
     endTime.add(Calendar.MINUTE, Math.toIntExact(duration));
-    return endTime.get(GregorianCalendar.HOUR_OF_DAY);
+
+    String correctEndtime = getCorrectTimeFormat(endTime);
+    return correctEndtime;
   }
 
   public static GregorianCalendar getReminderTime(GregorianCalendar startTime, int reminderMinutes) {
     GregorianCalendar reminderTime = (GregorianCalendar) startTime.clone();
     reminderTime.add(Calendar.MINUTE, -Math.toIntExact(reminderMinutes));
     return reminderTime;
+  }
+
+  public static String getCorrectTimeFormat (GregorianCalendar time) {
+    int hour = time.get(Calendar.HOUR_OF_DAY);
+    int minute = time.get(Calendar.MINUTE);
+
+    String correctTime = String.format("%01d:%02d", hour, minute);
+    return correctTime;
   }
 
   /**

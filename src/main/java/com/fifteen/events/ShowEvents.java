@@ -3,6 +3,7 @@ package com.fifteen.events;
 import com.fifteen.database.User;
 import com.fifteen.events.local.EventLocal;
 import com.fifteen.events.local.localDbMethod;
+import com.fifteen.events.eventMethod.TimeMethod;
 import com.fifteen.events.eventMethod.eventsPerDate;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -145,8 +146,8 @@ public class ShowEvents extends JFrame {
 
                 mdlCalendar.setValueAt(eventsToday.get(i).getEventName(), i, j);
                 mdlCalendar.setValueAt(eventsToday.get(i).getEventDescription(), i, j + 1);
-                mdlCalendar.setValueAt(eventsToday.get(i).getDayOfEvent().get(GregorianCalendar.HOUR_OF_DAY), i, j + 2);
-                mdlCalendar.setValueAt(eventsToday.get(i).getEvent_duration_minute(), i, j + 3);
+                mdlCalendar.setValueAt(TimeMethod.getCorrectTimeFormat(eventsToday.get(i).getDayOfEvent()), i, j + 2);
+                mdlCalendar.setValueAt(eventsToday.get(i).getEvent_duration_minute() + " " + "Minutes", i, j + 3);
                 mdlCalendar.setValueAt(eventsToday.get(i).getLocation().getName(), i, j + 4);
                 mdlCalendar.setValueAt(eventsToday.get(i).getParticipants_email(), i, j + 5);
                 mdlCalendar.setValueAt(eventsToday.get(i).getPriority(), i, j + 6);
