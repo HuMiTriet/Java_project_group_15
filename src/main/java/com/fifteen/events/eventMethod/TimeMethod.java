@@ -27,9 +27,15 @@ public class TimeMethod {
   }
 
   public static int getEndTime(GregorianCalendar startTime, long duration) {
-    GregorianCalendar endTime = (GregorianCalendar ) startTime.clone();
+    GregorianCalendar endTime = (GregorianCalendar) startTime.clone();
     endTime.add(Calendar.MINUTE, Math.toIntExact(duration));
     return endTime.get(GregorianCalendar.HOUR_OF_DAY);
+  }
+
+  public static GregorianCalendar getReminderTime(GregorianCalendar startTime, int reminderMinutes) {
+    GregorianCalendar reminderTime = (GregorianCalendar) startTime.clone();
+    reminderTime.add(Calendar.MINUTE, -Math.toIntExact(reminderMinutes));
+    return reminderTime;
   }
 
   /**
