@@ -1,7 +1,7 @@
 package com.fifteen.profile;
 
 import com.fifteen.database.User;
-import com.fifteen.events.settings.EventSettings;
+import com.fifteen.settings.EventSettings;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;

@@ -1,4 +1,4 @@
-package com.fifteen.events.settings;
+package com.fifteen.settings;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
