@@ -1,5 +1,6 @@
 package com.fifteen.events.reminder;
 
+
 public class convertOptionToMinute {
   public static int convert(String option) {
     int minute = 0;
@@ -18,5 +19,6 @@ public class convertOptionToMinute {
         break;
     }
     return minute;
+
   }
 }

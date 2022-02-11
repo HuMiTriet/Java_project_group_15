@@ -49,7 +49,7 @@ public class TimeMethod {
   }
 
   /**
-   * Becase the JdateChooser retuns the String of the date being choosen but the
+   * Because the JdateChooser retuns the String of the date being chosen but the
    * date of each event is stored as objects of the GregorianCalendar class, this
    * function is needed to convert the String of the date to the GregorianCalendar
    * object.
