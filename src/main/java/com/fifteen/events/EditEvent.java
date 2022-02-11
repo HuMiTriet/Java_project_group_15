@@ -20,8 +20,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
@@ -68,6 +67,18 @@ public class EditEvent {
     // Initialize JList
     mdlList = new DefaultListModel();
     ParticipantList.setModel(mdlList);
+
+    // Add contacts to JList
+    Vector<String> contactEmails = new Vector<String>();
+    try {
+      contactEmails = localDbMethod.getAllContacts();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    Iterator<String> contactIterator = contactEmails.iterator();
+    while (contactIterator.hasNext()) {
+      mdlList.addElement(contactIterator.next());
+    }
 
     displayEventInformation(event);
 
@@ -130,7 +141,14 @@ public class EditEvent {
     Date dayOfEvent = new Date(event.getDayOfEvent().get(GregorianCalendar.YEAR) - 1900,
             event.getDayOfEvent().get(GregorianCalendar.MONTH), event.getDayOfEvent().get(GregorianCalendar.DATE));
     JDateChooser.setDate(dayOfEvent);
-    mdlList.addElement(event.getParticipants_email());
+
+    if (event.getParticipants_email().size() != 0) {
+      Iterator<String> contactIterator = event.getParticipants_email().iterator();
+      while (contactIterator.hasNext()) {
+        mdlList.addElement(contactIterator.next());
+      }
+    }
+
     priorityPicker.setSelectedItem(event.getPriority());
     reminderPicker.setSelectedItem(convertMinutesToOption.convert(event.getMinutesUntilReminder()));
     locationText.setText(event.getLocation().getName());
@@ -139,6 +157,7 @@ public class EditEvent {
 
 
   }
+
   private void updateEvent(EventLocal event) {
 
     chosenGregorianCalendar = (GregorianCalendar) JDateChooser.getCalendar();
@@ -165,8 +184,6 @@ public class EditEvent {
             Double.parseDouble(latitudeText.getText()));
 
 
-
-
     event.setEventName(eventNameText.getText());
     event.setEventDescription(eventDescriptionText.getText());
     event.setDayOfEvent(editedDay);
@@ -174,7 +191,8 @@ public class EditEvent {
     event.setMinutesUntilReminder(reminderMinute);
     event.setPriority(priorityPicker.getSelectedItem().toString());
     event.setLocation(location);
-
+    Set<String> participants = new HashSet<String>(ParticipantList.getSelectedValuesList());
+    event.setParticipants_email(participants);
 
     try {
       localDbMethod.editEvent(event);

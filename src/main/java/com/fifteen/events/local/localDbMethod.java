@@ -64,11 +64,11 @@ public class localDbMethod extends localDb {
     statement.executeUpdate("DELETE FROM time WHERE event_id = '" + id + "'");
 
   }
-
   public static void editEvent(EventLocal eventLocal) throws SQLException {
     try {
       editEventTable(eventLocal);
       editTimeTable(eventLocal);
+      editParticipantTable(eventLocal);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -108,6 +108,11 @@ public class localDbMethod extends localDb {
     statement.executeUpdate("UPDATE time SET year = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.YEAR) +
             "' WHERE event_id = '" + eventLocal.getEventID() + "'");
   }
+  private static void editParticipantTable(EventLocal eventLocal) throws SQLException {
+    statement.executeUpdate("DELETE FROM participants WHERE event_id = '" + eventLocal.getEventID() + "'");
+    addToParticipantsTable(eventLocal);
+  }
+
   private static void getParticipantsTable(EventLocal eventLocal) throws SQLException {
 
     Statement participantStatement = connection.createStatement();
