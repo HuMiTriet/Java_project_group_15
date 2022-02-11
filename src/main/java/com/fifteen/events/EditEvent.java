@@ -106,15 +106,19 @@ public class EditEvent {
     deleteButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        String id = event.getEventID();
-        try {
-          localDbMethod.deleteEvent(id);
-        } catch (SQLException ex) {
-          ex.printStackTrace();
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Do you really want to delete the event?", "Warning", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+          String id = event.getEventID();
+          try {
+            localDbMethod.deleteEvent(id);
+          } catch (SQLException ex) {
+            ex.printStackTrace();
+          }
+          eventsOfDay.fillTable(month, day, year);
+          calendar.updateCalendar(month, year);
+          frame.dispose();
         }
-        eventsOfDay.fillTable(month, day, year);
-        calendar.updateCalendar(month, year);
-        frame.dispose();
       }
     });
     saveButton.addActionListener(new ActionListener() {
@@ -124,6 +128,9 @@ public class EditEvent {
         updateEvent(event);
         eventsOfDay.fillTable(month, day, year);
         calendar.updateCalendar(month, year);
+
+        int confirmation = JOptionPane.showConfirmDialog(null,
+                "Your changes were saved", "Save succesfull", JOptionPane.DEFAULT_OPTION);
         frame.dispose();
 
       }
@@ -303,7 +310,7 @@ public class EditEvent {
     saveButton.setText("Save");
     panel1.add(saveButton, new GridConstraints(24, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     editButton = new JButton();
-    editButton.setText("Edit");
+    editButton.setText("Enable Edit");
     panel1.add(editButton, new GridConstraints(24, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     deleteButton = new JButton();
     deleteButton.setText("Delete");

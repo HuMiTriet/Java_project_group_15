@@ -9,6 +9,7 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
+import java.util.Objects;
 
 /**
  * @author Tim
@@ -29,8 +30,8 @@ public class ShowEvents extends JFrame {
     private JButton addEventsButton;
     private JButton backButton;
     private JLabel dateSelectedEvent;
-    private JTable tblCalendar;
-    private DefaultTableModel mdlCalendar;
+    private JTable tblEvents;
+    private DefaultTableModel mdlEvents;
     private JScrollPane scpane;
     private ArrayList<EventLocal> eventMonths = new ArrayList<>();
     private ArrayList<EventLocal> eventsToday = new ArrayList<>();
@@ -49,25 +50,25 @@ public class ShowEvents extends JFrame {
         frame.setVisible(true);
 
         // Create TableModel and add it to Table
-        mdlCalendar = new DefaultTableModel() {
+        mdlEvents = new DefaultTableModel() {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        tblCalendar.setModel(mdlCalendar);
-        scpane.add(tblCalendar);
-        scpane.setViewportView(tblCalendar);
+        tblEvents.setModel(mdlEvents);
+        scpane.add(tblEvents);
+        scpane.setViewportView(tblEvents);
 
         // Add columns with even properties
         String[] weekdays = {"Title", "Description", "Start", "Duration", "Location", "Participants", "Priority"};
         for (int i = 0; i < 7; i++) {
-            mdlCalendar.addColumn(weekdays[i]);
+            mdlEvents.addColumn(weekdays[i]);
         }
 
         // Set Table parameters
-        tblCalendar.setRowHeight(50);
-        mdlCalendar.setColumnCount(7);
-        mdlCalendar.setRowCount(10);
+        tblEvents.setRowHeight(50);
+        mdlEvents.setColumnCount(7);
+        mdlEvents.setRowCount(10);
 
         // Set current day display
         String day = String.valueOf(currentDay);
@@ -97,7 +98,7 @@ public class ShowEvents extends JFrame {
         // Clicking event opens EditEvent frame with detailed information bout selected event
         scpane.addMouseListener(new MouseAdapter() {
         });
-        tblCalendar.addMouseListener(new MouseAdapter() {
+        tblEvents.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
@@ -108,7 +109,7 @@ public class ShowEvents extends JFrame {
                 int row = tblCalender.getSelectedRow();
                 int column = tblCalender.getSelectedColumn();
 
-                if (mdlCalendar.getValueAt(row, column) != null) {
+                if (mdlEvents.getValueAt(row, column) != null) {
 
                     selectedEvent = eventsToday.get(row);
 
@@ -134,7 +135,7 @@ public class ShowEvents extends JFrame {
         // Clear table
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 7; j++) {
-                mdlCalendar.setValueAt(null, i, j);
+                mdlEvents.setValueAt(null, i, j);
             }
         }
 
@@ -144,14 +145,41 @@ public class ShowEvents extends JFrame {
 
                 int j = 0;
 
-                mdlCalendar.setValueAt(eventsToday.get(i).getEventName(), i, j);
-                mdlCalendar.setValueAt(eventsToday.get(i).getEventDescription(), i, j + 1);
-                mdlCalendar.setValueAt(TimeMethod.getCorrectTimeFormat(eventsToday.get(i).getDayOfEvent()), i, j + 2);
-                mdlCalendar.setValueAt(eventsToday.get(i).getEvent_duration_minute() + " " + "Minutes", i, j + 3);
-                mdlCalendar.setValueAt(eventsToday.get(i).getLocation().getName(), i, j + 4);
-                mdlCalendar.setValueAt(eventsToday.get(i).getParticipants_email(), i, j + 5);
-                mdlCalendar.setValueAt(eventsToday.get(i).getPriority(), i, j + 6);
+                mdlEvents.setValueAt(eventsToday.get(i).getEventName(), i, j);
+                mdlEvents.setValueAt(eventsToday.get(i).getEventDescription(), i, j + 1);
+                mdlEvents.setValueAt(TimeMethod.getCorrectTimeFormat(eventsToday.get(i).getDayOfEvent()), i, j + 2);
+                mdlEvents.setValueAt(eventsToday.get(i).getEvent_duration_minute() + " " + "Minutes", i, j + 3);
+                mdlEvents.setValueAt(eventsToday.get(i).getLocation().getName(), i, j + 4);
+                mdlEvents.setValueAt(eventsToday.get(i).getParticipants_email(), i, j + 5);
+                mdlEvents.setValueAt(eventsToday.get(i).getPriority(), i, j + 6);
+
+                tblEvents.setDefaultRenderer(tblEvents.getColumnClass(0), new ShowEvents.tblEventsRenderer());
             }
+        }
+
+    }
+
+    public class tblEventsRenderer extends DefaultTableCellRenderer {
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean selected, boolean focused,
+                                                       int row, int column) {
+            super.getTableCellRendererComponent(table, value, selected, focused, row, column);
+
+            setBackground(new Color(255, 255, 255));
+            if (value != null) {
+                if (column == 6) {
+                    if (Objects.equals(value.toString(), "low")) {
+                        setBackground(new Color(119, 206, 13));
+
+                    } else if (Objects.equals(value.toString(), "medium")) {
+                        setBackground(new Color(208, 196, 65));
+
+                    } else if (Objects.equals(value.toString(), "high")) {
+                        setBackground(new Color(227, 26, 26));
+                    }
+                }
+            }
+            setForeground(Color.black);
+            return this;
         }
 
     }
@@ -187,8 +215,8 @@ public class ShowEvents extends JFrame {
         panel1.add(dateSelectedEvent, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         scpane = new JScrollPane();
         panel1.add(scpane, new GridConstraints(2, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        tblCalendar = new JTable();
-        scpane.setViewportView(tblCalendar);
+        tblEvents = new JTable();
+        scpane.setViewportView(tblEvents);
     }
 
     /**
