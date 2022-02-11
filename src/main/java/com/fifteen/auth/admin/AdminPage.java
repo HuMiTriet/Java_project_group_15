@@ -16,8 +16,7 @@ import com.intellij.uiDesigner.core.Spacer;
 
 /**
  * Admin GUI where the admin has access to all the users in the database and
- * thereby has the power to edit/delete users
- * and change their passwords in case the user forgets their password
+ * thereby has the power to edit/delete users from the database
  *
  * @author Ante Maric 1273904
  */
@@ -93,6 +92,7 @@ public class AdminPage extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        //make the database visible in the jTable
         model.addColumn("USER ID");
         model.addColumn("EMAIL");
         model.addColumn("USERNAME");

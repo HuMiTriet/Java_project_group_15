@@ -20,12 +20,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 /**
+ * Class used to edit or delete single events.
+ * Uses objecs of eventlocal, CalendarView and ShowEvents as parameters.
+ * Also the the day of the month and year.
  * @author Tim
  */
 
@@ -48,30 +50,40 @@ public class EditEvent {
   private JButton deleteButton;
   private JScrollPane scpane1;
   private JFrame frame;
-  private GregorianCalendar chosenGregorianCalendar;
 
   public EditEvent(EventLocal event, CalendarView calendar, ShowEvents eventsOfDay, int day, int month, int year) {
 
-    // Create frame
+    // Create frame @Tim Görß 1252200
     frame = new JFrame("Edit Event");
     $$$setupUI$$$();
     frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     frame.setPreferredSize(new Dimension(500, 700));
     frame.setResizable(true);
 
-    // Add panel to frame
+    // Add panel to frame @Tim Görß 1252200
     frame.add(panel1);
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
 
-    // Initialize JList
+    // Initialize JList @Tim Görß 1252200
     mdlList = new DefaultListModel();
     ParticipantList.setModel(mdlList);
 
+    // Add contacts to JList @Tim Görß 1252200
+    Vector<String> contactEmails = new Vector<>();
+    try {
+      contactEmails = localDbMethod.getAllContacts();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+      for (String contactEmail : contactEmails) {
+          mdlList.addElement(contactEmail);
+      }
+
     displayEventInformation(event);
 
-    // Enable text fields
+    // Textfields are by default not enabled and need to be enabled by the user @Tim Görß 1252200
     editButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
@@ -88,41 +100,53 @@ public class EditEvent {
         locationText.setEditable(true);
         latitudeText.setEditable(true);
         longtitudeText.setEditable(true);
+
+
       }
     });
 
-    // Delete Event
+    // Delete Event @Tim Görß 1252200
     deleteButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        String id = event.getEventID();
-        try {
-          localDbMethod.deleteEvent(id);
-        } catch (SQLException ex) {
-          ex.printStackTrace();
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Do you really want to delete the event?", "Warning", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+          String id = event.getEventID();
+          try {
+            localDbMethod.deleteEvent(id);
+          } catch (SQLException ex) {
+            ex.printStackTrace();
+          }
+          eventsOfDay.fillTable(month, day, year);
+          calendar.updateCalendar(month, year);
+          frame.dispose();
         }
-        eventsOfDay.fillTable(month, day, year);
-        calendar.updateCalendar(month, year);
-        frame.dispose();
       }
     });
+    // Save changes made to the event @Tim Görß 1252200
     saveButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-
-        updateEvent(event);
-        eventsOfDay.fillTable(month, day, year);
-        calendar.updateCalendar(month, year);
-        frame.dispose();
-
+          if (checkInput()) {
+              updateEvent(event);
+              eventsOfDay.fillTable(month, day, year);
+              calendar.updateCalendar(month, year);
+              JOptionPane.showConfirmDialog(null,
+                      "Your changes were saved", "Save succesfull", JOptionPane.DEFAULT_OPTION);
+              frame.dispose();
+          }
       }
     });
   }
-
+  /**
+   * Function to fill all text-fields with the data of the selected event
+   * @param event - Object of the event the user wants to edit
+   * @author Tim Görß 1252200
+   */
   private void displayEventInformation(EventLocal event) {
 
-    // Fill out textfields with event information
-    // fields are set to not enabled
+    // Fill out textfields with event information @Tim Görß 1252200
     eventNameText.setText(event.getEventName());
     eventDescriptionText.setText(event.getEventDescription());
     startTimeText.setText(TimeMethod.getCorrectTimeFormat(event.getDayOfEvent()));
@@ -130,7 +154,13 @@ public class EditEvent {
     Date dayOfEvent = new Date(event.getDayOfEvent().get(GregorianCalendar.YEAR) - 1900,
             event.getDayOfEvent().get(GregorianCalendar.MONTH), event.getDayOfEvent().get(GregorianCalendar.DATE));
     JDateChooser.setDate(dayOfEvent);
-    mdlList.addElement(event.getParticipants_email());
+
+    if (event.getParticipants_email().size() != 0) {
+        for (String s : event.getParticipants_email()) {
+            mdlList.addElement(s);
+        }
+    }
+
     priorityPicker.setSelectedItem(event.getPriority());
     reminderPicker.setSelectedItem(convertMinutesToOption.convert(event.getMinutesUntilReminder()));
     locationText.setText(event.getLocation().getName());
@@ -139,19 +169,24 @@ public class EditEvent {
 
 
   }
+  /**
+   * Function to retrieve the input from the user and update the database
+   * @param event - Object of the event the user edited
+   * @author Tim Görß 1252200
+   */
   private void updateEvent(EventLocal event) {
 
-    chosenGregorianCalendar = (GregorianCalendar) JDateChooser.getCalendar();
-
+    // Validate the time input Tim Görß 1252200
     String startTimeString = startTimeText.getText();
     GregorianCalendar startTime = CheckDate.validateTime(startTimeString);
     String endTimeString = endTimeTextField.getText();
     GregorianCalendar endTime = CheckDate.validateTime(endTimeString);
 
+    // Use the minutesBetween method to get the duration
     long durationMinute = TimeMethod.minutesBetween(startTime, endTime);
 
+    // Format date Tim Görß 1252200
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
     String date = sdf.format(JDateChooser.getDate());
     String timeDate = startTimeString + " " + date;
 
@@ -165,8 +200,7 @@ public class EditEvent {
             Double.parseDouble(latitudeText.getText()));
 
 
-
-
+    // Set the edited variables of the event Tim Görß 1252200
     event.setEventName(eventNameText.getText());
     event.setEventDescription(eventDescriptionText.getText());
     event.setDayOfEvent(editedDay);
@@ -174,14 +208,72 @@ public class EditEvent {
     event.setMinutesUntilReminder(reminderMinute);
     event.setPriority(priorityPicker.getSelectedItem().toString());
     event.setLocation(location);
+    Set<String> participants = new HashSet<String>(ParticipantList.getSelectedValuesList());
+    event.setParticipants_email(participants);
 
-
+    // Call editEvent function to make changes to the database Tim Görß 1252200
     try {
       localDbMethod.editEvent(event);
     } catch (SQLException e) {
       e.printStackTrace();
     }
 
+  }
+
+  /**
+   * Function used to check if the input is correct
+   * Displays a help dialog if input is wrong
+   * @return boolean if input is valid
+   * @author Tim Görß 1252200
+   */
+  private boolean checkInput() {
+      if (eventNameText.getText().isBlank()) {
+          JOptionPane.showConfirmDialog(null,
+                  "Event name cannot be empty", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+      if (eventDescriptionText.getText().isBlank()) {
+          JOptionPane.showConfirmDialog(null,
+                  "Event description cannot be empty", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+      String startTimeString = startTimeText.getText();
+      GregorianCalendar startTime = CheckDate.validateTime(startTimeString);
+      if (startTimeString.isBlank() == true || startTime == null) {
+          JOptionPane.showConfirmDialog(null,
+                  "Start time has to be in correct format HH:mm", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+
+      String endTimeString = endTimeTextField.getText();
+      GregorianCalendar endTime = CheckDate.validateTime(endTimeString);
+      if (endTimeString.isBlank() == true || endTime == null) {
+          JOptionPane.showConfirmDialog(null,
+                  "End time has to be in correct format HH:mm", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+
+      if (startTime.compareTo(endTime) > 0) {
+          JOptionPane.showConfirmDialog(null,
+                  "End time must be after start time", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+      if (locationText.getText().isBlank()) {
+          JOptionPane.showConfirmDialog(null,
+                  "Location field cannot be empty", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+      if (latitudeText.getText().isBlank()) {
+          JOptionPane.showConfirmDialog(null,
+                  "Latitude field cannot be empty", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+      if (longtitudeText.getText().isBlank()) {
+          JOptionPane.showConfirmDialog(null,
+                  "Longtitude field cannot be empty", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+  return true;
   }
 
   /**
@@ -285,7 +377,7 @@ public class EditEvent {
     saveButton.setText("Save");
     panel1.add(saveButton, new GridConstraints(24, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     editButton = new JButton();
-    editButton.setText("Edit");
+    editButton.setText("Enable Edit");
     panel1.add(editButton, new GridConstraints(24, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     deleteButton = new JButton();
     deleteButton.setText("Delete");

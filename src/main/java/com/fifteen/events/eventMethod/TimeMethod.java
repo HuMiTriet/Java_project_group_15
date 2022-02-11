@@ -11,7 +11,7 @@ import com.toedter.calendar.JDateChooser;
 /**
  * A suite of method to deal with problems related to EventLocal time.
  * 
- * @author Triet Huynh
+ * @author Triet Huynh, Tim Görß
  */
 public class TimeMethod {
 
@@ -26,6 +26,13 @@ public class TimeMethod {
     return ChronoUnit.MINUTES.between(startTime.toInstant(), endTime.toInstant());
   }
 
+  /**
+   * Function used reverse the changes to endTime
+   * @param startTime the time the event start
+   * @param duration   the duration of the event
+   * @return the initial endTime of the event in the correct format
+   * @author Tim Görß 1252200
+   */
   public static String getEndTime(GregorianCalendar startTime, long duration) {
     GregorianCalendar endTime = (GregorianCalendar) startTime.clone();
     endTime.add(Calendar.MINUTE, Math.toIntExact(duration));
@@ -40,6 +47,12 @@ public class TimeMethod {
     return reminderTime;
   }
 
+  /**
+   * Function used to add leading zeros to dates missing one
+   * @param time GregorianCalendar object that needs time to be changed
+   * @return GregorianCalendar object with the correct format
+   * @author Tim Görß 1252200
+   */
   public static String getCorrectTimeFormat (GregorianCalendar time) {
     int hour = time.get(Calendar.HOUR_OF_DAY);
     int minute = time.get(Calendar.MINUTE);
@@ -49,7 +62,7 @@ public class TimeMethod {
   }
 
   /**
-   * Becase the JdateChooser retuns the String of the date being choosen but the
+   * Because the JdateChooser retuns the String of the date being chosen but the
    * date of each event is stored as objects of the GregorianCalendar class, this
    * function is needed to convert the String of the date to the GregorianCalendar
    * object.

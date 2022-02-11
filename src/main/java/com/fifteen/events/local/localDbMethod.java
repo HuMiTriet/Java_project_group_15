@@ -57,6 +57,11 @@ public class localDbMethod extends localDb {
     }
   }
 
+  /**
+   * Function to delete events from database
+   * @param id - primary key of events to be deleted
+   * @author Tim Görß 1252200
+   */
   public static void deleteEvent(String id) throws SQLException {
 
     statement.executeUpdate("DELETE FROM event WHERE event_id = '" + id + "'");
@@ -64,17 +69,26 @@ public class localDbMethod extends localDb {
     statement.executeUpdate("DELETE FROM time WHERE event_id = '" + id + "'");
 
   }
-
+  /**
+   * Function to initialize the edit of an event
+   * @param eventLocal - the event that is to be edited
+   * @author Tim Görß 1252200
+   */
   public static void editEvent(EventLocal eventLocal) throws SQLException {
     try {
       editEventTable(eventLocal);
       editTimeTable(eventLocal);
+      editParticipantTable(eventLocal);
     } catch (SQLException e) {
       e.printStackTrace();
     }
 
   }
-
+  /**
+   * Function to edit events from the EventTable
+   * @param eventLocal - the event that is to be edited
+   * @author Tim Görß 1252200
+   */
   private static void editEventTable(EventLocal eventLocal) throws SQLException {
     statement.executeUpdate("UPDATE event SET event_name = '" + eventLocal.getEventName() +
             "' WHERE event_id = '" + eventLocal.getEventID() + "'");
@@ -90,6 +104,11 @@ public class localDbMethod extends localDb {
             "' WHERE event_id = '" + eventLocal.getEventID() + "'");
   }
 
+  /**
+   * Function to edit events from the TimeTable
+   * @param eventLocal - the event that is to be edited
+   * @author Tim Görß 1252200
+   */
   private static void editTimeTable(EventLocal eventLocal) throws SQLException {
     statement.executeUpdate("UPDATE time SET start_hour = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.HOUR_OF_DAY) +
             "' WHERE event_id = '" + eventLocal.getEventID() + "'");
@@ -108,6 +127,16 @@ public class localDbMethod extends localDb {
     statement.executeUpdate("UPDATE time SET year = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.YEAR) +
             "' WHERE event_id = '" + eventLocal.getEventID() + "'");
   }
+  /**
+   * Function to edit events from the ParticipantTable
+   * @param eventLocal - the event that is to be edited
+   * @author Tim Görß 1252200
+   */
+  private static void editParticipantTable(EventLocal eventLocal) throws SQLException {
+    statement.executeUpdate("DELETE FROM participants WHERE event_id = '" + eventLocal.getEventID() + "'");
+    addToParticipantsTable(eventLocal);
+  }
+
   private static void getParticipantsTable(EventLocal eventLocal) throws SQLException {
 
     Statement participantStatement = connection.createStatement();

@@ -1,16 +1,14 @@
 package com.fifteen.events;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,7 +28,7 @@ import com.fifteen.events.local.localDb;
 import com.fifteen.events.local.localDbMethod;
 import com.fifteen.events.local.exportImport.FileTypeFilter;
 import com.fifteen.events.local.exportImport.exportTxt;
-import com.fifteen.events.settings.EventSettings;
+import com.fifteen.settings.EventSettings;
 import com.fifteen.events.sync.localDatabaseFile;
 import com.fifteen.events.sync.reAuthenticatePage;
 import com.fifteen.profile.ProfilePage;
@@ -41,6 +39,9 @@ import com.intellij.uiDesigner.core.Spacer;
 import org.apache.commons.io.FileUtils;
 
 /**
+ * Class responsible for the main GUI of our scheduler.
+ * Uses a table to display a Calendar model and shows upcoming events
+ * Links to other GUIs and functionalities.
  * @author Tim
  */
 

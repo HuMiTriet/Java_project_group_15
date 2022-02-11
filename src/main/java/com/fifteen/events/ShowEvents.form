@@ -47,7 +47,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="bf5a2" class="javax.swing.JTable" binding="tblCalendar">
+          <component id="bf5a2" class="javax.swing.JTable" binding="tblEvents">
             <constraints/>
             <properties/>
           </component>
