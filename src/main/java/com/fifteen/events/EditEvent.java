@@ -99,6 +99,8 @@ public class EditEvent {
         locationText.setEditable(true);
         latitudeText.setEditable(true);
         longtitudeText.setEditable(true);
+
+
       }
     });
 
@@ -124,15 +126,14 @@ public class EditEvent {
     saveButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-
-        updateEvent(event);
-        eventsOfDay.fillTable(month, day, year);
-        calendar.updateCalendar(month, year);
-
-        int confirmation = JOptionPane.showConfirmDialog(null,
-                "Your changes were saved", "Save succesfull", JOptionPane.DEFAULT_OPTION);
-        frame.dispose();
-
+          if (checkInput() == true) {
+              updateEvent(event);
+              eventsOfDay.fillTable(month, day, year);
+              calendar.updateCalendar(month, year);
+              int confirmation = JOptionPane.showConfirmDialog(null,
+                      "Your changes were saved", "Save succesfull", JOptionPane.DEFAULT_OPTION);
+              frame.dispose();
+          }
       }
     });
   }
@@ -207,6 +208,56 @@ public class EditEvent {
       e.printStackTrace();
     }
 
+  }
+
+  private boolean checkInput() {
+      if (eventNameText.getText().isBlank()) {
+          int check = JOptionPane.showConfirmDialog(null,
+                  "Event name cannot be empty", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+      if (eventDescriptionText.getText().isBlank()) {
+          int check = JOptionPane.showConfirmDialog(null,
+                  "Event description cannot be empty", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+      String startTimeString = startTimeText.getText();
+      GregorianCalendar startTime = CheckDate.validateTime(startTimeString);
+      if (startTimeString.isBlank() == true || startTime == null) {
+          int check = JOptionPane.showConfirmDialog(null,
+                  "Start time has to be in correct format HH:mm", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+
+      String endTimeString = endTimeTextField.getText();
+      GregorianCalendar endTime = CheckDate.validateTime(endTimeString);
+      if (endTimeString.isBlank() == true || endTime == null) {
+          int check = JOptionPane.showConfirmDialog(null,
+                  "End time has to be in correct format HH:mm", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+
+      if (startTime.compareTo(endTime) > 0) {
+          int check = JOptionPane.showConfirmDialog(null,
+                  "End time must be after start time", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+      if (locationText.getText().isBlank()) {
+          int check = JOptionPane.showConfirmDialog(null,
+                  "Location field cannot be empty", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+      if (latitudeText.getText().isBlank()) {
+          int check = JOptionPane.showConfirmDialog(null,
+                  "Latitude field cannot be empty", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+      if (longtitudeText.getText().isBlank()) {
+          int check = JOptionPane.showConfirmDialog(null,
+                  "Longtitude field cannot be empty", "Invalid input", JOptionPane.DEFAULT_OPTION);
+          return false;
+      }
+  return true;
   }
 
   /**
