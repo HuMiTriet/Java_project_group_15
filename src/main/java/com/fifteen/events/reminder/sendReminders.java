@@ -5,6 +5,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
+ * Work in Progress, testing out the java timer and TimerTask functions
+ *
  * @author Ante Maric 1273904
  */
 

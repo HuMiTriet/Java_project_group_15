@@ -90,7 +90,7 @@ public class mailUtils {
 }
 
 /*
- ********* OLD CODE *********
+ ********* OLD CODE / MIGHT BE USEFUL IN FUTURE *********
  * String[] emailAdress, String emailSubject, String emailBody
  * 
  * String emailAddress = //"javacomtwentyone@gmail.com";
