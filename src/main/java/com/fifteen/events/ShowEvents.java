@@ -21,7 +21,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * @author Tim
+ * Class displays a table of all events in a single day
+ * @author Tim Görß 1252200
  */
 
 public class ShowEvents extends JFrame {
@@ -38,18 +39,19 @@ public class ShowEvents extends JFrame {
 
     public ShowEvents(User user, int currentDay, int currentMonth, int currentYear, CalendarView calendar) {
 
-        // Create frame
+        // Create frame @Tim Görß 1252200
         frame = new JFrame();
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frame.setPreferredSize(new Dimension(1000, 700));
         frame.setResizable(true);
 
+       // Add panel to frame @Tim Görß 1252200
         frame.add(panel1);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        // Create TableModel and add it to Table
+        // Create TableModel and add it to Table @Tim Görß 1252200
         mdlEvents = new DefaultTableModel() {
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -59,24 +61,24 @@ public class ShowEvents extends JFrame {
         scpane.add(tblEvents);
         scpane.setViewportView(tblEvents);
 
-        // Add columns with even properties
+        // Add columns with even properties @Tim Görß 1252200
         String[] weekdays = {"Title", "Description", "Start", "Duration", "Location", "Participants", "Priority"};
         for (int i = 0; i < 7; i++) {
             mdlEvents.addColumn(weekdays[i]);
         }
 
-        // Set Table parameters
-        tblEvents.setRowHeight(50);
+        // Set Table parameters  @Tim Görß 1252200
         mdlEvents.setColumnCount(7);
         mdlEvents.setRowCount(10);
+        tblEvents.setRowHeight(50);
 
-        // Set current day display
+        // Set current day display  @Tim Görß 1252200
         String day = String.valueOf(currentDay);
         String month = String.valueOf(currentMonth + 1);
         String year = String.valueOf(currentYear);
         dateSelectedEvent.setText(day + " " + month + " " + year);
 
-        // Close Window and get back to Calendar
+        // Close Window and get back to Calendar  @Tim Görß 1252200
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,7 +86,7 @@ public class ShowEvents extends JFrame {
             }
         });
 
-        // Opens AddEvents page
+        // Opens AddEvents page  @Tim Görß 1252200
         addEventsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -95,7 +97,7 @@ public class ShowEvents extends JFrame {
 
         fillTable(currentMonth, currentDay, currentYear);
 
-        // Clicking event opens EditEvent frame with detailed information bout selected event
+        // Clicking event opens EditEvent frame with detailed information bout selected event  @Tim Görß 1252200
         scpane.addMouseListener(new MouseAdapter() {
         });
         tblEvents.addMouseListener(new MouseAdapter() {
@@ -119,9 +121,13 @@ public class ShowEvents extends JFrame {
             }
         });
     }
-
+    /**
+     * Function to fill the table with data of the events
+     * @author Tim Görß 1252200
+     */
     public void fillTable(int month, int day, int year) {
 
+        // Get events from database @Tim Görß 1252200
         try {
             eventMonths = localDbMethod.buildEventLocal(month, year);
         } catch (SQLException e) {
@@ -132,14 +138,14 @@ public class ShowEvents extends JFrame {
             eventsToday = eventsPerDate.getEventOfDate(eventMonths, day);
         }
 
-        // Clear table
+        // Clear table @Tim Görß 1252200
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 7; j++) {
                 mdlEvents.setValueAt(null, i, j);
             }
         }
 
-        // Add events to table
+        // Add events to table @Tim Görß 1252200
         if (eventsToday.isEmpty() != true) {
             for (int i = 0; i < eventsToday.size(); i++) {
 

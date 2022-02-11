@@ -39,6 +39,9 @@ import com.intellij.uiDesigner.core.Spacer;
 import org.apache.commons.io.FileUtils;
 
 /**
+ * Class responsible for the main GUI of our scheduler.
+ * Uses a table to display a Calendar model and shows upcoming events
+ * Links to other GUIs and functionalities.
  * @author Tim
  */
 
@@ -76,7 +79,7 @@ public class CalendarView extends JFrame {
 
     public CalendarView(User user) {
 
-        // Create frame
+        // Create frame @Tim 1252200
         frame = new JFrame("Calendar View");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
@@ -309,7 +312,7 @@ public class CalendarView extends JFrame {
         }
         about1.addActionListener(new openDoc());
 
-        // Create Calendar object and get current day, month and year
+        // Create Calendar object and get current day, month and year @Tim 1252200
         GregorianCalendar cal = new GregorianCalendar();
         Day = cal.get(GregorianCalendar.DAY_OF_MONTH);
         Month = cal.get(GregorianCalendar.MONTH);
@@ -317,11 +320,11 @@ public class CalendarView extends JFrame {
         currentMonth = Month;
         currentYear = Year;
 
-        // Initialize JList
+        // Initialize JList @Tim 1252200
         mdlList = new DefaultListModel();
         upcomEvents.setModel(mdlList);
 
-        // Create TableModel and add it to Table
+        // Create TableModel and add it to Table @Tim 1252200
         mdlCalendar = new DefaultTableModel() {
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -329,24 +332,25 @@ public class CalendarView extends JFrame {
         };
         tblCalendar.setModel(mdlCalendar);
 
+        // Add table to the scroll panel @Tim 1252200
         spanel1.add(tblCalendar);
         spanel1.setViewportView(tblCalendar);
 
-        // Add Column consisting of weekdays
+        // Add Column consisting of weekdays @Tim 1252200
         String[] weekdays = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
         for (int i = 0; i < 7; i++) {
             mdlCalendar.addColumn(weekdays[i]);
         }
 
-        // Set Table parameters
-        tblCalendar.setRowHeight(100);
+        // Set Table parameters @Tim 1252200
         mdlCalendar.setColumnCount(7);
         mdlCalendar.setRowCount(6);
+        tblCalendar.setRowHeight(100);
 
-        // Update Calendar
+        // Update Calendar @Tim 1252200
         updateCalendar(Month, Year);
 
-        // Forward one month
+        // Forward one month @Tim 1252200
         nextMonth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -361,7 +365,7 @@ public class CalendarView extends JFrame {
             }
         });
 
-        // Backward one month
+        // Backward one month @Tim 1252200
         prevMonth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -390,7 +394,7 @@ public class CalendarView extends JFrame {
             }
         });
 
-        // Clicking event cell opens ShowEventFrame
+        // Clicking event cell opens ShowEventFrame @Tim 1252200
         spanel1.addMouseListener(new MouseAdapter() {
         });
         tblCalendar.addMouseListener(new MouseAdapter() {
@@ -431,15 +435,23 @@ public class CalendarView extends JFrame {
 
         });
     }
-
+    /**
+     * Function to draw the table and fill the cells with values.
+     * Also updates the upcoming events list
+     * @param month - month used for the calendar
+     * @param year - year used for the calendar
+     * @author Tim Görß 1252200
+     */
     public void updateCalendar(int month, int year) {
 
+        // Strings used for the displaying the current month at the top @Tim Görß 1252200
         String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September",
                 "October", "November", "December"};
-        ArrayList<Integer> daysWithEvent = new ArrayList<>();
+
         int startMonth, numberDays;
 
-        // Get Events
+        // Get Events of the month using buildEventLocal function
+        // in the localDbMethod class @Tim Görß 1252200
         ArrayList<EventLocal> eventMonths = new ArrayList<>();
 
         try {
@@ -448,43 +460,34 @@ public class CalendarView extends JFrame {
             e.printStackTrace();
         }
 
-        // Get days with events
-        /*
-         * if (eventMonths.isEmpty() != true) {
-         * for (int i = 0; i < eventMonths.size(); i++) {
-         * daysWithEvent.add(eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.
-         * DATE));
-         * }
-         * }
-         */
 
-        // Update current month label
+        // Update current month label @Tim Görß 1252200
         monthCalendar.setText(months[month]);
         yearJlabel.setText(String.valueOf(currentYear));
 
-        // Clear table
+        // Clear table @Tim Görß 1252200
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 mdlCalendar.setValueAt(null, i, j);
             }
         }
 
-        // Clear list
+        // Clear list @Tim Görß 1252200
         mdlList.removeAllElements();
 
-        // Get number of days in month
+        // Get number of days in month and start day @Tim Görß 1252200
         GregorianCalendar cal = new GregorianCalendar(year, month, 1);
         numberDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
         startMonth = cal.get(GregorianCalendar.DAY_OF_WEEK);
 
-        // Draw calendar
+        // Draw calendar @Tim Görß 1252200
         for (int i = 1; i <= numberDays; i++) {
             int row = (i + startMonth - 2) / 7;
             int column = ((i + startMonth) - 2) % 7;
             mdlCalendar.setValueAt(i, row, column);
         }
 
-        // Add upcoming events in month
+        // Add upcoming events in month @Tim Görß 1252200
         if (eventMonths.isEmpty() != true) {
             for (int i = 0; i < eventMonths.size(); i++) {
                 mdlList.addElement(
@@ -493,7 +496,7 @@ public class CalendarView extends JFrame {
                 mdlList.addElement(" ");
             }
         }
-        // Render Table, set cell colour
+        // Render Table, set cell colour @Tim Görß 1252200
         tblCalendar.setDefaultRenderer(tblCalendar.getColumnClass(0), new tblCalendarRenderer());
 
     }
