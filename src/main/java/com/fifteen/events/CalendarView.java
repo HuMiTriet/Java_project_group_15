@@ -325,10 +325,7 @@ public class CalendarView extends JFrame {
     for (int i = 0; i < 7; i++) {
       modelCalendar.addColumn(weekdays[i]);
     }
-
-    // Set Table parameters @Tim Görß 1252200
     tableCalendar.setRowHeight(100);
-    modelCalendar.setColumnCount(7);
     modelCalendar.setRowCount(6);
 
     // Update Calendar @Tim Görß 1252200
@@ -423,15 +420,8 @@ public class CalendarView extends JFrame {
    */
   public void updateCalendar(int month, int year) {
 
-    String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September",
-            "October", "November", "December"};
-    ArrayList<EventLocal> eventMonths = new ArrayList<>();
-    int startDay, numberDays;
-
-
     // Get Events @Tim Görß 1252200
-
-
+    ArrayList<EventLocal> eventMonths = new ArrayList<>();
     try {
       eventMonths = localDbMethod.buildEventLocal(month, year);
     } catch (SQLException e) {
@@ -439,6 +429,8 @@ public class CalendarView extends JFrame {
     }
 
     // Update current month label @Tim Görß 1252200
+    String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September",
+            "October", "November", "December"};
     monthCalendar.setText(months[month]);
     yearJlabel.setText(String.valueOf(currentYear));
 
@@ -453,14 +445,16 @@ public class CalendarView extends JFrame {
     modelList.removeAllElements();
 
     // Create Calendar and get the number of days in the month and the weekday of the first day @Tim Görß 1252200
+    int startDay, numberDays;
+
     GregorianCalendar cal = new GregorianCalendar(year, month, 1);
     numberDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
     startDay = cal.get(GregorianCalendar.DAY_OF_WEEK);
 
     // Draw calendar @Tim Görß 1252200
     for (int i = 1; i <= numberDays; i++) {
-      int column = ((i + startDay) - 2) % 7;
-      int row = (i + startDay - 2) / 7;
+        int column = ((i + startDay) - 2) % 7;
+        int row = (i + startDay - 2) / 7;
       modelCalendar.setValueAt(i, row, column);
     }
 
@@ -474,7 +468,7 @@ public class CalendarView extends JFrame {
       }
     }
     // Render Table, set cell colour @Tim Görß 1252200
-    tableCalendar.setDefaultRenderer(tableCalendar.getColumnClass(0), new tblCalendarRenderer());
+    tableCalendar.setDefaultRenderer(Object.class, new tableCalendarRenderer());
 
   }
 
@@ -582,7 +576,7 @@ public class CalendarView extends JFrame {
    * of events attached to it
    * @author Tim Görß 1252200
    */
-  public class tblCalendarRenderer extends DefaultTableCellRenderer {
+  public class tableCalendarRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean selected, boolean focused,
                                                    int row, int column) {
       super.getTableCellRendererComponent(table, value, selected, focused, row, column);
@@ -642,6 +636,7 @@ public class CalendarView extends JFrame {
           }
         }
       }
+      setForeground(Color.black);
       return this;
     }
 

@@ -29,8 +29,8 @@ public class ShowEvents extends JFrame {
     private JButton addEventsButton;
     private JButton backButton;
     private JLabel dateSelectedEvent;
-    private JTable tblEvents;
-    private DefaultTableModel mdlEvents;
+    private JTable tableEvents;
+    private DefaultTableModel modelEvents;
     private JScrollPane scpane;
     private ArrayList<EventLocal> eventMonths = new ArrayList<>();
     private ArrayList<EventLocal> eventsToday = new ArrayList<>();
@@ -50,25 +50,22 @@ public class ShowEvents extends JFrame {
         frame.setVisible(true);
 
         // Create TableModel and add it to Table @Tim Görß 1252200
-        mdlEvents = new DefaultTableModel() {
+        modelEvents = new DefaultTableModel() {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        tblEvents.setModel(mdlEvents);
-        scpane.add(tblEvents);
-        scpane.setViewportView(tblEvents);
+        tableEvents.setModel(modelEvents);
+        scpane.add(tableEvents);
+        scpane.setViewportView(tableEvents);
 
         // Add columns with even properties @Tim Görß 1252200
         String[] weekdays = {"Title", "Description", "Start", "Duration", "Location", "Participants", "Priority"};
         for (int i = 0; i < 7; i++) {
-            mdlEvents.addColumn(weekdays[i]);
+            modelEvents.addColumn(weekdays[i]);
         }
-
-        // Set Table parameters  @Tim Görß 1252200
-        mdlEvents.setColumnCount(7);
-        mdlEvents.setRowCount(10);
-        tblEvents.setRowHeight(50);
+        modelEvents.setRowCount(10);
+        tableEvents.setRowHeight(50);
 
         // Set current day display  @Tim Görß 1252200
         String day = String.valueOf(currentDay);
@@ -90,7 +87,7 @@ public class ShowEvents extends JFrame {
         // Clicking event opens EditEvent frame with detailed information bout selected event  @Tim Görß 1252200
         scpane.addMouseListener(new MouseAdapter() {
         });
-        tblEvents.addMouseListener(new MouseAdapter() {
+        tableEvents.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
@@ -101,7 +98,7 @@ public class ShowEvents extends JFrame {
                 int row = tblCalender.getSelectedRow();
                 int column = tblCalender.getSelectedColumn();
 
-                if (mdlEvents.getValueAt(row, column) != null) {
+                if (modelEvents.getValueAt(row, column) != null) {
 
                     selectedEvent = eventsToday.get(row);
 
@@ -131,7 +128,7 @@ public class ShowEvents extends JFrame {
         // Clear table @Tim Görß 1252200
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 7; j++) {
-                mdlEvents.setValueAt(null, i, j);
+                modelEvents.setValueAt(null, i, j);
             }
         }
 
@@ -140,15 +137,16 @@ public class ShowEvents extends JFrame {
             for (int i = 0; i < eventsToday.size(); i++) {
                 int j = 0;
 
-                mdlEvents.setValueAt(eventsToday.get(i).getEventName(), i, j);
-                mdlEvents.setValueAt(eventsToday.get(i).getEventDescription(), i, j + 1);
-                mdlEvents.setValueAt(TimeMethod.getCorrectTimeFormat(eventsToday.get(i).getDayOfEvent()), i, j + 2);
-                mdlEvents.setValueAt(eventsToday.get(i).getEvent_duration_minute() + " " + "Minutes", i, j + 3);
-                mdlEvents.setValueAt(eventsToday.get(i).getLocation().getName(), i, j + 4);
-                mdlEvents.setValueAt(eventsToday.get(i).getParticipants_email(), i, j + 5);
-                mdlEvents.setValueAt(eventsToday.get(i).getPriority(), i, j + 6);
+                modelEvents.setValueAt(eventsToday.get(i).getEventName(), i, j);
+                modelEvents.setValueAt(eventsToday.get(i).getEventDescription(), i, j + 1);
+                modelEvents.setValueAt(TimeMethod.getCorrectTimeFormat(eventsToday.get(i).getDayOfEvent()), i, j + 2);
+                modelEvents.setValueAt(eventsToday.get(i).getEvent_duration_minute() + " " + "Minutes", i, j + 3);
+                modelEvents.setValueAt(eventsToday.get(i).getLocation().getName(), i, j + 4);
+                modelEvents.setValueAt(eventsToday.get(i).getParticipants_email(), i, j + 5);
+                modelEvents.setValueAt(eventsToday.get(i).getPriority(), i, j + 6);
 
-                tblEvents.setDefaultRenderer(tblEvents.getColumnClass(0), new ShowEvents.tblEventsRenderer());
+                // Change the priority colour
+                tableEvents.setDefaultRenderer(Object.class, new tableEventsRenderer());
             }
         }
 
@@ -158,7 +156,7 @@ public class ShowEvents extends JFrame {
      * in the column priority
      * @author Tim Görß 1252200
      */
-    public class tblEventsRenderer extends DefaultTableCellRenderer {
+    public class tableEventsRenderer extends DefaultTableCellRenderer {
         public Component getTableCellRendererComponent(JTable table, Object value, boolean selected, boolean focused,
                                                        int row, int column) {
             super.getTableCellRendererComponent(table, value, selected, focused, row, column);
@@ -180,6 +178,7 @@ public class ShowEvents extends JFrame {
                     }
                 }
             }
+            setForeground(Color.black);
             return this;
         }
 
@@ -216,8 +215,8 @@ public class ShowEvents extends JFrame {
         panel1.add(dateSelectedEvent, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         scpane = new JScrollPane();
         panel1.add(scpane, new GridConstraints(2, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        tblEvents = new JTable();
-        scpane.setViewportView(tblEvents);
+        tableEvents = new JTable();
+        scpane.setViewportView(tableEvents);
     }
 
     /**
