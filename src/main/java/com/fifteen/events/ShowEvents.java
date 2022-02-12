@@ -12,8 +12,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -79,20 +77,12 @@ public class ShowEvents extends JFrame {
         dateSelectedEvent.setText(day + " " + month + " " + year);
 
         // Close Window and get back to Calendar  @Tim Görß 1252200
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-            }
-        });
+        backButton.addActionListener(e -> frame.dispose());
 
         // Opens AddEvents page  @Tim Görß 1252200
-        addEventsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AddEvents(user, currentDay, currentMonth, currentYear, calendar);
-                frame.dispose();
-            }
+        addEventsButton.addActionListener(e -> {
+            new AddEvents(user, currentDay, currentMonth, currentYear, calendar);
+            frame.dispose();
         });
 
         fillTable(currentMonth, currentDay, currentYear);
@@ -134,7 +124,7 @@ public class ShowEvents extends JFrame {
             e.printStackTrace();
         }
 
-        if (eventMonths.isEmpty() != true) {
+        if (!eventMonths.isEmpty()) {
             eventsToday = eventsPerDate.getEventOfDate(eventMonths, day);
         }
 
@@ -146,7 +136,7 @@ public class ShowEvents extends JFrame {
         }
 
         // Add events to table @Tim Görß 1252200
-        if (eventsToday.isEmpty() != true) {
+        if (!eventsToday.isEmpty()) {
             for (int i = 0; i < eventsToday.size(); i++) {
                 int j = 0;
 

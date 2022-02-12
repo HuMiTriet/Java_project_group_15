@@ -61,7 +61,9 @@ public class CalendarView extends JFrame {
   private DefaultTableModel modelCalendar;
   private DefaultListModel modelList;
   private JFrame frame;
-  private int day, month, year, currentMonth, currentYear;
+  private final int day, month, year;
+  private int currentMonth, currentYear;
+
 
   // MenuBar @author Jorge
   private JMenuBar e_menuBar;
@@ -332,37 +334,6 @@ public class CalendarView extends JFrame {
     // Update Calendar @Tim Görß 1252200
     updateCalendar(month, year);
 
-    // Forward one month @Tim Görß 1252200
-    nextMonth.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        if (currentMonth == 11) {
-          currentMonth = 0;
-          currentYear += 1;
-        } else {
-          currentMonth += 1;
-        }
-        updateCalendar(currentMonth, currentYear);
-
-      }
-    });
-
-    // Backward one month @Tim Görß 1252200
-    prevMonth.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-
-        if (currentMonth == 0) {
-          currentMonth = 11;
-          currentYear -= 1;
-        } else {
-          currentMonth -= 1;
-        }
-
-        updateCalendar(currentMonth, currentYear);
-
-      }
-    });
     addEvent.addActionListener(new ActionListener() {
       /**
        * Invoked when an action occurs.
@@ -415,6 +386,31 @@ public class CalendarView extends JFrame {
       }
 
     });
+      // Forward one month @Tim Görß 1252200
+      nextMonth.addActionListener(e -> {
+          if (currentMonth == 11) {
+              currentMonth = 0;
+              currentYear += 1;
+          } else {
+              currentMonth += 1;
+          }
+          updateCalendar(currentMonth, currentYear);
+
+      });
+
+      // Backward one month @Tim Görß 1252200
+      prevMonth.addActionListener(e -> {
+
+          if (currentMonth == 0) {
+              currentMonth = 11;
+              currentYear -= 1;
+          } else {
+              currentMonth -= 1;
+          }
+
+          updateCalendar(currentMonth, currentYear);
+
+      });
   }
 
   /**
@@ -429,11 +425,12 @@ public class CalendarView extends JFrame {
 
     String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September",
             "October", "November", "December"};
-    ArrayList<Integer> daysWithEvent = new ArrayList<>();
+    ArrayList<EventLocal> eventMonths = new ArrayList<>();
     int startDay, numberDays;
 
+
     // Get Events @Tim Görß 1252200
-    ArrayList<EventLocal> eventMonths = new ArrayList<>();
+
 
     try {
       eventMonths = localDbMethod.buildEventLocal(month, year);
@@ -460,15 +457,15 @@ public class CalendarView extends JFrame {
     numberDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
     startDay = cal.get(GregorianCalendar.DAY_OF_WEEK);
 
-    // Draw calendar
+    // Draw calendar @Tim Görß 1252200
     for (int i = 1; i <= numberDays; i++) {
       int column = ((i + startDay) - 2) % 7;
       int row = (i + startDay - 2) / 7;
       modelCalendar.setValueAt(i, row, column);
     }
 
-    // Add upcoming events in month
-    if (eventMonths.isEmpty() != true) {
+    // Add upcoming events in month @Tim Görß 1252200
+    if (!eventMonths.isEmpty()) {
       for (int i = 0; i < eventMonths.size(); i++) {
         modelList.addElement(
                 eventMonths.get(i).getEventName() + " " + eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.DATE)
@@ -615,36 +612,32 @@ public class CalendarView extends JFrame {
 
           if (Integer.parseInt(value.toString()) == eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.DATE)) {
 
-            if (eventMonths.get(i).getPriority().equals("high")) {
+              switch (eventMonths.get(i).getPriority()) {
+                  case "high" -> {
+                      temp = 3;
+                      if (temp > priorityOfDay) {
 
-              temp = 3;
+                          priorityOfDay = temp;
+                          setBackground(new Color(236, 9, 9));
+                      }
+                  }
+                  case "medium" -> {
+                      temp = 2;
+                      if (temp > priorityOfDay) {
 
-              if (temp > priorityOfDay) {
+                          priorityOfDay = temp;
+                          setBackground(new Color(208, 196, 65));
+                      }
+                  }
+                  case "low" -> {
+                      temp = 1;
+                      if (temp > priorityOfDay) {
 
-                priorityOfDay = temp;
-                setBackground(new Color(236, 9, 9));
+                          priorityOfDay = temp;
+                          setBackground(new Color(119, 206, 13));
+                      }
+                  }
               }
-
-            } else if (eventMonths.get(i).getPriority().equals("medium")) {
-
-              temp = 2;
-
-              if (temp > priorityOfDay) {
-
-                priorityOfDay = temp;
-                setBackground(new Color(208, 196, 65));
-              }
-            } else if (eventMonths.get(i).getPriority().equals("low")) {
-
-              temp = 1;
-
-              if (temp > priorityOfDay) {
-
-                priorityOfDay = temp;
-                setBackground(new Color(119, 206, 13));
-              }
-
-            }
 
           }
         }

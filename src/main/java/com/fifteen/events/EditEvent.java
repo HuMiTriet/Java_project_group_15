@@ -106,37 +106,31 @@ public class EditEvent {
     });
 
     // Delete Event @Tim Görß 1252200
-    deleteButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int dialogResult = JOptionPane.showConfirmDialog(null, "Do you really want to delete the event?", "Warning", dialogButton);
-        if (dialogResult == JOptionPane.YES_OPTION) {
-          String id = event.getEventID();
-          try {
-            localDbMethod.deleteEvent(id);
-          } catch (SQLException ex) {
-            ex.printStackTrace();
-          }
-          eventsOfDay.fillTable(month, day, year);
-          calendar.updateCalendar(month, year);
-          frame.dispose();
+    deleteButton.addActionListener(e -> {
+      int dialogButton = JOptionPane.YES_NO_OPTION;
+      int dialogResult = JOptionPane.showConfirmDialog(null, "Do you really want to delete the event?", "Warning", dialogButton);
+      if (dialogResult == JOptionPane.YES_OPTION) {
+        String id = event.getEventID();
+        try {
+          localDbMethod.deleteEvent(id);
+        } catch (SQLException ex) {
+          ex.printStackTrace();
         }
+        eventsOfDay.fillTable(month, day, year);
+        calendar.updateCalendar(month, year);
+        frame.dispose();
       }
     });
     // Save changes made to the event @Tim Görß 1252200
-    saveButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-          if (checkInput()) {
-              updateEvent(event);
-              eventsOfDay.fillTable(month, day, year);
-              calendar.updateCalendar(month, year);
-              JOptionPane.showConfirmDialog(null,
-                      "Your changes were saved", "Save succesfull", JOptionPane.DEFAULT_OPTION);
-              frame.dispose();
-          }
-      }
+    saveButton.addActionListener(e -> {
+        if (checkInput()) {
+            updateEvent(event);
+            eventsOfDay.fillTable(month, day, year);
+            calendar.updateCalendar(month, year);
+            JOptionPane.showConfirmDialog(null,
+                    "Your changes were saved", "Save succesfull", JOptionPane.DEFAULT_OPTION);
+            frame.dispose();
+        }
     });
   }
   /**
@@ -239,7 +233,7 @@ public class EditEvent {
       }
       String startTimeString = startTimeText.getText();
       GregorianCalendar startTime = CheckDate.validateTime(startTimeString);
-      if (startTimeString.isBlank() == true || startTime == null) {
+      if (startTimeString.isBlank() || startTime == null) {
           JOptionPane.showConfirmDialog(null,
                   "Start time has to be in correct format HH:mm", "Invalid input", JOptionPane.DEFAULT_OPTION);
           return false;
@@ -247,7 +241,7 @@ public class EditEvent {
 
       String endTimeString = endTimeTextField.getText();
       GregorianCalendar endTime = CheckDate.validateTime(endTimeString);
-      if (endTimeString.isBlank() == true || endTime == null) {
+      if (endTimeString.isBlank() || endTime == null) {
           JOptionPane.showConfirmDialog(null,
                   "End time has to be in correct format HH:mm", "Invalid input", JOptionPane.DEFAULT_OPTION);
           return false;
