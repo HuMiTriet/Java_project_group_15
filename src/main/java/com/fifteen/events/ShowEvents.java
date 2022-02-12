@@ -148,7 +148,6 @@ public class ShowEvents extends JFrame {
         // Add events to table @Tim Görß 1252200
         if (eventsToday.isEmpty() != true) {
             for (int i = 0; i < eventsToday.size(); i++) {
-
                 int j = 0;
 
                 mdlEvents.setValueAt(eventsToday.get(i).getEventName(), i, j);
@@ -164,13 +163,20 @@ public class ShowEvents extends JFrame {
         }
 
     }
-
+    /**
+     * Renderer used to change the colour of the cells
+     * in the column priority
+     * @author Tim Görß 1252200
+     */
     public class tblEventsRenderer extends DefaultTableCellRenderer {
         public Component getTableCellRendererComponent(JTable table, Object value, boolean selected, boolean focused,
                                                        int row, int column) {
             super.getTableCellRendererComponent(table, value, selected, focused, row, column);
 
+            //Default white background @Tim Görß
             setBackground(new Color(255, 255, 255));
+
+            // Changes color of cells based on priority
             if (value != null) {
                 if (column == 6) {
                     if (Objects.equals(value.toString(), "low")) {
@@ -184,7 +190,6 @@ public class ShowEvents extends JFrame {
                     }
                 }
             }
-            setForeground(Color.black);
             return this;
         }
 
