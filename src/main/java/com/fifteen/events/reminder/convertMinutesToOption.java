@@ -1,6 +1,14 @@
 package com.fifteen.events.reminder;
 
 public class convertMinutesToOption {
+    /**
+     * Function to reverse the minutes back to the option
+     * in reminder picker
+     * @param minute - month used for the calendar
+     * @return String - option for the reminderPicker
+     * @author Tim Görß 1252200
+     */
+
     public static String convert(int minute) {
         String option = "0";
         switch (minute) {
