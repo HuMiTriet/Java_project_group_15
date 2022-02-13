@@ -12,17 +12,17 @@ package com.fifteen.mailApi;
 
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Set;
 
 public class mailUtils {
-  Session newSession = null;
-  MimeMessage mimeMessage = null;
-  String emailAddressSender = "javacomtwentyone@gmail.com";
-  String passwordSender = "StrongPassword21";
+  static Session newSession = null;
+  static MimeMessage mimeMessage = null;
+  static String emailAddressSender = "javacomtwentyone@gmail.com";
+  static String passwordSender = "StrongPassword21";
 
-  public void setupProperties() {
+    public static void setupProperties() {
     System.out.println("Preparing to send email");
     Properties properties = System.getProperties(); // assign key and value to property
 
@@ -50,7 +50,7 @@ public class mailUtils {
   // mail.sendEmail();
 
   //MIME = Multipurpose Internet Mail Extension - Defines the content that an email is going to have
-  private MimeMessage draftEmail(String[] emailAddressReceiver, String emailSubject, String emailBody) throws MessagingException {
+  public static MimeMessage draftEmail(List<String> emailAddressReceiver, String emailSubject, String emailBody) throws MessagingException {
      //Scheme on how to build and email (Subject, body, email address and password of receivers)
      /*
      String[] emailAddressReceiver = {"pj@gmail.com", "ante@gmail.com", "jorge@gmail.com", "tim@gmail.com"};
@@ -61,8 +61,8 @@ public class mailUtils {
       mimeMessage = new MimeMessage(newSession);
 
       //for loop that adds all the recipients that were passed in as parameters in draftEmail to receive the email
-      for (int i = 0; i < emailAddressReceiver.length; i++) {
-        mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(emailAddressReceiver[i]));
+      for (int i = 0; i < emailAddressReceiver.size(); i++) {
+        mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(emailAddressReceiver.get(i)));
       }
 
       mimeMessage.setSubject(emailSubject);
@@ -76,12 +76,12 @@ public class mailUtils {
   }
 
   // Send an email from admin account to all the
-  private void sendEmail() throws MessagingException {
+  public static void sendEmail() throws MessagingException {
     String emailAddressSender = "javacomtwentyone@gmail.com"; // "Admin gmail address from which all reminders/changes will be sent out to the recipients (Users)
     String passwordSender = "StrongPassword21";     // Admin gmail password
     String emailHost = "smtp.gmail.com";            // gmail host
     Transport transport = newSession.getTransport("smtp"); // get object of the transport class using the new session that is created
-    transport.connect(emailHost, emailAddressSender, passwordSender); // connecting to the account that the emails will sent from
+    transport.connect(emailHost, emailAddressSender, passwordSender); // connecting to the account that the emails will send from
     transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients()); // send the message to all the recipients from MimeMessage Method
     transport.close(); // close email transport
     System.out.println("Email sent successfully!"); // Will be printed out on the cmd line if executed successful
