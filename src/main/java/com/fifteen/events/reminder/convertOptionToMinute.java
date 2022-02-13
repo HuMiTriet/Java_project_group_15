@@ -1,6 +1,11 @@
 package com.fifteen.events.reminder;
 
-
+/**
+ * Method to convert the option that the user choose in the drop down list
+ * of add event to the minute that the user choose in int.
+ * 
+ * @author Triet Huynh
+ */
 public class convertOptionToMinute {
   public static int convert(String option) {
     int minute = 0;

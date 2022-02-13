@@ -7,8 +7,19 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Vector;
 
+/**
+ * Provide a suite of methods to interact with the local database.
+ * 
+ * @author Triet Huynh
+ */
 public class localDbMethod extends localDb {
 
+  /**
+   * Helper method to insert the values inside each EventLocal object into the
+   * Event Table.
+   * 
+   * @author Triet Huynh
+   */
   private static void addToEventTable(EventLocal eventLocal) throws SQLException {
     String sql = "insert into event values("
         + "'" + eventLocal.getEventID() + "',"
@@ -23,6 +34,12 @@ public class localDbMethod extends localDb {
     statement.executeUpdate(sql);
   }
 
+  /**
+   * Helper method to insert the values inside each EventLocal object into the
+   * Participant Table.
+   * 
+   * @author Triet Huynh
+   */
   private static void addToParticipantsTable(EventLocal eventLocal) throws SQLException {
 
     for (String participant : eventLocal.getParticipants_email()) {
@@ -33,6 +50,12 @@ public class localDbMethod extends localDb {
     }
   }
 
+  /**
+   * Helper method to insert the values inside each EventLocal object into the
+   * Time table.
+   * 
+   * @author Triet Huynh
+   */
   private static void addToTimeTable(EventLocal eventLocal) throws SQLException {
     statement.executeUpdate("insert into time values("
         + "'" + eventLocal.getEventID() + "',"
@@ -47,6 +70,11 @@ public class localDbMethod extends localDb {
         + ")");
   }
 
+  /**
+   * Public method that adds an event to the local database.
+   *
+   * @author Triet Huynh
+   */
   public static void addEventLocal(EventLocal eventLocal) {
     try {
       addToEventTable(eventLocal);
@@ -59,6 +87,7 @@ public class localDbMethod extends localDb {
 
   /**
    * Function to delete events from database
+   * 
    * @param id - primary key of events to be deleted
    * @author Tim Görß 1252200
    */
@@ -69,8 +98,10 @@ public class localDbMethod extends localDb {
     statement.executeUpdate("DELETE FROM time WHERE event_id = '" + id + "'");
 
   }
+
   /**
    * Function to initialize the edit of an event
+   * 
    * @param eventLocal - the event that is to be edited
    * @author Tim Görß 1252200
    */
@@ -84,51 +115,59 @@ public class localDbMethod extends localDb {
     }
 
   }
+
   /**
    * Function to edit events from the EventTable
+   * 
    * @param eventLocal - the event that is to be edited
    * @author Tim Görß 1252200
    */
   private static void editEventTable(EventLocal eventLocal) throws SQLException {
     statement.executeUpdate("UPDATE event SET event_name = '" + eventLocal.getEventName() +
-            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+        "' WHERE event_id = '" + eventLocal.getEventID() + "'");
     statement.executeUpdate("UPDATE event SET event_description = '" + eventLocal.getEventDescription() +
-            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+        "' WHERE event_id = '" + eventLocal.getEventID() + "'");
     statement.executeUpdate("UPDATE event SET location_name = '" + eventLocal.getLocation().getName() +
-            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+        "' WHERE event_id = '" + eventLocal.getEventID() + "'");
     statement.executeUpdate("UPDATE event SET longtitude = '" + eventLocal.getLocation().getLongitude() +
-            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+        "' WHERE event_id = '" + eventLocal.getEventID() + "'");
     statement.executeUpdate("UPDATE event SET latitude = '" + eventLocal.getLocation().getLatitude() +
-            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+        "' WHERE event_id = '" + eventLocal.getEventID() + "'");
     statement.executeUpdate("UPDATE event SET priority = '" + eventLocal.getPriority() +
-            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+        "' WHERE event_id = '" + eventLocal.getEventID() + "'");
   }
 
   /**
    * Function to edit events from the TimeTable
+   * 
    * @param eventLocal - the event that is to be edited
    * @author Tim Görß 1252200
    */
   private static void editTimeTable(EventLocal eventLocal) throws SQLException {
-    statement.executeUpdate("UPDATE time SET start_hour = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.HOUR_OF_DAY) +
+    statement.executeUpdate(
+        "UPDATE time SET start_hour = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.HOUR_OF_DAY) +
             "' WHERE event_id = '" + eventLocal.getEventID() + "'");
-    statement.executeUpdate("UPDATE time SET start_minute = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.MINUTE) +
+    statement
+        .executeUpdate("UPDATE time SET start_minute = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.MINUTE) +
             "' WHERE event_id = '" + eventLocal.getEventID() + "'");
     statement.executeUpdate("UPDATE time SET event_duration_minute = '" + eventLocal.getEvent_duration_minute() +
-            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+        "' WHERE event_id = '" + eventLocal.getEventID() + "'");
     statement.executeUpdate("UPDATE time SET minutes_until_reminder = '" + eventLocal.getMinutesUntilReminder() +
-            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
-    statement.executeUpdate("UPDATE time SET day_of_week = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.DAY_OF_WEEK) +
+        "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+    statement.executeUpdate(
+        "UPDATE time SET day_of_week = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.DAY_OF_WEEK) +
             "' WHERE event_id = '" + eventLocal.getEventID() + "'");
     statement.executeUpdate("UPDATE time SET date = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.DATE) +
-            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+        "' WHERE event_id = '" + eventLocal.getEventID() + "'");
     statement.executeUpdate("UPDATE time SET month = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.MONTH) +
-            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+        "' WHERE event_id = '" + eventLocal.getEventID() + "'");
     statement.executeUpdate("UPDATE time SET year = '" + eventLocal.getDayOfEvent().get(GregorianCalendar.YEAR) +
-            "' WHERE event_id = '" + eventLocal.getEventID() + "'");
+        "' WHERE event_id = '" + eventLocal.getEventID() + "'");
   }
+
   /**
    * Function to edit events from the ParticipantTable
+   * 
    * @param eventLocal - the event that is to be edited
    * @author Tim Görß 1252200
    */
@@ -137,6 +176,11 @@ public class localDbMethod extends localDb {
     addToParticipantsTable(eventLocal);
   }
 
+  /**
+   * Helper method to get all of the partcipants tuples from the local database
+   * 
+   * @author Triet Huynh
+   */
   private static void getParticipantsTable(EventLocal eventLocal) throws SQLException {
 
     Statement participantStatement = connection.createStatement();
@@ -151,6 +195,11 @@ public class localDbMethod extends localDb {
 
   }
 
+  /**
+   * Method to convert event data from the local database to an EventLocal object
+   * 
+   * @author Triet Huynh
+   */
   public static ArrayList<EventLocal> buildEventLocal(int month, int year) throws SQLException {
     ArrayList<EventLocal> monthEvents = new ArrayList<EventLocal>();
     resultSet = statement.executeQuery("select * from event_time where month = " + month +
@@ -184,6 +233,11 @@ public class localDbMethod extends localDb {
     return monthEvents;
   }
 
+  /**
+   * Add participants emails to the contact tables used for the contact list.
+   * 
+   * @author Triet Huynh
+   */
   public static void addToContactsTable(String email) throws SQLException {
     statement.executeUpdate("INSERT INTO contacts values('" + email + "')");
   }
@@ -202,6 +256,13 @@ public class localDbMethod extends localDb {
     }
   }
 
+  /**
+   * Function to get all of the contacts tuples from the local database, this
+   * is used to show all of the contacts in the edit contacts page and the
+   * add event page
+   * 
+   * @author Triet Huynh
+   */
   public static Vector<String> getAllContacts() throws SQLException {
     resultSet = statement.executeQuery("select * from contacts");
 
@@ -212,6 +273,12 @@ public class localDbMethod extends localDb {
     return contacts;
   }
 
+  /**
+   * Helper function to get all informations from the event_time table. Use
+   * for exporting data to txt.
+   * 
+   * @author Triet Huynh
+   */
   private static ArrayList<String> getAllEventTimeView() throws SQLException {
     ArrayList<String> result = new ArrayList<>();
     resultSet = statement.executeQuery("SELECT * FROM event_time");
@@ -235,6 +302,12 @@ public class localDbMethod extends localDb {
     return result;
   }
 
+  /**
+   * Helper function to get all partcipants of each events in the local database.
+   * for exporting data to txt.
+   * 
+   * @author Triet Huynh
+   */
   private static ArrayList<String> getAllParticipants() throws SQLException {
     ArrayList<String> result = new ArrayList<>();
     resultSet = statement.executeQuery("SELECT * FROM participants");
@@ -248,6 +321,12 @@ public class localDbMethod extends localDb {
     return result;
   }
 
+  /**
+   * Public method to export all data about events from the local database to a
+   * txt file.
+   * 
+   * @author Triet Huynh
+   */
   public static String getExportContent() throws SQLException {
     ArrayList<String> eventTime = getAllEventTimeView();
     String stringEventTime = String.join("\n", eventTime);

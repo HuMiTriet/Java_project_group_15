@@ -32,6 +32,12 @@ public class localDb {
     }
   }
 
+  /**
+   * Load the SQLite drive so that it can create a connection to the local
+   * database
+   * 
+   * @author Triet Huynh
+   */
   public static void loadSqliteDriver() {
     try {
       Class.forName("org.sqlite.JDBC");
@@ -41,6 +47,11 @@ public class localDb {
     }
   }
 
+  /**
+   * Close the connection to the local database
+   * 
+   * @author Triet Huynh
+   */
   public static void closeLocalConnection() {
     if (connection != null) {
       DbUtils.closeQuietly(connection, statement, resultSet);
@@ -48,6 +59,11 @@ public class localDb {
     }
   }
 
+  /**
+   * Create a connection to the local database
+   * 
+   * @author Triet Huynh
+   */
   public static void createLocalConncetion() throws SQLException {
     if (connection == null)
       connection = DriverManager.getConnection("jdbc:sqlite:local.db");
@@ -56,6 +72,11 @@ public class localDb {
     statement.setQueryTimeout(30);
   }
 
+  /**
+   * Create the event table in the local database
+   * 
+   * @author Triet Huynh
+   */
   private static void createEventTable() throws SQLException {
     // System.out.println("EVENT");
     statement.executeUpdate(
@@ -71,6 +92,11 @@ public class localDb {
 
   }
 
+  /**
+   * Create the location table in the local database
+   * 
+   * @author Triet Huynh
+   */
   private static void createLocationTable() throws SQLException {
     // System.out.println("participants");
     statement.executeUpdate(
@@ -82,6 +108,11 @@ public class localDb {
             + ")");
   }
 
+  /**
+   * Create the time table in the local database
+   * 
+   * @author Triet Huynh
+   */
   private static void createTimeTable() throws SQLException {
     // System.out.println("TIME");
     statement.executeUpdate(
@@ -100,6 +131,11 @@ public class localDb {
             + ")");
   }
 
+  /**
+   * Create the Contacts table to store the contact list in the local database
+   * 
+   * @author Triet Huynh
+   */
   private static void createContactsTable() throws SQLException {
     statement.executeUpdate(
         "CREATE TABLE contacts("
@@ -107,6 +143,12 @@ public class localDb {
             + ")");
   }
 
+  /**
+   * Create a view to then later convert the tuples in the local database to
+   * the EventLocal class.
+   * 
+   * @author Triet Huynh
+   */
   private static void createViewFullEvent() throws SQLException {
     statement.executeUpdate(
         "CREATE VIEW event_time AS "
@@ -115,6 +157,13 @@ public class localDb {
             + "JOIN time t USING (event_id)");
   }
 
+  /**
+   * Create the local database if it does not exist, if it already exist
+   * connect to it
+   * 
+   * 
+   * @author Triet Huynh
+   */
   public static void initializeLocalDatabase() {
     loadSqliteDriver();
     try {

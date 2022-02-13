@@ -28,8 +28,9 @@ public class TimeMethod {
 
   /**
    * Function used reverse the changes to endTime
+   * 
    * @param startTime the time the event start
-   * @param duration   the duration of the event
+   * @param duration  the duration of the event
    * @return the initial endTime of the event in the correct format
    * @author Tim Görß 1252200
    */
@@ -41,6 +42,11 @@ public class TimeMethod {
     return correctEndtime;
   }
 
+  /**
+   * Method to get the reminder time of each event
+   * 
+   * @author Triet Huynh
+   */
   public static GregorianCalendar getReminderTime(GregorianCalendar startTime, int reminderMinutes) {
     GregorianCalendar reminderTime = (GregorianCalendar) startTime.clone();
     reminderTime.add(Calendar.MINUTE, -Math.toIntExact(reminderMinutes));
@@ -49,11 +55,12 @@ public class TimeMethod {
 
   /**
    * Function used to add leading zeros to dates missing one
+   * 
    * @param time GregorianCalendar object that needs time to be changed
    * @return GregorianCalendar object with the correct format
    * @author Tim Görß 1252200
    */
-  public static String getCorrectTimeFormat (GregorianCalendar time) {
+  public static String getCorrectTimeFormat(GregorianCalendar time) {
     int hour = time.get(Calendar.HOUR_OF_DAY);
     int minute = time.get(Calendar.MINUTE);
 

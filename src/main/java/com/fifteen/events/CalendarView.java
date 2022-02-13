@@ -64,7 +64,6 @@ public class CalendarView extends JFrame {
   private final int day, month, year;
   private int currentMonth, currentYear;
 
-
   // MenuBar @author Jorge
   private JMenuBar e_menuBar;
   private JMenu menu;
@@ -192,6 +191,13 @@ public class CalendarView extends JFrame {
 
       }
     }
+    /**
+     * class to export the local database to the directory that the user has choosen
+     * similar to import it will also just copy the local.db file to the directory
+     * that the user has selected.
+     * 
+     * @athor Triet Huynh
+     */
     dexport.addActionListener(new exportLocalDatabase());
 
     class importLocalDatabase implements ActionListener {
@@ -214,8 +220,8 @@ public class CalendarView extends JFrame {
 
           updateCalendar(currentMonth, currentYear);
           JOptionPane.showMessageDialog(frame, "Database imported successfully! \n Please restart the application",
-                  "Success",
-                  JOptionPane.INFORMATION_MESSAGE);
+              "Success",
+              JOptionPane.INFORMATION_MESSAGE);
 
         }
       }
@@ -272,6 +278,11 @@ public class CalendarView extends JFrame {
     }
     menu4.addActionListener(new eventExit());
 
+    /**
+     * Export all of the events to a .txt file
+     * 
+     * @athor Triet Huynh
+     */
     class addExportAction implements ActionListener {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -321,7 +332,7 @@ public class CalendarView extends JFrame {
     spanel1.setViewportView(tableCalendar);
 
     // Add Column consisting of weekdays @Tim Görß 1252200
-    String[] weekdays = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+    String[] weekdays = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
     for (int i = 0; i < 7; i++) {
       modelCalendar.addColumn(weekdays[i]);
     }
@@ -365,6 +376,11 @@ public class CalendarView extends JFrame {
       }
     });
 
+    /**
+     * Sync the local database with the remote database
+     * 
+     * @author Triet Huynh
+     */
     syncButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -378,36 +394,36 @@ public class CalendarView extends JFrame {
             e1.printStackTrace();
           }
           JOptionPane.showMessageDialog(frame, "Database synced successfully!", "Success",
-                  JOptionPane.INFORMATION_MESSAGE);
+              JOptionPane.INFORMATION_MESSAGE);
         }
       }
 
     });
-      // Forward one month @Tim Görß 1252200
-      nextMonth.addActionListener(e -> {
-          if (currentMonth == 11) {
-              currentMonth = 0;
-              currentYear += 1;
-          } else {
-              currentMonth += 1;
-          }
-          updateCalendar(currentMonth, currentYear);
+    // Forward one month @Tim Görß 1252200
+    nextMonth.addActionListener(e -> {
+      if (currentMonth == 11) {
+        currentMonth = 0;
+        currentYear += 1;
+      } else {
+        currentMonth += 1;
+      }
+      updateCalendar(currentMonth, currentYear);
 
-      });
+    });
 
-      // Backward one month @Tim Görß 1252200
-      prevMonth.addActionListener(e -> {
+    // Backward one month @Tim Görß 1252200
+    prevMonth.addActionListener(e -> {
 
-          if (currentMonth == 0) {
-              currentMonth = 11;
-              currentYear -= 1;
-          } else {
-              currentMonth -= 1;
-          }
+      if (currentMonth == 0) {
+        currentMonth = 11;
+        currentYear -= 1;
+      } else {
+        currentMonth -= 1;
+      }
 
-          updateCalendar(currentMonth, currentYear);
+      updateCalendar(currentMonth, currentYear);
 
-      });
+    });
   }
 
   /**
@@ -429,8 +445,8 @@ public class CalendarView extends JFrame {
     }
 
     // Update current month label @Tim Görß 1252200
-    String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September",
-            "October", "November", "December"};
+    String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
+        "October", "November", "December" };
     monthCalendar.setText(months[month]);
     yearJlabel.setText(String.valueOf(currentYear));
 
@@ -444,7 +460,8 @@ public class CalendarView extends JFrame {
     // Clear list @Tim Görß 1252200
     modelList.removeAllElements();
 
-    // Create Calendar and get the number of days in the month and the weekday of the first day @Tim Görß 1252200
+    // Create Calendar and get the number of days in the month and the weekday of
+    // the first day @Tim Görß 1252200
     int startDay, numberDays;
 
     GregorianCalendar cal = new GregorianCalendar(year, month, 1);
@@ -453,8 +470,8 @@ public class CalendarView extends JFrame {
 
     // Draw calendar @Tim Görß 1252200
     for (int i = 1; i <= numberDays; i++) {
-        int column = ((i + startDay) - 2) % 7;
-        int row = (i + startDay - 2) / 7;
+      int column = ((i + startDay) - 2) % 7;
+      int row = (i + startDay - 2) / 7;
       modelCalendar.setValueAt(i, row, column);
     }
 
@@ -462,8 +479,8 @@ public class CalendarView extends JFrame {
     if (!eventMonths.isEmpty()) {
       for (int i = 0; i < eventMonths.size(); i++) {
         modelList.addElement(
-                eventMonths.get(i).getEventName() + " " + eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.DATE)
-                        + " " + eventMonths.get(i).getPriority());
+            eventMonths.get(i).getEventName() + " " + eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.DATE)
+                + " " + eventMonths.get(i).getPriority());
         modelList.addElement(" ");
       }
     }
@@ -473,9 +490,9 @@ public class CalendarView extends JFrame {
   }
 
   {
-// GUI initializer generated by IntelliJ IDEA GUI Designer
-// >>> IMPORTANT!! <<<
-// DO NOT EDIT OR ADD ANY CODE HERE!
+    // GUI initializer generated by IntelliJ IDEA GUI Designer
+    // >>> IMPORTANT!! <<<
+    // DO NOT EDIT OR ADD ANY CODE HERE!
     $$$setupUI$$$();
   }
 
@@ -491,44 +508,70 @@ public class CalendarView extends JFrame {
     panel1.setLayout(new GridLayoutManager(4, 4, new Insets(0, 0, 0, 0), -1, -1));
     nextMonth = new JButton();
     nextMonth.setText(">>");
-    panel1.add(nextMonth, new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    panel1.add(nextMonth,
+        new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
+            GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+            GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     monthCalendar = new JLabel();
     monthCalendar.setAlignmentX(0.0f);
     monthCalendar.setHorizontalAlignment(0);
     monthCalendar.setText("months");
-    panel1.add(monthCalendar, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(327, 17), null, 0, false));
+    panel1.add(monthCalendar,
+        new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE,
+            GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(327, 17), null, 0,
+            false));
     prevMonth = new JButton();
     prevMonth.setText("<<");
-    panel1.add(prevMonth, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    panel1.add(prevMonth,
+        new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
+            GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+            GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     spanel1 = new JScrollPane();
-    panel1.add(spanel1, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(327, 428), null, 0, false));
+    panel1.add(spanel1,
+        new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH,
+            GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW,
+            GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(327, 428),
+            null, 0, false));
     tableCalendar = new JTable();
     spanel1.setViewportView(tableCalendar);
     yearJlabel = new JLabel();
     yearJlabel.setHorizontalAlignment(0);
     yearJlabel.setHorizontalTextPosition(0);
     yearJlabel.setText("year");
-    panel1.add(yearJlabel, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    panel1.add(yearJlabel, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE,
+        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     final Spacer spacer1 = new Spacer();
-    panel1.add(spacer1, new GridConstraints(3, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+    panel1.add(spacer1, new GridConstraints(3, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1,
+        GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     panel2 = new JPanel();
     panel2.setLayout(new GridLayoutManager(3, 3, new Insets(0, 0, 0, 0), -1, -1));
     panel2.setBackground(new Color(-10855075));
     panel2.setDoubleBuffered(false);
-    panel1.add(panel2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+    panel1.add(panel2,
+        new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH,
+            GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+            GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
     final Spacer spacer2 = new Spacer();
-    panel2.add(spacer2, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+    panel2.add(spacer2, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
+        GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
     final Spacer spacer3 = new Spacer();
-    panel2.add(spacer3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+    panel2.add(spacer3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
+        GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
     upcomEvents = new JList();
-    panel2.add(upcomEvents, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
+    panel2.add(upcomEvents,
+        new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH,
+            GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50),
+            null, 0, false));
     upcomingEventLable = new JLabel();
     upcomingEventLable.setBackground(new Color(-1));
     Font upcomingEventLableFont = this.$$$getFont$$$("JetBrains Mono", Font.PLAIN, 12, upcomingEventLable.getFont());
-    if (upcomingEventLableFont != null) upcomingEventLable.setFont(upcomingEventLableFont);
+    if (upcomingEventLableFont != null)
+      upcomingEventLable.setFont(upcomingEventLableFont);
     upcomingEventLable.setForeground(new Color(-1));
     upcomingEventLable.setText("Upcoming Events");
-    panel2.add(upcomingEventLable, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    panel2.add(upcomingEventLable,
+        new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE,
+            GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     addEvent = new JButton();
     addEvent.setHorizontalAlignment(0);
     addEvent.setHorizontalTextPosition(0);
@@ -536,17 +579,24 @@ public class CalendarView extends JFrame {
     addEvent.setMaximumSize(new Dimension(100, 15));
     addEvent.setMinimumSize(new Dimension(16, 10));
     addEvent.setText("New Event");
-    panel2.add(addEvent, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    panel2.add(addEvent,
+        new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
+            GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+            GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     syncButton = new JButton();
     syncButton.setText("Sync");
-    panel1.add(syncButton, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    panel1.add(syncButton,
+        new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
+            GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+            GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
   }
 
   /**
    * @noinspection ALL
    */
   private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
-    if (currentFont == null) return null;
+    if (currentFont == null)
+      return null;
     String resultName;
     if (fontName == null) {
       resultName = currentFont.getName();
@@ -558,9 +608,11 @@ public class CalendarView extends JFrame {
         resultName = currentFont.getName();
       }
     }
-    Font font = new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
+    Font font = new Font(resultName, style >= 0 ? style : currentFont.getStyle(),
+        size >= 0 ? size : currentFont.getSize());
     boolean isMac = System.getProperty("os.name", "").toLowerCase(Locale.ENGLISH).startsWith("mac");
-    Font fontWithFallback = isMac ? new Font(font.getFamily(), font.getStyle(), font.getSize()) : new StyleContext().getFont(font.getFamily(), font.getStyle(), font.getSize());
+    Font fontWithFallback = isMac ? new Font(font.getFamily(), font.getStyle(), font.getSize())
+        : new StyleContext().getFont(font.getFamily(), font.getStyle(), font.getSize());
     return fontWithFallback instanceof FontUIResource ? fontWithFallback : new FontUIResource(fontWithFallback);
   }
 
@@ -570,15 +622,17 @@ public class CalendarView extends JFrame {
   public JComponent $$$getRootComponent$$$() {
     return panel1;
   }
+
   /**
    * Renderer used for all cells in the table.
    * Changes the color of the cells based on the priority
    * of events attached to it
+   * 
    * @author Tim Görß 1252200
    */
   public class tableCalendarRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean selected, boolean focused,
-                                                   int row, int column) {
+        int row, int column) {
       super.getTableCellRendererComponent(table, value, selected, focused, row, column);
 
       // Variables used to highlight cells based on highest priority @Tim Görß 1252200
@@ -606,32 +660,32 @@ public class CalendarView extends JFrame {
 
           if (Integer.parseInt(value.toString()) == eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.DATE)) {
 
-              switch (eventMonths.get(i).getPriority()) {
-                  case "high" -> {
-                      temp = 3;
-                      if (temp > priorityOfDay) {
+            switch (eventMonths.get(i).getPriority()) {
+              case "high" -> {
+                temp = 3;
+                if (temp > priorityOfDay) {
 
-                          priorityOfDay = temp;
-                          setBackground(new Color(236, 9, 9));
-                      }
-                  }
-                  case "medium" -> {
-                      temp = 2;
-                      if (temp > priorityOfDay) {
-
-                          priorityOfDay = temp;
-                          setBackground(new Color(208, 196, 65));
-                      }
-                  }
-                  case "low" -> {
-                      temp = 1;
-                      if (temp > priorityOfDay) {
-
-                          priorityOfDay = temp;
-                          setBackground(new Color(119, 206, 13));
-                      }
-                  }
+                  priorityOfDay = temp;
+                  setBackground(new Color(236, 9, 9));
+                }
               }
+              case "medium" -> {
+                temp = 2;
+                if (temp > priorityOfDay) {
+
+                  priorityOfDay = temp;
+                  setBackground(new Color(208, 196, 65));
+                }
+              }
+              case "low" -> {
+                temp = 1;
+                if (temp > priorityOfDay) {
+
+                  priorityOfDay = temp;
+                  setBackground(new Color(119, 206, 13));
+                }
+              }
+            }
 
           }
         }

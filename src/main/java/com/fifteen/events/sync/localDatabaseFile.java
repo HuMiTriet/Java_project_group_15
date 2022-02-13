@@ -9,12 +9,22 @@ import java.sql.SQLException;
 import com.fifteen.database.DBConnection;
 import com.fifteen.database.DBMethod;
 import com.fifteen.database.User;
-import com.fifteen.events.local.localDb;
 
 import org.apache.commons.io.FileUtils;
 
+/**
+ * Provide a suit to handle the local database to sync with the remote database.
+ * 
+ * @author Triet Huynh
+ */
 public class localDatabaseFile {
 
+  /**
+   * convert the local database to a byte array to be store in the remote database
+   * as a BLOB object.
+   * 
+   * @author Triet Huynh
+   */
   private static byte[] convertFileToBlob(String filePath) throws IOException {
     byte[] fileContent = null;
     try {
@@ -26,6 +36,12 @@ public class localDatabaseFile {
     return fileContent;
   }
 
+  /**
+   * Create connection to the remote database and upload the local database file
+   * to it
+   * 
+   * @author Triet Huynh
+   */
   public static void uploadLocalDatabase(User user) throws IOException, SQLException {
     byte[] localDb = convertFileToBlob("local.db");
 
@@ -38,6 +54,12 @@ public class localDatabaseFile {
     DBMethod.closeConnection();
   }
 
+  /**
+   * Create connection to the remote database and download the local database file
+   * from it
+   * 
+   * @author Triet Huynh
+   */
   private static void downloadLocalDatabase(User user) throws IOException, SQLException {
     PreparedStatement preparedStatement = DBConnection.getConnection()
         .prepareStatement("SELECT local_data FROM userdb WHERE user_id = ?");
@@ -52,6 +74,11 @@ public class localDatabaseFile {
 
   }
 
+  /**
+   * Wrapper function to download the local database file from the remote database
+   * 
+   * @author Triet Huynh
+   */
   public static void localDatabase(User user) throws IOException, SQLException {
     // FileUtils.deleteQuietly(new File("local.db"));
     downloadLocalDatabase(user);

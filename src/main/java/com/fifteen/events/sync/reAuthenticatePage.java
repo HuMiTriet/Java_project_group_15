@@ -8,6 +8,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This class is used to display the re-authentication page. This page is
+ * displayed when the user is in offline mode and clicked on the sync button.
+ * 
+ * @athor Triet Huynh
+ */
 public class reAuthenticatePage extends JFrame {
   private JTextField emailTextField;
   private JTextField passwordTextField;

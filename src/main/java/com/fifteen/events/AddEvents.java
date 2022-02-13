@@ -17,7 +17,6 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -73,6 +72,11 @@ public class AddEvents extends JFrame {
     Vector<String> contacts;
 
     $$$setupUI$$$();
+    /**
+     * Display all of the partciapnts email in the contact list
+     * 
+     * @author Triet Huynh
+     */
     try {
       contacts = localDbMethod.getAllContacts();
       DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(contacts);
@@ -94,6 +98,13 @@ public class AddEvents extends JFrame {
     Date today = new Date(year - 1900, month, day);
     jDateChooser.setDate(today);
 
+    /**
+     * Does checking of all of the text field when the user presses the add event
+     * button If all is correct, it will add the event to the local database and
+     * close the window
+     * 
+     * @author Triet Huynh
+     */
     addEventButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
