@@ -6,6 +6,7 @@ import com.fifteen.mailApi.mailUtils;
 import javax.mail.MessagingException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,10 +17,10 @@ import java.util.TimerTask;
  */
 
 public class sendReminders {
-    public static void reminder()
+  public static void reminder(EventLocal event)
     {
         String subject = "Reminder for upcoming event";
-        List<String> participants = EventLocal.this.getParticipants_email();
+        Set<String> participants = event.getParticipants_email();
 
         Timer timer = new Timer(); //timer calculates time to execute a task
         //When the timer is up, run is going to be executed inside our TimerTask instance

@@ -1,16 +1,10 @@
 package com.fifteen;
 
-import java.io.File;
-
 import javax.swing.UIManager;
 
 import com.fifteen.auth.login.LoginPage;
 import com.fifteen.database.DBMethod;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-
-import org.apache.commons.io.FileUtils;
-
-import static com.fifteen.events.reminder.sendReminders.reminder;
 
 public class App {
   public static void main(String[] args) throws Exception {
@@ -26,15 +20,15 @@ public class App {
     // Added functionality to the Login page
     // Available user: email: t@g.com | password: t
     // Available admin: email: f@g.com | password: f
-    // DBMethod.closeConnection();
-    // new LoginPage();
+    DBMethod.closeConnection();
+    new LoginPage();
 
     // UserDao userHandler = new UserDaoImp();
     // User user = userHandler.createUserFromLogin("t@g.com");
     // new CalendarView(user);
 
     // new AdminPage();
-    reminder();
+    // reminder();
 
     // mailUtils.sendMail("javacomtwentyone@gmail.com");
   }

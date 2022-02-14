@@ -1,12 +1,28 @@
 package com.fifteen.events.sync;
 
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import com.fifteen.auth.security.PasswordHasher;
+import com.fifteen.auth.security.UserAuthenticator;
+import com.fifteen.database.DBMethod;
+import com.fifteen.database.User;
+import com.fifteen.database.UserDao;
+import com.fifteen.database.UserDaoImp;
+import com.fifteen.events.CalendarView;
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
 
 /**
  * This class is used to display the re-authentication page. This page is
@@ -30,7 +46,7 @@ public class reAuthenticatePage extends JFrame {
 
     frame = new JFrame("Re-Authenticate");
 
-    frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     frame.setPreferredSize(new Dimension(300, 300));
     frame.setResizable(false);
 
@@ -40,13 +56,47 @@ public class reAuthenticatePage extends JFrame {
     frame.setVisible(true);
     submitButton.addActionListener(new ActionListener() {
       /**
-       * Invoked when an action occurs.
+       * Check information that the user entered if correct upload to
+       * remote database
        *
        * @param e the event to be processed
+       * @author Triet Huynh
        */
+
       @Override
       public void actionPerformed(ActionEvent e) {
-        // String
+        String enteredEmail = emailTextField.getText();
+        String enteredPassword = passwordTextField.getText();
+        boolean allFieldsCorrect = true;
+        DBMethod.createConnection();
+
+        if (UserAuthenticator.checkEmailFormat(emailJlabel, enteredEmail) == false) {
+          allFieldsCorrect = false;
+        }
+
+        if (UserAuthenticator.checkFieldEmpty(passwordJlabel, enteredPassword, "Please enter your password") == false) {
+          allFieldsCorrect = false;
+        }
+
+        if (allFieldsCorrect) {
+          if (UserAuthenticator.authenticatePasswordField(passwordJlabel, enteredEmail, enteredPassword) == true) {
+            UserDao userHandler = new UserDaoImp();
+            User loginUser = userHandler.createUserFromLogin(enteredEmail);
+
+            String hashedPassword = PasswordHasher.sha2(enteredPassword);
+            try {
+              DBMethod.fillInUserInfoFromUserEmail(loginUser, hashedPassword);
+              localDatabaseFile.uploadLocalDatabase(loginUser);
+
+              new CalendarView(loginUser);
+
+              frame.dispose();
+            } catch (SQLException | IOException e1) {
+              e1.printStackTrace();
+            }
+          }
+
+        }
       }
     });
   }
@@ -121,6 +171,6 @@ public class reAuthenticatePage extends JFrame {
   }
 
   private void createUIComponents() {
-    // TODO: place custom component creation code here
   }
+
 }

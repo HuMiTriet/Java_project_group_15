@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.StyleContext;
 
 import com.fifteen.auth.login.LoginPage;
+import com.fifteen.database.DBMethod;
 import com.fifteen.database.User;
 import com.fifteen.events.local.EventLocal;
 import com.fifteen.events.local.localDb;
@@ -268,6 +269,7 @@ public class CalendarView extends JFrame {
         if (!user.getEmail().equals("Guest")) {
           try {
             localDatabaseFile.uploadLocalDatabase(user);
+            DBMethod.closeConnection();
           } catch (IOException | SQLException e1) {
             e1.printStackTrace();
           }
@@ -385,6 +387,7 @@ public class CalendarView extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         if (user.getEmail().equals("Guest")) {
+          // reAuthenticatePage reAuth = new reAuthenticatePage();
           new reAuthenticatePage();
 
         } else {
