@@ -12,8 +12,9 @@ import java.util.*;
  * @author Ante Maric 1273904
  */
 
+
 public class sendReminders {
-  public static void reminder(EventLocal event)
+ /* public static void reminder(EventLocal event)
     {
         //Converting Set to List to make it work in emailUtils;
         Set<String> email = event.getParticipants_email();
@@ -87,7 +88,7 @@ public class sendReminders {
             };
             timer.schedule(reminder4, date.getTime());
         }
-    }
+    }*/
 
     //called when an event has been deleted to notify the user that the event was cancelled
     public static void deleteReminder(EventLocal event) {
@@ -100,6 +101,7 @@ public class sendReminders {
         String body = "Hello, this is a friendly reminder that your event has been cancelled.\n Sincerely,\nTime Scheduler dev team";
         try {
             mailUtils.draftEmail(participants, subject, body);
+            mailUtils.sendEmail();
         } catch (MessagingException e) {
             e.printStackTrace();
         }
@@ -116,6 +118,7 @@ public class sendReminders {
         String body = "Hello, this is a friendly reminder that your event has been edited.\n Sincerely,\nTime Scheduler dev team";
         try {
             mailUtils.draftEmail(participants, subject, body);
+            mailUtils.sendEmail();
         } catch (MessagingException e) {
             e.printStackTrace();
         }
