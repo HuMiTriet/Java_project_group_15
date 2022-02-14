@@ -27,7 +27,7 @@ public class DBConnection {
    * @author Triet Huynh
    */
 
-  public static Connection getConnection() {
+  static Connection getConnection() {
     try {
       connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
       // System.out.println("Connection established");
