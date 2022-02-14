@@ -43,8 +43,8 @@ public class reAuthenticatePage extends JFrame {
     frame = new JFrame("Re-Authenticate");
 
     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-    frame.setPreferredSize(new Dimension(300, 300));
-    frame.setResizable(true);
+    frame.setPreferredSize(new Dimension(400, 300));
+    frame.setResizable(false);
 
     frame.add(reAuthPanel);
     frame.pack();
