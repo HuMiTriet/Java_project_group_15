@@ -2,19 +2,24 @@ package com.fifteen.events.reminder;
 
 import com.fifteen.events.local.EventLocal;
 import com.fifteen.mailApi.mailUtils;
+import com.fifteen.events.reminder.convertOptionToMinute;
 
 import javax.mail.MessagingException;
 import java.util.*;
 
 /**
  * Work in Progress, testing out the java timer and TimerTask functions
+ * Delete and edit function are working flawless, reminder need to write a function that checks the real time and the event times from db
  *
  * @author Ante Maric 1273904
  */
 
+//POTENTIAL IDEA?
+//event.getDayOfEvent().getTimeInMillis();
+//System.currentTimeMillis();
 
 public class sendReminders {
- /* public static void reminder(EventLocal event)
+  public static void reminder(EventLocal event)
     {
         //Converting Set to List to make it work in emailUtils;
         Set<String> email = event.getParticipants_email();
@@ -27,7 +32,7 @@ public class sendReminders {
         Timer timer = new Timer();
         //When the timer is up, run is going to be executed inside our TimerTask instance
         //Reminder are being sent out depending on their selection inside events
-        if()
+        if(event.getMinutesUntilReminder() == 10)
         {
             //When the reminder is selected to be 10 minutes prior event
             TimerTask reminder1 = new TimerTask() {
@@ -41,8 +46,8 @@ public class sendReminders {
                     }
                 }
             };
-            timer.schedule(reminder1, date.getTime());
-        }else if()
+            timer.schedule(reminder1, 600000);
+        }else if(event.getMinutesUntilReminder() == 60)
         {
             //When the reminder is selected to be 1 hour prior event
             TimerTask reminder2 = new TimerTask() {
@@ -56,8 +61,8 @@ public class sendReminders {
                     }
                 }
             };
-            timer.schedule(reminder2, date.getTime());
-        } else if()
+            timer.schedule(reminder2, 8000000);
+        } else if(event.getMinutesUntilReminder() == 4320)
         {
             //When the reminder is selected to be 3 days prior event
             TimerTask reminder3 = new TimerTask() {
@@ -71,7 +76,7 @@ public class sendReminders {
                     }
                 }
             };
-            timer.schedule(reminder3, date.getTime());
+            timer.schedule(reminder3, 85000000);
         } else
         {
             //When the reminder is selected to be 1 Week prior event
@@ -86,9 +91,9 @@ public class sendReminders {
                     }
                 }
             };
-            timer.schedule(reminder4, date.getTime());
+            timer.schedule(reminder4, 680000);
         }
-    }*/
+    }
 
     //called when an event has been deleted to notify the user that the event was cancelled
     public static void deleteReminder(EventLocal event) {
