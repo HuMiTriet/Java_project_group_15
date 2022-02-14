@@ -11,7 +11,7 @@ import com.toedter.calendar.JDateChooser;
 import com.fifteen.events.local.localDbMethod;
 import com.fifteen.events.reminder.convertMinutesToOption;
 import com.fifteen.events.eventMethod.TimeMethod;
-import com.fifteen.mailApi.mailUtils;
+import com.fifteen.events.reminder.sendReminders;
 
 import javax.swing.*;
 import java.awt.*;
@@ -107,7 +107,7 @@ public class EditEvent {
         eventsOfDay.fillTable(month, day, year);
         calendar.updateCalendar(month, year);
         frame.dispose();
-        //mailUtils.draftEmail(event.getParticipants_email(), "Subject", "Body", "Delete");
+        sendReminders.deleteReminder(event);
       }
     });
     // Save changes made to the event @Tim Görß 1252200
@@ -118,7 +118,7 @@ public class EditEvent {
             calendar.updateCalendar(month, year);
             JOptionPane.showConfirmDialog(null,
                     "Your changes were saved", "Save succesfull", JOptionPane.DEFAULT_OPTION);
-            //mailUtils.draftEmail(event.getParticipants_email(), "Subject", "Body", "Edit");
+            sendReminders.editReminder(event);
             frame.dispose();
         }
     });
@@ -267,6 +267,11 @@ public class EditEvent {
                   "Longtitude field cannot be empty", "Invalid input", JOptionPane.DEFAULT_OPTION);
           return false;
       }
+    if (ParticipantList.getSelectedValuesList().isEmpty()) {
+      JOptionPane.showConfirmDialog(null,
+              "A Participant needs to be selected", "Invalid input", JOptionPane.DEFAULT_OPTION);
+      return false;
+    }
   return true;
   }
 
