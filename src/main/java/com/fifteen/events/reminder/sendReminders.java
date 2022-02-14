@@ -1,3 +1,4 @@
+/*
 package com.fifteen.events.reminder;
 
 import com.fifteen.events.local.EventLocal;
@@ -6,11 +7,13 @@ import com.fifteen.mailApi.mailUtils;
 import javax.mail.MessagingException;
 import java.util.*;
 
+*/
 /**
  * Work in Progress, testing out the java timer and TimerTask functions
  *
  * @author Ante Maric 1273904
- */
+ *//*
+
 
 public class sendReminders {
   public static void reminder(EventLocal event)
@@ -121,3 +124,4 @@ public class sendReminders {
         }
     }
 }
+*/
