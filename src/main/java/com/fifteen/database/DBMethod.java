@@ -157,6 +157,35 @@ public class DBMethod {
     return fieldExisted;
   }
 
+  public static void changeFieldExisted(User user, String propose, char flag) throws SQLException {
+
+    String fieldToBeChecked = "";
+    String originalValue = "";
+
+    switch (flag) {
+      case 'e':
+        fieldToBeChecked = "email";
+        originalValue = user.getEmail();
+        break;
+      case 'u':
+        fieldToBeChecked = "username";
+        originalValue = user.getUsername();
+        break;
+      case 'p':
+        fieldToBeChecked = "password";
+        originalValue = user.getHashedPassword();
+        break;
+      default:
+        System.err.println("Flag invalid, (e)mail, (p)assword, (u)sername");
+        break;
+    }
+
+    String sqlStatement = "update " + TABLE_NAME + " set " + fieldToBeChecked + " = '" + propose
+        + "' where " + fieldToBeChecked + " = '" + originalValue + "'";
+
+    executeQuery(sqlStatement);
+  }
+
   /***
    * Query the remote database to get the user's hased password store on it
    * 
