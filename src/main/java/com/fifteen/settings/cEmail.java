@@ -36,14 +36,27 @@ public class cEmail extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String oldEmail = enterOldEmailTextField.getText();
                 String newEmail = enterNewEmailTextField.getText();
-                boolean fieldCheck = false;
+                boolean fieldCheck = true;
 
                 DBMethod.createConnection();
 
-                UserAuthenticator.checkFieldEmpty(emailLabel, oldEmail, "Please enter your current email");
-                UserAuthenticator.checkFieldEmpty(changeLabel, newEmail, "Please enter your new email");
+                //checks email field empty
+                if (UserAuthenticator.checkFieldEmpty(emailLabel, oldEmail, "Please enter your current email") == true)
+                    fieldCheck = false;
 
-                fieldCheck = UserAuthenticator.checkEmailFormat(emailLabel, oldEmail);
+                //checks new email field empty
+                if (UserAuthenticator.checkFieldEmpty(changeLabel, newEmail, "Please enter your new email") == true)
+                    fieldCheck = false;
+
+                //checks email in DB
+                if (UserAuthenticator.authenticateEmailField(emailLabel, oldEmail, "Email does not exist") == false)
+                    fieldCheck = false;
+
+                //chcek new email in DB
+                if (UserAuthenticator.authenticateEmailField(changeLabel, newEmail, "This email is already taken") == true)
+                    fieldCheck = false;
+
+                /*fieldCheck = UserAuthenticator.checkEmailFormat(emailLabel, oldEmail);
 
                 if (fieldCheck) {
                     fieldCheck = UserAuthenticator.authenticateEmailField(emailLabel,
@@ -57,7 +70,7 @@ public class cEmail extends JFrame {
                     fieldCheck = UserAuthenticator.authenticateEmailField(changeLabel,
                             newEmail, "");
                 } else
-                    return;
+                    return;*/
             }
 
         });
