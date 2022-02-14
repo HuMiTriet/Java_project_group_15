@@ -28,8 +28,8 @@ public class cPassword extends JFrame {
     frame = new JFrame("Password Change");
 
     frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-    frame.setPreferredSize(new Dimension(300, 250));
-    frame.setResizable(false);
+    frame.setPreferredSize(new Dimension(400, 300));
+    frame.setResizable(true);
 
     frame.add(panel1);
     frame.pack();
@@ -45,23 +45,29 @@ public class cPassword extends JFrame {
 
         DBMethod.createConnection();
 
-        UserAuthenticator.checkFieldEmpty(pwLabel, pwIN, "Please enter your current password");
+        if (UserAuthenticator.checkFieldEmpty(pwLabel, pwIN, "Please enter your current password")) {
+          fieldCheck = false;
+        }
 
-        UserAuthenticator.checkFieldEmpty(newPWLabel, new_pwIN, "Please enter your new password");
+        if (UserAuthenticator.checkFieldEmpty(newPWLabel, new_pwIN, "Please enter your new password")) {
+          fieldCheck = false;
+        }
+        String hashedPW = PasswordHasher.sha2(pwIN);
+        if (user.getHashedPassword().equals(hashedPW) == false) {
+          pwLabel.setText("Incorrect password");
+          fieldCheck = false;
+        }
 
-        // if (fieldCheck) {
-        // fieldCheck = UserAuthenticator.authenticateUser(newPWLabel, user.getEmail(),
-        // new_pwIN);
-        // } else
-        // preturn;
-
-        if (UserAuthenticator.authenticateUser(newPWLabel, user.getEmail(), pwIN) == false) {
+        String hashedNewPassword = PasswordHasher.sha2(new_pwIN);
+        if (user.getHashedPassword().equals(hashedNewPassword) == true) {
+          newPWLabel.setText("New password cannot be the same as your current password");
           fieldCheck = false;
         }
 
         if (fieldCheck) {
           try {
-            DBMethod.changeFieldExisted(user, PasswordHasher.sha2(new_pwIN), 'p');
+            DBMethod.changeFieldExisted(user, hashedNewPassword, 'p');
+            frame.dispose();
           } catch (SQLException ex) {
             ex.printStackTrace();
           }
