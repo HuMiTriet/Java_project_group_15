@@ -17,7 +17,7 @@ public class sendReminders {
     {
         String subject = "Reminder for upcoming event";
 
-        //Converting Set to List to make it work in emailUtils
+        //Converting Set to List to make it work in emailUtils;
         Set<String> email = event.getParticipants_email();
         List<String> participants = new ArrayList<>(email);
         for (String k : email){participants.add(k);}

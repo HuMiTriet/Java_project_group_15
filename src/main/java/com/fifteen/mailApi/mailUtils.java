@@ -52,7 +52,7 @@ public class mailUtils {
   // mail.sendEmail();
 
   //MIME = Multipurpose Internet Mail Extension - Defines the content that an email is going to have
-  public static MimeMessage draftEmail(List<String> emailAdressReceiver, String emailSubject, String emailBody) throws MessagingException {
+  public static MimeMessage draftEmail(List<String> emailAddressReceiver, String emailSubject, String emailBody) throws MessagingException {
      //Scheme on how to build and email (Subject, body, email address and password of receivers)
      /*
      String[] emailAddressReceiver = {"pj@gmail.com", "ante@gmail.com", "jorge@gmail.com", "tim@gmail.com"};
@@ -64,8 +64,8 @@ public class mailUtils {
 
 
       //for loop that adds all the recipients that were passed in as parameters in draftEmail to receive the email
-      for (int i = 0; i < emailAdressReceiver.size(); i++) {
-        mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(emailAdressReceiver.get(i)));
+      for (int i = 0; i < emailAddressReceiver.size(); i++) {
+        mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(emailAddressReceiver.get(i)));
       }
 
       mimeMessage.setSubject(emailSubject);
