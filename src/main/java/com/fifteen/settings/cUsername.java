@@ -37,7 +37,7 @@ public class cUsername extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String uin = inNewUN.getText();
-                DBConnection.getConnection();
+                DBMethod.createConnection();
 
                 UserAuthenticator.checkFieldEmpty(usernameLabel, uin, "Enter new username");
 
