@@ -60,7 +60,6 @@ public class cEmail extends JFrame {
                     return;
             }
 
-
         });
 
 

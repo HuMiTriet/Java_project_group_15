@@ -75,7 +75,7 @@ public class reAuthenticatePage extends JFrame {
         }
 
         if (allFieldsCorrect) {
-          if (UserAuthenticator.authenticatePasswordField(passwordJlabel, enteredEmail, enteredPassword) == true) {
+          if (UserAuthenticator.authenticateUser(passwordJlabel, enteredEmail, enteredPassword) == true) {
             UserDao userHandler = new UserDaoImp();
             User loginUser = userHandler.createUserFromLogin(enteredEmail);
 
