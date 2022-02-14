@@ -85,7 +85,7 @@ public class LoginPage extends JFrame {
           "Please enter your password");
 
       if (allFieldsCorrect) {
-        allFieldsCorrect = UserAuthenticator.authenticatePasswordField(
+        allFieldsCorrect = UserAuthenticator.authenticateUser(
             passwordLabel, enteredEmail, enteredPassword);
       } else
         return;

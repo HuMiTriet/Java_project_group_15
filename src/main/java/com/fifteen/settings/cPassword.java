@@ -59,7 +59,7 @@ public class cPassword extends JFrame {
 
                 UserAuthenticator.checkFieldEmpty(pwLabel, pwIN, "Please enter your current password");
                 if (fieldCheck) {
-                    fieldCheck = UserAuthenticator.authenticatePasswordField(pwLabel, emailIN,
+                    fieldCheck = UserAuthenticator.authenticateUser(pwLabel, emailIN,
                             pwIN);
                 } else
                     return;
@@ -67,7 +67,7 @@ public class cPassword extends JFrame {
                 UserAuthenticator.checkFieldEmpty(newPWLabel, new_pwIN, "Please enter your new password");
 
                 if (fieldCheck) {
-                    fieldCheck = UserAuthenticator.authenticatePasswordField(newPWLabel, emailIN,
+                    fieldCheck = UserAuthenticator.authenticateUser(newPWLabel, emailIN,
                             new_pwIN);
                 } else
                     return;

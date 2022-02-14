@@ -148,8 +148,8 @@ public class UserAuthenticator {
    *         the email entered does not exist or the password is incorrect
    * @author Triet Huynh
    */
-  public static boolean authenticatePasswordField(JLabel passwordLabel,
-      String enteredEmail, String stringPassword) {
+  public static boolean authenticateUser(JLabel passwordLabel,
+                                         String enteredEmail, String stringPassword) {
     try {
       if (UserAuthenticator.authenticate(enteredEmail, stringPassword)) {
         passwordLabel.setText("");
