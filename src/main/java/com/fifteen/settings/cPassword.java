@@ -45,13 +45,14 @@ public class cPassword extends JFrame {
 
         DBMethod.createConnection();
 
-        if (UserAuthenticator.checkFieldEmpty(pwLabel, pwIN, "Please enter your current password")) {
+        if (UserAuthenticator.checkFieldEmpty(pwLabel, pwIN, "Please enter your current password") == false) {
           fieldCheck = false;
         }
 
-        if (UserAuthenticator.checkFieldEmpty(newPWLabel, new_pwIN, "Please enter your new password")) {
+        if (UserAuthenticator.checkFieldEmpty(newPWLabel, new_pwIN, "Please enter your new password") == false) {
           fieldCheck = false;
         }
+
         String hashedPW = PasswordHasher.sha2(pwIN);
         if (user.getHashedPassword().equals(hashedPW) == false) {
           pwLabel.setText("Incorrect password");
@@ -68,14 +69,13 @@ public class cPassword extends JFrame {
           try {
             DBMethod.changeFieldExisted(user, hashedNewPassword, 'p');
             JOptionPane.showMessageDialog(frame, "Password changed !", "Success",
-                    JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE);
 
             frame.dispose();
           } catch (SQLException ex) {
             ex.printStackTrace();
           }
         }
-
 
         // testing
 
