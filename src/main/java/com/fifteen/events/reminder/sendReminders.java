@@ -100,6 +100,7 @@ public class sendReminders {
         String subject = "Cancellation of upcoming event";
         String body = "Hello, this is a friendly reminder that your event has been cancelled.\n Sincerely,\nTime Scheduler dev team";
         try {
+            mailUtils.setupProperties();
             mailUtils.draftEmail(participants, subject, body);
             mailUtils.sendEmail();
         } catch (MessagingException e) {
@@ -117,6 +118,7 @@ public class sendReminders {
         String subject = "Your upcoming event has been edited";
         String body = "Hello, this is a friendly reminder that your event has been edited.\n Sincerely,\nTime Scheduler dev team";
         try {
+            mailUtils.setupProperties();
             mailUtils.draftEmail(participants, subject, body);
             mailUtils.sendEmail();
         } catch (MessagingException e) {
