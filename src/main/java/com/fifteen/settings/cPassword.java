@@ -71,7 +71,12 @@ public class cPassword extends JFrame {
           } catch (SQLException ex) {
             ex.printStackTrace();
           }
+          JOptionPane.showMessageDialog(frame, "Password changed !", "Success",
+                  JOptionPane.INFORMATION_MESSAGE);
+
         }
+
+
         // testing
 
       }

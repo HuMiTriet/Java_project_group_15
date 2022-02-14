@@ -47,6 +47,10 @@ public class cUsername extends JFrame {
                     ex.printStackTrace();
                 }
 
+                JOptionPane.showMessageDialog(frame, "Username changed !", "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                frame.dispose();
             }
         });
 
