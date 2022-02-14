@@ -136,7 +136,7 @@ public class DBMethod {
         fieldToBeChecked = "username";
         break;
       case 'p':
-        fieldToBeChecked = "password";
+        fieldToBeChecked = "hashed_password";
         break;
       default:
         System.err.println("Flag invalid, (e)mail, (p)assword, (u)sername");
@@ -172,11 +172,11 @@ public class DBMethod {
         originalValue = user.getUsername();
         break;
       case 'p':
-        fieldToBeChecked = "password";
+        fieldToBeChecked = "hashed_password";
         originalValue = user.getHashedPassword();
         break;
       default:
-        System.err.println("Flag invalid, (e)mail, (p)assword, (u)sername");
+        System.err.println("Flag invalid, (e)mail, hashed_(p)assword, (u)sername");
         break;
     }
 
