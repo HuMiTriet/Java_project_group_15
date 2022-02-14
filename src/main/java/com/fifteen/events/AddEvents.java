@@ -98,6 +98,13 @@ public class AddEvents extends JFrame {
     Date today = new Date(year - 1900, month, day);
     jDateChooser.setDate(today);
 
+    //Vector<String> contactEmails = new Vector<>();
+
+    //contactEmails.add(user.getEmail())
+
+
+    //ParticipantList.
+
     /**
      * Does checking of all of the text field when the user presses the add event
      * button If all is correct, it will add the event to the local database and

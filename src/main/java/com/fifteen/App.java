@@ -19,7 +19,7 @@ public class App {
 
     // Added functionality to the Login page
     // Available user: email: t@g.com | password: t
-    // Real user: email: TestTimeScheduler1@gmail.com | password: Test
+    // Real user: email: TestTimeScheduler1@gmail.com | password: Test | password for gmail: FNv92kEMhXGXNFMS
     // Available admin: email: f@g.com | password: f
     // Real admin: email: TimeScheduler15A@gmail.com | password: Admin
     DBMethod.closeConnection();
