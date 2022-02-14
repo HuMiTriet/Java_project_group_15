@@ -61,7 +61,7 @@ public class cPassword extends JFrame {
                 } else
                     return;
 
-
+                //testing
                 try {
                     DBMethod.changeFieldExisted(user, PasswordHasher.sha2(new_pwIN), 'p');
                 } catch (SQLException ex) {
