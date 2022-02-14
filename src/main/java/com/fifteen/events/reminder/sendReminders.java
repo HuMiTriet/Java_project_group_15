@@ -15,12 +15,12 @@ import java.util.*;
 public class sendReminders {
   public static void reminder(EventLocal event)
     {
-        String subject = "Reminder for upcoming event";
-
-        //Converting Set to List to make it work in emailUtils;
+        //Converting Set to List to make it work in emailUtils
         Set<String> email = event.getParticipants_email();
         List<String> participants = new ArrayList<>(email);
         for (String k : email){participants.add(k);}
+
+        String subject = "Reminder for upcoming event";
 
         //timer calculates time to execute a task
         Timer timer = new Timer();
@@ -87,21 +87,37 @@ public class sendReminders {
             };
             timer.schedule(reminder4, date.getTime());
         }
+    }
 
-       /* Calendar date = Calendar.getInstance();
-        date.set(Calendar.YEAR,2022);
-        date.set(Calendar.MONTH,Calendar.FEBRUARY);
-        date.set(Calendar.DAY_OF_MONTH,12);
-        date.set(Calendar.HOUR_OF_DAY,16);
-        date.set(Calendar.MINUTE,55);
-        date.set(Calendar.SECOND,20);
-        date.set(Calendar.MILLISECOND,0);*/
+    //called when an event has been deleted to notify the user that the event was cancelled
+    public static void deleteReminder(EventLocal event) {
+        //Converting Set to List to make it work in emailUtils
+        Set<String> email = event.getParticipants_email();
+        List<String> participants = new ArrayList<>(email);
+        for (String k : email){participants.add(k);}
 
-        //timer.schedule(task, 1000);
+        String subject = "Cancellation of upcoming event";
+        String body = "Hello, this is a friendly reminder that your event has been cancelled.\n Sincerely,\nTime Scheduler dev team";
+        try {
+            mailUtils.draftEmail(participants, subject, body);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 
+    //called when an event has been edited to remind the user that something changed
+    public static void editReminder(EventLocal event) {
+        //Converting Set to List to make it work in emailUtils
+        Set<String> email = event.getParticipants_email();
+        List<String> participants = new ArrayList<>(email);
+        for (String k : email){participants.add(k);}
 
-
-
-
+        String subject = "Your upcoming event has been edited";
+        String body = "Hello, this is a friendly reminder that your event has been edited.\n Sincerely,\nTime Scheduler dev team";
+        try {
+            mailUtils.draftEmail(participants, subject, body);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 }
