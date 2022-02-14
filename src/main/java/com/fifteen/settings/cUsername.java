@@ -1,6 +1,8 @@
 package com.fifteen.settings;
 
 import com.fifteen.auth.security.UserAuthenticator;
+import com.fifteen.database.DBConnection;
+import com.fifteen.database.DBMethod;
 import com.fifteen.database.User;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -10,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class cUsername extends JFrame {
     private JFrame frame;
@@ -34,8 +37,15 @@ public class cUsername extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String uin = inNewUN.getText();
+                DBConnection.getConnection();
 
                 UserAuthenticator.checkFieldEmpty(usernameLabel, uin, "Enter new username");
+
+                try {
+                    DBMethod.changeFieldExisted(user, uin, 'u');
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
 
             }
         });

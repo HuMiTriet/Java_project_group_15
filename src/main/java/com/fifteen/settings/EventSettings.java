@@ -1,5 +1,6 @@
 package com.fifteen.settings;
 
+import com.fifteen.database.DBConnection;
 import com.fifteen.database.User;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
