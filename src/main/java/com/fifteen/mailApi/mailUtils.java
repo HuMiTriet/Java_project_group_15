@@ -12,11 +12,8 @@ package com.fifteen.mailApi;
 
 import javax.mail.*;
 import javax.mail.internet.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
-import com.fifteen.events.local.EventLocal;
 
 public class mailUtils {
   static Session newSession = null;
@@ -80,8 +77,8 @@ public class mailUtils {
 
   // Send an email from admin account to all the
   public static void sendEmail() throws MessagingException {
-    String emailAddressSender = "javacomtwentyone@gmail.com"; // "Admin gmail address from which all reminders/changes will be sent out to the recipients (Users)
-    String passwordSender = "StrongPassword21";     // Admin gmail password
+    String emailAddressSender = "TimeScheduler15A@gmail.com"; // "Admin gmail address from which all reminders/changes will be sent out to the recipients (Users)
+    String passwordSender = "cUeLjgBu3bDM6Ek7";     // Admin gmail password
     String emailHost = "smtp.gmail.com";            // gmail host
     Transport transport = newSession.getTransport("smtp"); // get object of the transport class using the new session that is created
     transport.connect(emailHost, emailAddressSender, passwordSender); // connecting to the account that the emails will send from
@@ -89,7 +86,6 @@ public class mailUtils {
     transport.close(); // close email transport
     System.out.println("Email sent successfully!"); // Will be printed out on the cmd line if executed successful
   }
-
 }
 
 /*
