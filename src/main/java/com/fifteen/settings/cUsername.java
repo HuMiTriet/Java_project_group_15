@@ -43,14 +43,14 @@ public class cUsername extends JFrame {
 
                 try {
                     DBMethod.changeFieldExisted(user, uin, 'u');
+
+                    JOptionPane.showMessageDialog(frame, "Username changed !", "Success",
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                    frame.dispose();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-
-                JOptionPane.showMessageDialog(frame, "Username changed !", "Success",
-                        JOptionPane.INFORMATION_MESSAGE);
-
-                frame.dispose();
             }
         });
 

@@ -67,13 +67,13 @@ public class cPassword extends JFrame {
         if (fieldCheck) {
           try {
             DBMethod.changeFieldExisted(user, hashedNewPassword, 'p');
+            JOptionPane.showMessageDialog(frame, "Password changed !", "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+
             frame.dispose();
           } catch (SQLException ex) {
             ex.printStackTrace();
           }
-          JOptionPane.showMessageDialog(frame, "Password changed !", "Success",
-                  JOptionPane.INFORMATION_MESSAGE);
-
         }
 
 
