@@ -80,6 +80,7 @@ public class AddEvents extends JFrame {
     try {
       contacts = localDbMethod.getAllContacts();
       DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(contacts);
+      model.addElement(user.getEmail());
       ParticipantList.setModel(model);
     } catch (SQLException e1) {
       e1.printStackTrace();
@@ -94,16 +95,9 @@ public class AddEvents extends JFrame {
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
 
-    // Preset JDatePicker to current or selected day
+    // Preset JDatePicker to current or selected day @Tim Görß 1252200
     Date today = new Date(year - 1900, month, day);
     jDateChooser.setDate(today);
-
-    //Vector<String> contactEmails = new Vector<>();
-
-    //contactEmails.add(user.getEmail())
-
-
-    //ParticipantList.
 
     /**
      * Does checking of all of the text field when the user presses the add event
