@@ -2,6 +2,7 @@ package com.fifteen.settings;
 
 import com.fifteen.auth.security.UserAuthenticator;
 import com.fifteen.database.DBMethod;
+import com.fifteen.database.User;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -23,7 +24,7 @@ public class cPassword extends JFrame {
     private JLabel pwLabel;
     private JLabel newPWLabel;
 
-    public cPassword() {
+    public cPassword(User user) {
         frame = new JFrame("Password Change");
 
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

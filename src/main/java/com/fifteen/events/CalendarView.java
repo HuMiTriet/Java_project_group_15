@@ -69,8 +69,6 @@ public class CalendarView extends JFrame {
     private JMenuBar e_menuBar;
     private JMenu menu;
     private JMenuItem menu1, menu2, menu3, menu4;
-    private JMenu sview;
-    private JMenuItem sview1, sview2, sview3;
     private JMenu export;
     private JMenuItem txt;
     private JMenu database;
@@ -90,7 +88,6 @@ public class CalendarView extends JFrame {
 
         // create menus
         menu = new JMenu("Menu");
-        sview = new JMenu("Switch View");
         export = new JMenu("Export");
         database = new JMenu("Database");
         about = new JMenu("About");
@@ -100,10 +97,6 @@ public class CalendarView extends JFrame {
         menu2 = new JMenuItem("Settings");
         menu3 = new JMenuItem("Log Out");
         menu4 = new JMenuItem("Exit");
-
-        sview1 = new JMenuItem("Daily");
-        sview2 = new JMenuItem("Weekly");
-        sview3 = new JMenuItem("Monthly");
 
         txt = new JMenuItem(".txt");
 
@@ -118,10 +111,6 @@ public class CalendarView extends JFrame {
         menu.add(menu3);
         menu.add(menu4);
 
-        sview.add(sview1);
-        sview.add(sview2);
-        sview.add(sview3);
-
         export.add(txt);
 
         database.add(dimport);
@@ -131,7 +120,6 @@ public class CalendarView extends JFrame {
 
         // add menu to menu bar
         e_menuBar.add(menu);
-        e_menuBar.add(sview);
         e_menuBar.add(export);
         e_menuBar.add(database);
         e_menuBar.add(about);
@@ -240,7 +228,7 @@ public class CalendarView extends JFrame {
         class openSettings implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new EventSettings();
+                new EventSettings(user);
             }
         }
         menu2.addActionListener(new openSettings());

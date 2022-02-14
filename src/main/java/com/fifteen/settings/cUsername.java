@@ -1,6 +1,7 @@
 package com.fifteen.settings;
 
 import com.fifteen.auth.security.UserAuthenticator;
+import com.fifteen.database.User;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -17,7 +18,7 @@ public class cUsername extends JFrame {
     private JButton submitButton;
     private JLabel usernameLabel;
 
-    public cUsername() {
+    public cUsername(User user) {
         frame = new JFrame("Username Change");
 
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -38,6 +39,8 @@ public class cUsername extends JFrame {
 
             }
         });
+
+
     }
 
     {

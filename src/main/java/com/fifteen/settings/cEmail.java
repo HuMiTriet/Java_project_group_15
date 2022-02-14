@@ -2,6 +2,7 @@ package com.fifteen.settings;
 
 import com.fifteen.auth.security.UserAuthenticator;
 import com.fifteen.database.DBMethod;
+import com.fifteen.database.User;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -23,7 +24,7 @@ public class cEmail extends JFrame {
     private JLabel emailLabel;
     private JLabel changeLabel;
 
-    public cEmail() {
+    public cEmail(User user) {
         frame = new JFrame("Email Change");
 
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

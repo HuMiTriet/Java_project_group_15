@@ -62,7 +62,7 @@ public class ProfilePage extends JFrame {
         settingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new EventSettings();
+                new EventSettings(user);
             }
         });
     }

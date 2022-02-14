@@ -1,5 +1,6 @@
 package com.fifteen.settings;
 
+import com.fifteen.database.User;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -17,7 +18,7 @@ public class EventSettings extends JFrame {
     private JButton cEmail;
 
     //Settings Page @author JorgeV
-    public EventSettings() {
+    public EventSettings(User user) {
         frame = new JFrame("Settings");
 
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -32,7 +33,7 @@ public class EventSettings extends JFrame {
         cUsername.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new cUsername();
+                new cUsername(user);
                 frame.dispose();
 
             }
@@ -41,7 +42,7 @@ public class EventSettings extends JFrame {
         cEmail.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new cEmail();
+                new cEmail(user);
                 frame.dispose();
             }
         });
@@ -49,7 +50,7 @@ public class EventSettings extends JFrame {
         cPW.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new cPassword();
+                new cPassword(user);
                 frame.dispose();
             }
         });
