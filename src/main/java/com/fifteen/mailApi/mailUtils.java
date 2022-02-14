@@ -69,7 +69,7 @@ public class mailUtils {
       MimeMultipart multiPart = new MimeMultipart();
 
       MimeBodyPart bodyPart = new MimeBodyPart();
-      bodyPart.setContent(emailBody, "html/text");
+      bodyPart.setContent(emailBody, "text/plain");
       multiPart.addBodyPart(bodyPart);
       mimeMessage.setContent(multiPart);
       return mimeMessage;
