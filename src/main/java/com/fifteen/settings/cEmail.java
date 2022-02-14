@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class cEmail extends JFrame {
     private JFrame frame;
@@ -44,17 +45,31 @@ public class cEmail extends JFrame {
                 if (UserAuthenticator.checkFieldEmpty(emailLabel, oldEmail, "Please enter your current email") == true)
                     fieldCheck = false;
 
+                //checks email is current email
+                if (oldEmail.equals(user.getEmail()) == false) {
+                    emailLabel.setText("Incorrect email");
+                    fieldCheck = false;
+                }
+
                 //checks new email field empty
                 if (UserAuthenticator.checkFieldEmpty(changeLabel, newEmail, "Please enter your new email") == true)
-                    fieldCheck = false;
-
-                //checks email in DB
-                if (UserAuthenticator.authenticateEmailField(emailLabel, oldEmail, "Email does not exist") == false)
                     fieldCheck = false;
 
                 //chcek new email in DB
                 if (UserAuthenticator.authenticateEmailField(changeLabel, newEmail, "This email is already taken") == true)
                     fieldCheck = false;
+
+                if (fieldCheck == true) {
+                    try {
+                        DBMethod.changeFieldExisted(user, newEmail, 'e');
+                        JOptionPane.showMessageDialog(frame, "Email updated !", "Success",
+                                JOptionPane.INFORMATION_MESSAGE);
+
+                        frame.dispose();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
 
                 /*fieldCheck = UserAuthenticator.checkEmailFormat(emailLabel, oldEmail);
 
