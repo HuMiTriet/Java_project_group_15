@@ -11,22 +11,22 @@ import com.toedter.calendar.JDateChooser;
 import com.fifteen.events.local.localDbMethod;
 import com.fifteen.events.reminder.convertMinutesToOption;
 import com.fifteen.events.eventMethod.TimeMethod;
+import com.fifteen.mailApi.mailUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 /**
  * Class used to edit or delete single events.
- * Uses objecs of eventlocal, CalendarView and ShowEvents as parameters.
+ * Uses objecs of eventLocal, CalendarView and ShowEvents as parameters.
  * Also the the day of the month and year.
  * @author Tim
  */
@@ -70,17 +70,6 @@ public class EditEvent {
     mdlList = new DefaultListModel();
     ParticipantList.setModel(mdlList);
 
-    // Add contacts to JList @Tim Görß 1252200
-    Vector<String> contactEmails = new Vector<>();
-    try {
-      contactEmails = localDbMethod.getAllContacts();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-      for (String contactEmail : contactEmails) {
-          mdlList.addElement(contactEmail);
-      }
-
     displayEventInformation(event);
 
     // Textfields are by default not enabled and need to be enabled by the user @Tim Görß 1252200
@@ -101,7 +90,6 @@ public class EditEvent {
         latitudeText.setEditable(true);
         longtitudeText.setEditable(true);
 
-
       }
     });
 
@@ -119,6 +107,7 @@ public class EditEvent {
         eventsOfDay.fillTable(month, day, year);
         calendar.updateCalendar(month, year);
         frame.dispose();
+        //mailUtils.draftEmail(event.getParticipants_email(), "Subject", "Body", "Delete");
       }
     });
     // Save changes made to the event @Tim Görß 1252200
@@ -129,6 +118,7 @@ public class EditEvent {
             calendar.updateCalendar(month, year);
             JOptionPane.showConfirmDialog(null,
                     "Your changes were saved", "Save succesfull", JOptionPane.DEFAULT_OPTION);
+            //mailUtils.draftEmail(event.getParticipants_email(), "Subject", "Body", "Edit");
             frame.dispose();
         }
     });
@@ -149,10 +139,20 @@ public class EditEvent {
             event.getDayOfEvent().get(GregorianCalendar.MONTH), event.getDayOfEvent().get(GregorianCalendar.DATE));
     JDateChooser.setDate(dayOfEvent);
 
-    if (event.getParticipants_email().size() != 0) {
-        for (String s : event.getParticipants_email()) {
-            mdlList.addElement(s);
-        }
+    Vector<String> contactEmails = new Vector<>();
+    try {
+      contactEmails = localDbMethod.getAllContacts();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    Set<String> combinedContacts = new HashSet<String>(contactEmails);
+    combinedContacts.addAll(event.getParticipants_email());
+
+    if (combinedContacts.size() != 0) {
+      for (String s : combinedContacts) {
+        mdlList.addElement(s);
+      }
     }
 
     priorityPicker.setSelectedItem(event.getPriority());
