@@ -20,6 +20,7 @@ public class App {
     // Added functionality to the Login page
     // Available user: email: t@g.com | password: t
     // Available admin: email: f@g.com | password: f
+    // Real admin: email: TimeScheduler15A@gmail.com | password: Admin
     DBMethod.closeConnection();
     new LoginPage();
 
