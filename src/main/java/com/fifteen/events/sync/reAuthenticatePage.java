@@ -7,12 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import com.fifteen.auth.security.PasswordHasher;
 import com.fifteen.auth.security.UserAuthenticator;
@@ -27,12 +22,11 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 /**
  * This class is used to display the re-authentication page. This page is
  * displayed when the user is in offline mode and clicked on the sync button.
- * 
+ *
  * @athor Triet Huynh
  */
 public class reAuthenticatePage extends JFrame {
   private JTextField emailTextField;
-  private JTextField passwordTextField;
   private JButton submitButton;
   private JLabel displayMessage;
   private JLabel displayEmail;
@@ -40,15 +34,17 @@ public class reAuthenticatePage extends JFrame {
   private JLabel passwordJlabel;
   private JLabel displayPassword;
   private JPanel reAuthPanel;
+  private JCheckBox showPasswordCheckBox;
+  private JPasswordField passwordField;
   private JFrame frame;
 
-  public reAuthenticatePage() {
+  public reAuthenticatePage(JFrame parentFrame) {
 
     frame = new JFrame("Re-Authenticate");
 
     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     frame.setPreferredSize(new Dimension(300, 300));
-    frame.setResizable(false);
+    frame.setResizable(true);
 
     frame.add(reAuthPanel);
     frame.pack();
@@ -66,7 +62,7 @@ public class reAuthenticatePage extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         String enteredEmail = emailTextField.getText();
-        String enteredPassword = passwordTextField.getText();
+        String enteredPassword = new String(passwordField.getPassword());
         boolean allFieldsCorrect = true;
         DBMethod.createConnection();
 
@@ -91,11 +87,28 @@ public class reAuthenticatePage extends JFrame {
               new CalendarView(loginUser);
 
               frame.dispose();
+              parentFrame.dispose();
             } catch (SQLException | IOException e1) {
               e1.printStackTrace();
             }
           }
 
+        }
+      }
+    });
+    showPasswordCheckBox.addActionListener(new ActionListener() {
+      /**
+       * Invoked when an action occurs.
+       *
+       * @param e the event to be processed
+       */
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        if (showPasswordCheckBox.isSelected()) {
+          passwordField.setEchoChar((char) 0);
+        } else {
+          // unicode character bullet
+          passwordField.setEchoChar('\u2022');
         }
       }
     });
@@ -117,21 +130,16 @@ public class reAuthenticatePage extends JFrame {
    */
   private void $$$setupUI$$$() {
     reAuthPanel = new JPanel();
-    reAuthPanel.setLayout(new GridLayoutManager(8, 1, new Insets(0, 0, 0, 0), -1, -1));
+    reAuthPanel.setLayout(new GridLayoutManager(9, 1, new Insets(0, 0, 0, 0), -1, -1));
     emailTextField = new JTextField();
     reAuthPanel.add(emailTextField,
         new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
             GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null,
             0, false));
-    passwordTextField = new JTextField();
-    reAuthPanel.add(passwordTextField,
-        new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
-            GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null,
-            0, false));
     submitButton = new JButton();
     submitButton.setText("Submit");
     reAuthPanel.add(submitButton,
-        new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
+        new GridConstraints(8, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
             GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
             GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     emailJlabel = new JLabel();
@@ -142,7 +150,7 @@ public class reAuthenticatePage extends JFrame {
     passwordJlabel = new JLabel();
     passwordJlabel.setText("");
     reAuthPanel.add(passwordJlabel,
-        new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE,
+        new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE,
             GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     displayMessage = new JLabel();
     displayMessage.setHorizontalAlignment(0);
@@ -161,6 +169,17 @@ public class reAuthenticatePage extends JFrame {
     reAuthPanel.add(displayPassword,
         new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
             GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    showPasswordCheckBox = new JCheckBox();
+    showPasswordCheckBox.setText("Show Password");
+    reAuthPanel.add(showPasswordCheckBox,
+        new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
+            GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+            GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    passwordField = new JPasswordField();
+    reAuthPanel.add(passwordField,
+        new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL,
+            GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null,
+            0, false));
   }
 
   /**

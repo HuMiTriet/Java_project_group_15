@@ -196,7 +196,7 @@ public class CalendarView extends JFrame {
      * class to export the local database to the directory that the user has choosen
      * similar to import it will also just copy the local.db file to the directory
      * that the user has selected.
-     * 
+     *
      * @athor Triet Huynh
      */
     dexport.addActionListener(new exportLocalDatabase());
@@ -282,7 +282,7 @@ public class CalendarView extends JFrame {
 
     /**
      * Export all of the events to a .txt file
-     * 
+     *
      * @athor Triet Huynh
      */
     class addExportAction implements ActionListener {
@@ -380,7 +380,7 @@ public class CalendarView extends JFrame {
 
     /**
      * Sync the local database with the remote database
-     * 
+     *
      * @author Triet Huynh
      */
     syncButton.addActionListener(new ActionListener() {
@@ -388,7 +388,7 @@ public class CalendarView extends JFrame {
       public void actionPerformed(ActionEvent e) {
         if (user.getEmail().equals("Guest")) {
           // reAuthenticatePage reAuth = new reAuthenticatePage();
-          new reAuthenticatePage();
+          new reAuthenticatePage(frame);
 
         } else {
           try {
@@ -630,7 +630,7 @@ public class CalendarView extends JFrame {
    * Renderer used for all cells in the table.
    * Changes the color of the cells based on the priority
    * of events attached to it
-   * 
+   *
    * @author Tim Görß 1252200
    */
   public class tableCalendarRenderer extends DefaultTableCellRenderer {
