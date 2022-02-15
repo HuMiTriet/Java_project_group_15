@@ -45,18 +45,9 @@ public class mailUtils {
   }
 
   mailUtils mail = new mailUtils();
-  // mail.draftEmail();
-  // mail.sendEmail();
 
   //MIME = Multipurpose Internet Mail Extension - Defines the content that an email is going to have
   public static MimeMessage draftEmail(List<String> emailAddressReceiver, String emailSubject, String emailBody) throws MessagingException {
-     //Scheme on how to build and email (Subject, body, email address and password of receivers)
-     /*
-     String[] emailAddressReceiver = {"pj@gmail.com", "ante@gmail.com", "jorge@gmail.com", "tim@gmail.com"};
-     String[] passwordReceiver = {"AnimeMan69", "CoffeeAddict11", "MavenLover123", "SleepIsLife777"};
-     String emailSubject = "Reminder for your upcoming event";
-     String emailBody = "Hey There,\nThis is a reminder that your event INSERT_NAME will start in 12345 minutes/hours/days/weeks";
-     */
       mimeMessage = new MimeMessage(newSession);
 
 
@@ -87,47 +78,3 @@ public class mailUtils {
     System.out.println("Email sent successfully!"); // Will be printed out on the cmd line if executed successful
   }
 }
-
-/*
- ********* OLD CODE / MIGHT BE USEFUL IN FUTURE *********
- * String[] emailAdress, String emailSubject, String emailBody
- * 
- * String emailAddress = //"javacomtwentyone@gmail.com";
- * String password = //"StrongPassword21";
- * 
- * //Session represents the connection to the mailserver
- * //It contains the server data and an authentication object
- * Session session = Session.getInstance(properties, new Authenticator() {
- * 
- * @Override
- * protected PasswordAuthentication getPasswordAuthentication() {
- * return new PasswordAuthentication(emailAddress, password);
- * }
- * });
- * 
- * Message message = prepareMessage(session, emailAddress, recipient);
- * 
- * //Transport modulates the transport-mechanism for the process of sending the
- * email
- * Transport.send(message);
- * System.out.println("Message sent SUCCESSFULLY");
- * }
- * //Message - abstract class which is used to modulate/build the message
- * private static Message prepareMessage(Session session, String emailAddress,
- * String recipient) {
- * try {
- * Message message = new MimeMessage(session);
- * message.setFrom(new InternetAddress(emailAddress));
- * message.setRecipient(Message.RecipientType.TO, new
- * InternetAddress(recipient));
- * message.setSubject("Reminder for your upcoming event");
- * message.
- * setText("Hey There,\nThis is a reminder that your event will start in 12345 mins/hours/days/weeks"
- * );
- * return message;
- * } catch (Exception e) {
- * Logger.getLogger(mailUtils.class.getName()).log(Level.SEVERE, null, e);
- * }
- * return null;
- * }
- */
