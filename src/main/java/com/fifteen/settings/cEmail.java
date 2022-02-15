@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class cEmail extends JFrame {
     private JFrame frame;
@@ -42,20 +43,22 @@ public class cEmail extends JFrame {
                 DBMethod.createConnection();
 
                 //checks email field empty
-                if (UserAuthenticator.checkFieldEmpty(emailLabel, oldEmail, "Please enter your current email") == true)
+                if (UserAuthenticator.checkFieldEmpty(emailLabel, oldEmail, "Please enter your current email") == false)
                     fieldCheck = false;
 
                 //checks email is current email
-                if (oldEmail.equals(user.getEmail()) == false) {
+                String emailTest = user.getEmail();
+                //System.out.println(emailTest.equals(oldEmail));
+                if (emailTest.equals(oldEmail) == false) {
                     emailLabel.setText("Incorrect email");
                     fieldCheck = false;
                 }
 
                 //checks new email field empty
-                if (UserAuthenticator.checkFieldEmpty(changeLabel, newEmail, "Please enter your new email") == true)
+                if (UserAuthenticator.checkFieldEmpty(changeLabel, newEmail, "Please enter your new email") == false)
                     fieldCheck = false;
 
-                //chcek new email in DB
+                //check new email in DB
                 if (UserAuthenticator.authenticateEmailField(changeLabel, newEmail, "This email is already taken") == true)
                     fieldCheck = false;
 
@@ -69,6 +72,7 @@ public class cEmail extends JFrame {
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     }
+
                 }
 
                 /*fieldCheck = UserAuthenticator.checkEmailFormat(emailLabel, oldEmail);
@@ -90,12 +94,18 @@ public class cEmail extends JFrame {
 
         });
 
-
         frame.add(panel1);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        submitEmail.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String codeS = UUID.randomUUID().toString();
+                System.out.println(codeS.substring(0, 4));
+            }
+        });
     }
 
     {

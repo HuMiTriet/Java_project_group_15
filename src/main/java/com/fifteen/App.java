@@ -6,6 +6,8 @@ import com.fifteen.auth.login.LoginPage;
 import com.fifteen.database.DBMethod;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 
+import java.util.UUID;
+
 public class App {
   public static void main(String[] args) throws Exception {
     // create the object of Login Page to test if it's working
@@ -24,6 +26,7 @@ public class App {
     // Real admin: email: TimeScheduler15A@gmail.com | password: Admin
     DBMethod.closeConnection();
     new LoginPage();
+
 
     // UserDao userHandler = new UserDaoImp();
     // User user = userHandler.createUserFromLogin("t@g.com");
