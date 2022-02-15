@@ -68,7 +68,7 @@ public class cEmail extends JFrame {
                     fieldCheck = false;
 
                 if (UserAuthenticator.checkFieldEmpty(codeVer, codeIN, "Please enter your verification code") == false)
-                fieldCheck = false;
+                    fieldCheck = false;
 
 
                 if (fieldCheck == true) {
@@ -131,7 +131,7 @@ public class cEmail extends JFrame {
                 String codeS = UUID.randomUUID().toString();
                 sendReminders.changeEmail(newEmail, codeS.substring(0, 4));
 
-                if(codeS.equals(codeIN)== false)
+                if (codeS.equals(codeIN) == false)
                     fieldCheck = false;
             }
         });
