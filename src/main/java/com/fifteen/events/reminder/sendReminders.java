@@ -11,7 +11,7 @@ import java.util.*;
 
 /**
  * Work in Progress, testing out the java timer and TimerTask functions
- * Delete and edit function are working flawless, reminder need to write a function that checks the real time and the event times from db
+ * Delete and edit function are working flawless, reminder has a bug
  *
  * @author Ante Maric 1273904
  */
@@ -42,13 +42,15 @@ public class sendReminders {
                 public void run() {
                     String body = "Hello, this is a friendly reminder that your event will start in 10 minutes.\n Sincerely,\nTime Scheduler dev team";
                     try {
+                        mailUtils.setupProperties();
                         mailUtils.draftEmail(participants, subject, body);
+                        mailUtils.setupProperties();
                     } catch (MessagingException e) {
                         e.printStackTrace();
                     }
                 }
             };
-            timer.schedule(reminder1, 600000);
+            timer.schedule(reminder1, 10*60*1000);
         }else if(event.getMinutesUntilReminder() == 60)
         {
             //When the reminder is selected to be 1 hour prior event
@@ -57,13 +59,15 @@ public class sendReminders {
                 public void run() {
                     String body = "Hello, this is a friendly reminder that your event will start in 1 hour.\n Sincerely,\nTime Scheduler dev team";
                     try {
+                        mailUtils.setupProperties();
                         mailUtils.draftEmail(participants, subject, body);
+                        mailUtils.sendEmail();
                     } catch (MessagingException e) {
                         e.printStackTrace();
                     }
                 }
             };
-            timer.schedule(reminder2, 8000000);
+            timer.schedule(reminder2, 60*60*1000);
         } else if(event.getMinutesUntilReminder() == 4320)
         {
             //When the reminder is selected to be 3 days prior event
@@ -72,13 +76,15 @@ public class sendReminders {
                 public void run() {
                     String body = "Hello, this is a friendly reminder that your event will start in 3 days.\n Sincerely,\nTime Scheduler dev team";
                     try {
+                        mailUtils.setupProperties();
                         mailUtils.draftEmail(participants, subject, body);
+                        mailUtils.sendEmail();
                     } catch (MessagingException e) {
                         e.printStackTrace();
                     }
                 }
             };
-            timer.schedule(reminder3, 85000000);
+            timer.schedule(reminder3, 4320*60*1000);
         } else
         {
             //When the reminder is selected to be 1 Week prior event
@@ -87,13 +93,15 @@ public class sendReminders {
                 public void run() {
                     String body = "Hello, this is a friendly reminder that your event will start in 1 week.\n Sincerely,\nTime Scheduler dev team";
                     try {
+                        mailUtils.setupProperties();
                         mailUtils.draftEmail(participants, subject, body);
+                        mailUtils.sendEmail();
                     } catch (MessagingException e) {
                         e.printStackTrace();
                     }
                 }
             };
-            timer.schedule(reminder4, 680000);
+            timer.schedule(reminder4, 10080*60*1000);
         }
     }
 

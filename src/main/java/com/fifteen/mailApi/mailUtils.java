@@ -18,8 +18,8 @@ import java.util.Properties;
 public class mailUtils {
   static Session newSession = null;
   static MimeMessage mimeMessage = null;
-  static String emailAddressSender = "javacomtwentyone@gmail.com";
-  static String passwordSender = "StrongPassword21";
+  static String emailAddressSender = "TimeScheduler15A@gmail.com";
+  static String passwordSender = "cUeLjgBu3bDM6Ek7";
 
     public static void setupProperties() {
     System.out.println("Preparing to send email");
