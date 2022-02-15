@@ -27,11 +27,11 @@ public class mailUtils {
 
     // Setting up the properties to connect to the gmail servers
     // SMTP = Simple Mail Transfer Protocol (most common protocol to send email messages)
-    properties.put("mail.smtp.auth", "true"); // Set authentication to true (standard is false) so the session can attempt to connect to authenticate the user
-    properties.put("mail.smtp.starttls.enable", "true"); // Starts the STARTTLS command on the server which switches to a TLS protected connection
-    properties.put("mail.smtp.host", "smtp.gmail.com"); // Gmail host location - smtp server to connect to
-    properties.put("mail.smtp.port", "587"); // Port for TLS connection - smtp server port to connect to (gmail is 587)
-    properties.put("mail.transport.protocol", "smtp"); // Specifies the default transport protocol, in this case it's SMTP
+    properties.put("mail.smtp.auth", "true");               // Set authentication to true (standard is false) so the session can attempt to connect to authenticate the user
+    properties.put("mail.smtp.starttls.enable", "true");    // Starts the STARTTLS command on the server which switches to a TLS protected connection
+    properties.put("mail.smtp.host", "smtp.gmail.com");     // Gmail host location - smtp server to connect to
+    properties.put("mail.smtp.port", "587");                // Port for TLS connection - smtp server port to connect to (gmail is 587)
+    properties.put("mail.transport.protocol", "smtp");      // Specifies the default transport protocol, in this case it's SMTP
 
     // creating a new session
     // Authenticator - abstract class that represents an object that knows how to obtain information for a network connection
