@@ -26,8 +26,12 @@ public class cEmail extends JFrame {
     private JButton submitButton;
     private JLabel emailLabel;
     private JLabel changeLabel;
+    private String newEmail;
 
     public cEmail(User user) {
+
+
+
         frame = new JFrame("Email Change");
 
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -38,7 +42,7 @@ public class cEmail extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String oldEmail = enterOldEmailTextField.getText();
-                String newEmail = enterNewEmailTextField.getText();
+                newEmail = enterNewEmailTextField.getText();
                 boolean fieldCheck = true;
 
                 DBMethod.createConnection();
@@ -62,15 +66,7 @@ public class cEmail extends JFrame {
                 //check new email in DB
                 if (UserAuthenticator.authenticateEmailField(changeLabel, newEmail, "This email is already taken") == true)
                     fieldCheck = false;
-
-                submitEmail.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        String codeS = UUID.randomUUID().toString();
-                        System.out.println(codeS.substring(0, 4));
-                        sendReminders.changeEmail(newEmail, codeS);
-                    }
-                });
+                
 
                 if (fieldCheck == true) {
                     try {
@@ -94,6 +90,14 @@ public class cEmail extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        submitEmail.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String codeS = UUID.randomUUID().toString();
+                System.out.println(codeS.substring(0, 4));
+                sendReminders.changeEmail(newEmail, codeS);
+            }
+        });
 
     }
 
