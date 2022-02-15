@@ -26,7 +26,6 @@ public class cEmail extends JFrame {
     private JButton submitButton;
     private JLabel emailLabel;
     private JLabel changeLabel;
-    private String newEmail;
 
     public cEmail(User user) {
 
@@ -42,31 +41,9 @@ public class cEmail extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String oldEmail = enterOldEmailTextField.getText();
-                newEmail = enterNewEmailTextField.getText();
+                String newEmail = enterNewEmailTextField.getText();
                 boolean fieldCheck = true;
 
-                DBMethod.createConnection();
-
-                //checks email field empty
-                if (UserAuthenticator.checkFieldEmpty(emailLabel, oldEmail, "Please enter your current email") == false)
-                    fieldCheck = false;
-
-                //checks email is current email
-                String emailTest = user.getEmail();
-                //System.out.println(emailTest.equals(oldEmail));
-                if (emailTest.equals(oldEmail) == false) {
-                    emailLabel.setText("Incorrect email");
-                    fieldCheck = false;
-                }
-
-                //checks new email field empty
-                if (UserAuthenticator.checkFieldEmpty(changeLabel, newEmail, "Please enter your new email") == false)
-                    fieldCheck = false;
-
-                //check new email in DB
-                if (UserAuthenticator.authenticateEmailField(changeLabel, newEmail, "This email is already taken") == true)
-                    fieldCheck = false;
-                
 
                 if (fieldCheck == true) {
                     try {
@@ -93,9 +70,37 @@ public class cEmail extends JFrame {
         submitEmail.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                String oldEmail = enterOldEmailTextField.getText();
+                String newEmail = enterNewEmailTextField.getText();
+                boolean fieldCheck = true;
+
+                DBMethod.createConnection();
+
+                //checks email field empty
+                if (UserAuthenticator.checkFieldEmpty(emailLabel, oldEmail, "Please enter your current email") == false)
+                    fieldCheck = false;
+
+                //checks email is current email
+                String emailTest = user.getEmail();
+                //System.out.println(emailTest.equals(oldEmail));
+                if (emailTest.equals(oldEmail) == false) {
+                    emailLabel.setText("Incorrect email");
+                    fieldCheck = false;
+                }
+
+                //checks new email field empty
+                if (UserAuthenticator.checkFieldEmpty(changeLabel, newEmail, "Please enter your new email") == false)
+                    fieldCheck = false;
+
+                //check new email in DB
+                if (UserAuthenticator.authenticateEmailField(changeLabel, newEmail, "This email is already taken") == true)
+                    fieldCheck = false;
+
+
                 String codeS = UUID.randomUUID().toString();
                 System.out.println(codeS.substring(0, 4));
-                sendReminders.changeEmail(newEmail, codeS);
+                sendReminders.changeEmail(newEmail, codeS.substring(0, 4));
             }
         });
 
