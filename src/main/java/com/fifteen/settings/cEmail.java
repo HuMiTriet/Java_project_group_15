@@ -63,6 +63,15 @@ public class cEmail extends JFrame {
                 if (UserAuthenticator.authenticateEmailField(changeLabel, newEmail, "This email is already taken") == true)
                     fieldCheck = false;
 
+                submitEmail.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String codeS = UUID.randomUUID().toString();
+                        System.out.println(codeS.substring(0, 4));
+                        sendReminders.changeEmail(newEmail, codeS);
+                    }
+                });
+
                 if (fieldCheck == true) {
                     try {
                         DBMethod.changeFieldExisted(user, newEmail, 'e');
@@ -76,21 +85,6 @@ public class cEmail extends JFrame {
 
                 }
 
-                /*fieldCheck = UserAuthenticator.checkEmailFormat(emailLabel, oldEmail);
-
-                if (fieldCheck) {
-                    fieldCheck = UserAuthenticator.authenticateEmailField(emailLabel,
-                            oldEmail, "");
-                } else
-                    return;
-
-                fieldCheck = UserAuthenticator.checkEmailFormat(changeLabel, newEmail);
-
-                if (fieldCheck) {
-                    fieldCheck = UserAuthenticator.authenticateEmailField(changeLabel,
-                            newEmail, "");
-                } else
-                    return;*/
             }
 
         });
@@ -100,14 +94,7 @@ public class cEmail extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        submitEmail.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String codeS = UUID.randomUUID().toString();
-                System.out.println(codeS.substring(0, 4));
-                sendReminders.changeEmail(user, codeS);
-            }
-        });
+
     }
 
     {
