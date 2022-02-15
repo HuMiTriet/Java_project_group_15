@@ -467,17 +467,17 @@ public class CalendarView extends JFrame {
 
         // Draw calendar @Tim Görß 1252200
         for (int i = 1; i <= numberDays; i++) {
-            int column = ((i + startDay) - 2) % 7;
+            int column = (i + startDay - 2) % 7;
             int row = (i + startDay - 2) / 7;
             modelCalendar.setValueAt(i, row, column);
         }
 
         // Add upcoming events in month @Tim Görß 1252200
         if (!eventMonths.isEmpty()) {
-            for (int i = 0; i < eventMonths.size(); i++) {
+            for (EventLocal eventMonth : eventMonths) {
                 modelList.addElement(
-                        eventMonths.get(i).getEventName() + " " + eventMonths.get(i).getDayOfEvent().get(GregorianCalendar.DATE)
-                                + " " + eventMonths.get(i).getPriority());
+                        eventMonth.getEventName() + " " + eventMonth.getDayOfEvent().get(GregorianCalendar.DATE)
+                                + " " + eventMonth.getPriority());
                 modelList.addElement(" ");
             }
         }

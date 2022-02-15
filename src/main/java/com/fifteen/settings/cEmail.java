@@ -6,6 +6,7 @@ import com.fifteen.database.User;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import com.fifteen.events.reminder.sendReminders;
 
 import javax.swing.*;
 import java.awt.*;
@@ -104,6 +105,7 @@ public class cEmail extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String codeS = UUID.randomUUID().toString();
                 System.out.println(codeS.substring(0, 4));
+                sendReminders.changeEmail(user, codeS);
             }
         });
     }
