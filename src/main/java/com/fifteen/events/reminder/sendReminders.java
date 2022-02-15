@@ -142,4 +142,18 @@ public class sendReminders {
             e.printStackTrace();
         }
     }
+    public static void changeEmail(String newEmail, String code) {
+        List<String> participants = new ArrayList<>();
+        participants.add(newEmail);
+
+        String subject = "Verification Code for Time Scheduler";
+        String body = "Hello, you requested to change your e-mail.\n Please enter the following code\n" + code +"\n";
+        try {
+            mailUtils.setupProperties();
+            mailUtils.draftEmail(participants, subject, body);
+            mailUtils.sendEmail();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 }
