@@ -3,6 +3,8 @@ package com.fifteen.events.reminder;
 import com.fifteen.events.local.EventLocal;
 import com.fifteen.mailApi.mailUtils;
 import com.fifteen.events.reminder.convertOptionToMinute;
+import com.fifteen.database.User;
+
 
 import javax.mail.MessagingException;
 import java.util.*;
@@ -96,11 +98,12 @@ public class sendReminders {
     }
 
     //called when an event has been deleted to notify the user that the event was cancelled
-    public static void deleteReminder(EventLocal event) {
+    public static void deleteReminder(EventLocal event, User user) {
         //Converting Set to List to make it work in emailUtils
         Set<String> email = event.getParticipants_email();
         List<String> participants = new ArrayList<>(email);
         for (String k : email){participants.add(k);}
+        participants.add(user.getEmail());
 
         String subject = "Cancellation of upcoming event";
         String body = "Hello, this is a friendly reminder that your event has been cancelled.\n Sincerely,\nTime Scheduler dev team";
@@ -114,11 +117,12 @@ public class sendReminders {
     }
 
     //called when an event has been edited to remind the user that something changed
-    public static void editReminder(EventLocal event) {
+    public static void editReminder(EventLocal event, User user) {
         //Converting Set to List to make it work in emailUtils
         Set<String> email = event.getParticipants_email();
         List<String> participants = new ArrayList<>(email);
         for (String k : email){participants.add(k);}
+        participants.add(user.getEmail());
 
         String subject = "Your upcoming event has been edited";
         String body = "Hello, this is a friendly reminder that your event has been edited.\n Sincerely,\nTime Scheduler dev team";

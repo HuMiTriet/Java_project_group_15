@@ -80,7 +80,6 @@ public class AddEvents extends JFrame {
     try {
       contacts = localDbMethod.getAllContacts();
       DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(contacts);
-      model.addElement(user.getEmail());
       ParticipantList.setModel(model);
     } catch (SQLException e1) {
       e1.printStackTrace();

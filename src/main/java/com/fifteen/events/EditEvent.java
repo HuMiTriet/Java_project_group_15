@@ -12,6 +12,7 @@ import com.fifteen.events.local.localDbMethod;
 import com.fifteen.events.reminder.convertMinutesToOption;
 import com.fifteen.events.eventMethod.TimeMethod;
 import com.fifteen.events.reminder.sendReminders;
+import com.fifteen.database.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +21,6 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.List;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
@@ -51,7 +51,7 @@ public class EditEvent {
   private JScrollPane scpane1;
   private JFrame frame;
 
-  public EditEvent(EventLocal event, CalendarView calendar, ShowEvents eventsOfDay, int day, int month, int year) {
+  public EditEvent(EventLocal event, User user, CalendarView calendar, ShowEvents eventsOfDay, int day, int month, int year) {
 
     // Create frame @Tim Görß 1252200
     frame = new JFrame("Edit Event");
@@ -107,7 +107,7 @@ public class EditEvent {
         eventsOfDay.fillTable(month, day, year);
         calendar.updateCalendar(month, year);
         frame.dispose();
-        sendReminders.deleteReminder(event);
+        sendReminders.deleteReminder(event, user);
       }
     });
     // Save changes made to the event @Tim Görß 1252200
@@ -118,7 +118,7 @@ public class EditEvent {
             calendar.updateCalendar(month, year);
             JOptionPane.showConfirmDialog(null,
                     "Your changes were saved", "Save succesfull", JOptionPane.DEFAULT_OPTION);
-            sendReminders.editReminder(event);
+            sendReminders.editReminder(event, user);
             frame.dispose();
         }
     });
@@ -139,20 +139,16 @@ public class EditEvent {
             event.getDayOfEvent().get(GregorianCalendar.MONTH), event.getDayOfEvent().get(GregorianCalendar.DATE));
     JDateChooser.setDate(dayOfEvent);
 
-    Vector<String> contactEmails = new Vector<>();
+    Vector<String> contactEmails;
     try {
       contactEmails = localDbMethod.getAllContacts();
+      if (contactEmails.size() != 0) {
+        for (String s : contactEmails) {
+          mdlList.addElement(s);
+        }
+      }
     } catch (SQLException e) {
       e.printStackTrace();
-    }
-
-    Set<String> combinedContacts = new HashSet<String>(contactEmails);
-    combinedContacts.addAll(event.getParticipants_email());
-
-    if (combinedContacts.size() != 0) {
-      for (String s : combinedContacts) {
-        mdlList.addElement(s);
-      }
     }
 
     priorityPicker.setSelectedItem(event.getPriority());
@@ -160,7 +156,6 @@ public class EditEvent {
     locationText.setText(event.getLocation().getName());
     latitudeText.setText(String.valueOf(event.getLocation().getLatitude()));
     longtitudeText.setText(String.valueOf(event.getLocation().getLongitude()));
-
 
   }
   /**
@@ -267,11 +262,6 @@ public class EditEvent {
                   "Longtitude field cannot be empty", "Invalid input", JOptionPane.DEFAULT_OPTION);
           return false;
       }
-    if (ParticipantList.getSelectedValuesList().isEmpty()) {
-      JOptionPane.showConfirmDialog(null,
-              "A Participant needs to be selected", "Invalid input", JOptionPane.DEFAULT_OPTION);
-      return false;
-    }
   return true;
   }
 

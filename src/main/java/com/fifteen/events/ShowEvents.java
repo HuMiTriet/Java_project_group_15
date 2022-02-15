@@ -102,7 +102,7 @@ public class ShowEvents extends JFrame {
 
                     selectedEvent = eventsToday.get(row);
 
-                    new EditEvent(selectedEvent, calendar, ShowEvents.this, currentDay, currentMonth, currentYear);
+                    new EditEvent(selectedEvent, user, calendar, ShowEvents.this, currentDay, currentMonth, currentYear);
                 }
 
             }
