@@ -28,6 +28,7 @@ public class cEmail extends JFrame {
     private JLabel changeLabel;
     private JLabel codeVer;
 
+    //@author JorgeV
     public cEmail(User user) {
 
 

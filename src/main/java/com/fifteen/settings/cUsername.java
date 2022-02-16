@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+//@author JorgeV
 public class cUsername extends JFrame {
     private JFrame frame;
     private JPanel panel1;

@@ -43,6 +43,7 @@ public class EditContact extends JFrame {
     }
   }
 
+  //@author JorgeV
   public EditContact() {
     frame = new JFrame("Edit Contact");
 

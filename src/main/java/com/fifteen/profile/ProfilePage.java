@@ -29,6 +29,7 @@ public class ProfilePage extends JFrame {
   private JLabel profileID;
   private JLabel idLabel;
 
+  //@author JorgeV
   public ProfilePage(User user) {
     frame = new JFrame("Profile");
 

@@ -24,6 +24,7 @@ public class cPassword extends JFrame {
   private JLabel pwLabel;
   private JLabel newPWLabel;
 
+  //@author JorgeV
   public cPassword(User user) {
     frame = new JFrame("Password Change");
 
